@@ -238,12 +238,13 @@ export default async function BlogPostPage({
               <Tag className="h-3.5 w-3.5" /> Tags
             </span>
             {tags.map((t) => (
-              <span
+              <Link
                 key={t}
-                className="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600"
+                href={`/blog/tag/${t.toLowerCase().replace(/\s+/g, "-")}`}
+                className="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600 transition-colors hover:bg-teal/10 hover:text-teal"
               >
                 {t}
-              </span>
+              </Link>
             ))}
           </div>
         )}

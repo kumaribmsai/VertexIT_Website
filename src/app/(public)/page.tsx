@@ -10,6 +10,7 @@ import { HowTrainingWorks } from "@/components/site/sections/home/how-training-w
 import { PlacementJourney } from "@/components/site/sections/home/placement-journey";
 import { CareerPathways } from "@/components/site/sections/home/career-pathways";
 import { WhyBengaluru } from "@/components/site/sections/home/why-bengaluru";
+import { HomeTestimonials } from "@/components/site/sections/home/testimonials-section";
 import { HomeJobs } from "@/components/site/sections/home/jobs-section";
 import { SuccessStories } from "@/components/site/sections/home/success-stories";
 import { HomeTrainers } from "@/components/site/sections/home/trainers-section";
@@ -41,6 +42,7 @@ export default async function HomePage() {
       <PlacementJourney />
       <CareerPathways />
       <WhyBengaluru />
+      <HomeTestimonials />
       {/* These three sections collapse (return null) when there is no published content,
           so the homepage never looks incomplete with empty states. */}
       <HomeJobs />

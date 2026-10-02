@@ -85,12 +85,12 @@ export function LeadStatusUpdater({
         </div>
         <div className="space-y-1.5">
           <Label className="text-xs font-medium text-navy">Assigned counsellor</Label>
-          <Select value={counsellorId} onValueChange={setCounsellorId}>
+          <Select value={counsellorId || "unassigned"} onValueChange={(v) => setCounsellorId(v === "unassigned" ? "" : v)}>
             <SelectTrigger className="h-9">
               <SelectValue placeholder="Unassigned" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Unassigned</SelectItem>
+              <SelectItem value="unassigned">Unassigned</SelectItem>
               {counsellors.map((c) => (
                 <SelectItem key={c.id} value={c.id}>
                   {c.name} ({c.role})

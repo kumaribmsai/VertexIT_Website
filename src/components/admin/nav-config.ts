@@ -2,6 +2,7 @@
 export const ADMIN_NAV = [
   { label: "Dashboard", href: "/admin", icon: "LayoutDashboard" },
   { label: "Leads", href: "/admin/leads", icon: "Users" },
+  { label: "Calendar", href: "/admin/calendar", icon: "CalendarDays" },
   { label: "Courses", href: "/admin/courses", icon: "GraduationCap" },
   { label: "Jobs", href: "/admin/jobs", icon: "Briefcase" },
   { label: "Blog", href: "/admin/blog", icon: "FileText" },

@@ -594,3 +594,87 @@ The VertexIT website was in a stable state from the previous round (QA-1). All r
 8. **Add course enrollment count display** — show "N candidates enrolled" once enrollments exist
 9. **Add a comparison "add to compare" feature** — let users compare any 2 courses with a persistent bar
 10. **Add testimonials carousel** on homepage once more testimonials are published
+
+---
+Task ID: QA-3 (cron review round 3)
+Agent: main (webDevReview cron)
+Task: Lead score breakdown, recommended next action, counselling calendar, testimonials carousel, blog tag pages, bug fix
+
+## Current Project Status Assessment
+The VertexIT website was in a stable state from the previous round (QA-2). All routes returned 200, lint passed clean. The priority recommendations from QA-2 were: blog tag pages, resources section, Google Maps embed, email templates, lead detail score breakdown, counselling calendar view, recommended next action, course enrollment count, comparison feature, testimonials carousel.
+
+## Completed Modifications
+
+### Bug Fixes (Critical)
+1. **Fixed Radix SelectItem empty value error** on lead detail page:
+   - The `LeadStatusUpdater` component had `<SelectItem value="">Unassigned</SelectItem>` — Radix Select doesn't allow empty string values, causing a runtime error: "A <Select.Item /> must have a value prop that is not an empty string"
+   - This error was triggering the global `error.tsx` boundary, showing "Something went wrong" on the lead detail page
+   - Fixed by changing to `value="unassigned"` and converting back to empty string in the onValueChange handler: `onValueChange={(v) => setCounsellorId(v === "unassigned" ? "" : v)}`
+   - Also updated the Select value to use `counsellorId || "unassigned"` so the placeholder shows correctly
+   - Searched the entire codebase for other `SelectItem value=""` instances — none found
+
+### New Features
+2. **Lead score breakdown** on lead detail page (`src/components/admin/lead-score-breakdown.tsx`):
+   - `LeadScoreBreakdown` component — visual breakdown showing the total score (0-100) with a gauge bar, plus individual score components (course interest, email, experience, education, training mode, engagement, recency) each with their own progress bar and description
+   - Color-coded by tone: hot (red, ≥70), warm (amber, ≥40), cold (slate, <40) with flame/trending icons
+   - Added `getScoreBreakdown()` function to `lib/lead-scoring.ts` returning 7 ScoreComponent objects with label, value, max, description
+   - VLM rated the lead detail page 9/10 after the fix
+
+3. **Recommended next action** on lead detail page:
+   - `NextActionCard` component — shows the recommended next action with priority (high/medium/low), reason, and color-coded styling (red/amber/slate)
+   - Added `getRecommendedNextAction(status, score)` function to `lib/lead-scoring.ts` — returns status-specific recommendations for all 16 lead statuses values, with score-aware logic (e.g., "Call within 24 hours" for hot NEW leads, "Send WhatsApp message" for cold NEW leads)
+   - Placed at the top of the lead detail sidebar above the score breakdown
+
+4. **Admin counselling calendar** (`src/app/admin/(dashboard)/calendar/page.tsx`):
+   - New admin page showing booked counselling sessions from the booking widget
+   - Parses lead messages containing "Counselling booking request:" to extract date, time, and course
+   - Summary cards: Total bookings, Upcoming, Today, Completed
+   - Groups upcoming sessions by date with "Today"/"Tomorrow"/date labels
+   - Shows each session with time block, candidate name, phone, course, counsellor, status badge
+   - Past sessions section (last 20)
+   - Added "Calendar" to admin sidebar nav (CalendarDays icon)
+   - VLM rated 8/10
+
+5. **Testimonials carousel** on homepage:
+   - `TestimonialsCarousel` client component (`src/components/site/testimonials-carousel.tsx`) — auto-advancing carousel (5s interval) with pause-on-hover, prev/next buttons, dot indicators, smooth slide transitions
+   - Each slide shows star rating, quote, avatar (with initials fallback), student name, course
+   - `HomeTestimonials` section (`src/components/site/sections/home/testimonials-section.tsx`) — wraps the carousel with a SectionHeading, collapses when no published testimonials
+   - Added to homepage between "Why Bengaluru" and the collapsing sections (Jobs/Success Stories/Trainers)
+
+6. **Blog tag pages** (`src/app/(public)/blog/tag/[slug]/page.tsx`):
+   - New route `/blog/tag/[slug]` — shows all published blog posts with a given tag
+   - Filters posts by parsing the comma-separated `tags` field
+   - Breadcrumbs (Home / Blog / Tag: slug), tag badge, post count
+   - Grid of BlogCard components
+   - "Back to all articles" CTA
+   - `noindex` meta (per SEO best practice for tag pages)
+   - Updated blog post detail page to render tags as clickable links to `/blog/tag/[slug]` (was previously non-interactive spans)
+
+## Verification Results
+- `bun run lint` — 0 errors, 0 warnings ✅
+- All routes return expected HTTP codes: /, /book, /blog, /blog/tag/underwriting, /blog/tag/careers, /search, /admin/login, /admin/calendar, /admin/leads ✅
+- Lead detail page now renders correctly (was showing error boundary due to Radix SelectItem bug) ✅
+- VLM rated lead detail page **9/10** — "Recommended next action" card and "Lead Score" breakdown with progress bars both confirmed ✅
+- VLM rated admin calendar page **8/10** — summary cards and upcoming sessions list confirmed ✅
+- Blog tag pages return 200 for valid tags (underwriting, careers) ✅
+- Blog post detail page tags are now clickable links ✅
+- Homepage includes testimonials carousel (auto-advancing with controls) ✅
+- Dev log shows no errors ✅
+
+## Unresolved Issues / Risks
+- **Dev server stability:** The background Next.js dev server process still dies between shell sessions (known environment limitation).
+- **Resend email not configured:** RESEND_API_KEY empty — leads still save successfully, email fails gracefully (as designed).
+- **Placement stories still unpublished:** Demo placement stories remain unpublished. Admin should replace with real stories before publishing.
+- **Demo jobs still unpublished:** 2 demo jobs remain unpublished. Admin should add real job openings.
+
+## Priority Recommendations for Next Phase
+1. **Add a "Resources" section** — downloadable guides (PDF) for mortgage career preparation
+2. **Add Google Maps embed** to the contact page once a maps URL is configured in Site Settings
+3. **Add email templates** for lead status changes (e.g., "Your application moved to Interview Scheduled")
+4. **Add course enrollment count display** — show "N candidates enrolled" once enrollments exist
+5. **Add a comparison "add to compare" feature** — let users compare any 2 courses with a persistent bar
+6. **Add a visual monthly grid calendar** in admin (currently shows a list view, not a month grid)
+7. **Add lead score filtering** in the leads list (filter by hot/warm/cold)
+8. **Add a lead response time metric** — track how quickly counsellors respond to new leads
+9. **Add a "Recently viewed leads" section** on the admin dashboard
+10. **Add a blog author profile page** (`/blog/author/[name]`) for author-based filtering

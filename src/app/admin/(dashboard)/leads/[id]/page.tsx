@@ -6,6 +6,8 @@ import { AdminPageHeader } from "@/components/admin/primitives";
 import { LeadStatusUpdater } from "@/components/admin/lead-status-updater";
 import { LeadNotes } from "@/components/admin/lead-notes";
 import { LeadDetailActions } from "@/components/admin/lead-detail-actions";
+import { LeadScoreBreakdown, NextActionCard } from "@/components/admin/lead-score-breakdown";
+import { computeLeadScore, getRecommendedNextAction } from "@/lib/lead-scoring";
 import { StatusBadge } from "@/components/site/status-badge";
 import { format } from "date-fns";
 import {
@@ -153,6 +155,12 @@ export default async function LeadDetailPage({
         </div>
 
         <div className="space-y-5">
+          {/* Recommended next action */}
+          <NextActionCard {...getRecommendedNextAction(lead.status, computeLeadScore(lead))} />
+
+          {/* Lead score breakdown */}
+          <LeadScoreBreakdown lead={lead} />
+
           <div className="rounded-xl border border-slate-200 bg-white p-5">
             <h2 className="mb-3 font-heading text-sm font-semibold text-navy">Quick Actions</h2>
             <div className="space-y-2">
