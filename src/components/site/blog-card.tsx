@@ -51,9 +51,12 @@ export function BlogCard({ post, className }: { post: BlogCardData; className?: 
               <CalendarDays className="h-3 w-3" /> {format(date, "d MMM yyyy")}
             </span>
           )}
-          <span className="inline-flex items-center gap-1">
+          <Link
+            href={`/blog/author/${encodeURIComponent(post.author)}`}
+            className="relative z-10 inline-flex items-center gap-1 transition-colors hover:text-teal"
+          >
             <User className="h-3 w-3" /> {post.author}
-          </span>
+          </Link>
         </div>
         <h3 className="mt-2 font-heading text-base font-bold leading-snug text-navy line-clamp-2">
           <Link href={`/blog/${post.slug}`} className="after:absolute after:inset-0 after:content-['']">

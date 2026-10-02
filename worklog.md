@@ -821,3 +821,74 @@ The VertexIT website was in a stable state from the previous round (QA-4). All r
 8. **Publish placement stories** — replace demo data with real student stories
 9. **Add a lead-to-enrollment conversion rate** metric on the dashboard
 10. **Add a "Top counsellors" leaderboard** based on lead conversion performance
+
+---
+Task ID: QA-6 (cron review round 6)
+Agent: main (webDevReview cron)
+Task: Generate all 6 PDF resources, blog author page, lead response time metric
+
+## Current Project Status Assessment
+The VertexIT website was in a stable state from the previous round (QA-5). All routes returned 200, lint passed clean, 3 PDF resources had been generated. The priority recommendations from QA-5 were: generate remaining 3 gated PDFs, Google Maps embed, email templates, visual monthly calendar, lead response time metric, recently viewed leads, blog author profile page, lead-to-enrollment conversion rate, top counsellors leaderboard.
+
+## Completed Modifications
+
+### New Features
+1. **Generated all 6 PDF resource guides** using ReportLab with VertexIT brand styling:
+   - Added 3 new PDFs to the generation script:
+     - `mortgage-operations-resume-template.pdf` (4 pages) — ATS-optimised resume template with 7-section structure (header, summary, skills, experience, education, certifications, projects), sample content for each section, ATS optimisation tips, common mistakes to avoid
+     - `australia-mortgage-glossary.pdf` (5 pages) — 50+ Australian mortgage terms grouped alphabetically (A through V), including APRA, BSB, LMI, LVR, serviceability, negative gearing, and more; navy header tables with alternating row colors
+     - `mortgage-interview-preparation-checklist.pdf` (3 pages) — 5-phase interview preparation checklist with checkboxes (Research, Knowledge Refresh, Practice, Logistics, Interview Day), common mistakes, post-interview follow-up email template
+   - All 6 PDFs now have real downloadable files (was 3 before)
+   - Updated resources page: all 6 resources now ungated with direct PDF download links (was 3 gated pointing to /apply)
+
+2. **Blog author profile page** (`/blog/author/[name]`):
+   - New route showing all published blog posts by a specific author
+   - Author header with initials avatar, article count, category count
+   - Category filter pills linking to category-filtered blog list
+   - BlogCard grid of the author's posts
+   - "Back to all articles" CTA
+   - `noindex` meta (per SEO best practice for author pages)
+   - Updated blog post detail page: author name in header and footer are now clickable links to the author page
+   - Updated BlogCard component: author name is now a clickable link (with relative z-10 to work above the card's overlay link)
+
+3. **Lead response time metric** on admin dashboard:
+   - 3 new metric cards added below the stats grid:
+     - **Avg. response time** — average hours from lead creation to first contact (displays in minutes/hours/days format)
+     - **Awaiting response** — count of NEW leads not yet contacted (red icon when > 0)
+     - **Response rate** — percentage of leads contacted in the last 14 days
+   - Computed from the 14-day lead trend data (no additional DB query needed)
+   - Helps counsellors track and improve their response speed
+
+### Bug Fixes
+4. **Fixed BlogCard onClick error** — the author link had an `onClick` handler but BlogCard is a server component. Removed the onClick (server components can't use event handlers). The relative z-10 class still makes the link clickable above the card's overlay link.
+
+5. **Fixed Australia glossary V section syntax error** — the glossary data had a malformed tuple in the V section. Fixed the Python data structure to use proper tuple format.
+
+## Verification Results
+- `bun run lint` — 0 errors, 0 warnings ✅
+- All key routes return 200: /, /resources, /courses/compare, /blog/author/VertexIT, /admin/login ✅
+- All 6 PDFs downloadable (200): all 6 resource PDFs return HTTP 200 ✅
+- Resources page links to all 6 real PDF files ✅
+- Blog author page renders correctly ✅
+- Blog post detail page author links to author page ✅
+- Blog card author links to author page ✅
+- Admin dashboard response time metric cards render ✅
+- Dev log shows no errors ✅
+
+## Unresolved Issues / Risks
+- **Dev server stability:** The background Next.js dev server process still dies between shell sessions (known environment limitation).
+- **Resend email not configured:** RESEND_API_KEY empty — leads still save successfully, email fails gracefully (as designed).
+- **Placement stories still unpublished:** Demo placement stories remain unpublished. Admin should replace with real stories before publishing.
+- **Demo jobs still unpublished:** 2 demo jobs remain unpublished. Admin should add real job openings.
+
+## Priority Recommendations for Next Phase
+1. **Add Google Maps embed** to the contact page once a maps URL is configured in Site Settings
+2. **Add email templates** for lead status changes (e.g., "Your application moved to Interview Scheduled")
+3. **Add a visual monthly grid calendar** in admin (currently shows a list view, not a month grid)
+4. **Add a "Recently viewed leads" section** on the admin dashboard
+5. **Publish placement stories** — replace demo data with real student stories
+6. **Add a lead-to-enrollment conversion rate** metric on the dashboard
+7. **Add a "Top counsellors" leaderboard** based on lead conversion performance
+8. **Add a contact page Google Maps placeholder** with instructions for admin to configure the embed URL
+9. **Add a blog post "related posts" enhancement** — show 3 related posts by the same author or category
+10. **Add a lead activity timeline** on the lead detail page showing all interactions chronologically

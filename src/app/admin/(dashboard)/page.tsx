@@ -21,8 +21,20 @@ export default async function AdminDashboardPage() {
   const trendEnd = new Date();
   const allLeads = await db.lead.findMany({
     where: { createdAt: { gte: trendStart } },
-    select: { createdAt: true, utmSource: true, preferredMode: true },
+    select: { createdAt: true, utmSource: true, preferredMode: true, lastContactedAt: true, status: true },
   });
+
+  // Lead response time metric — average hours from lead creation to first contact
+  // Only counts leads that have been contacted (lastContactedAt is not null)
+  const contactedLeads = allLeads.filter((l) => l.lastContactedAt);
+  const avgResponseHours = contactedLeads.length > 0
+    ? contactedLeads.reduce((sum, l) => {
+        const diff = new Date(l.lastContactedAt!).getTime() - new Date(l.createdAt).getTime();
+        return sum + Math.max(0, diff / (1000 * 60 * 60));
+      }, 0) / contactedLeads.length
+    : 0;
+  const pendingResponse = allLeads.filter((l) => l.status === "NEW" && !l.lastContactedAt).length;
+
   const trendDays = eachDayOfInterval({ start: trendStart, end: trendEnd });
   const leadTrend = trendDays.map((d) => {
     const dayStart = new Date(d);
@@ -164,6 +176,68 @@ export default async function AdminDashboardPage() {
             <p className="text-xs text-muted-foreground">{s.label}</p>
           </Link>
         ))}
+      </div>
+
+      {/* Response time metric */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="rounded-xl border border-slate-200 bg-white p-5">
+          <div className="flex items-center gap-3">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-teal/10 text-teal">
+              <Clock className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Avg. response time</p>
+              <p className="font-heading text-2xl font-bold text-navy">
+                {avgResponseHours > 0
+                  ? avgResponseHours < 1
+                    ? `${Math.round(avgResponseHours * 60)}m`
+                    : avgResponseHours < 24
+                      ? `${Math.round(avgResponseHours)}h`
+                      : `${Math.round(avgResponseHours / 24)}d`
+                  : "—"}
+              </p>
+            </div>
+          </div>
+          <p className="mt-3 text-xs text-muted-foreground">
+            {contactedLeads.length > 0
+              ? `Based on ${contactedLeads.length} contacted lead${contactedLeads.length !== 1 ? "s" : ""} in the last 14 days`
+              : "No leads contacted in the last 14 days yet"}
+          </p>
+        </div>
+
+        <div className="rounded-xl border border-slate-200 bg-white p-5">
+          <div className="flex items-center gap-3">
+            <span className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ${pendingResponse > 0 ? "bg-red-100 text-red-600" : "bg-slate-100 text-slate-500"}`}>
+              <Bell className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Awaiting response</p>
+              <p className="font-heading text-2xl font-bold text-navy">{pendingResponse}</p>
+            </div>
+          </div>
+          <p className="mt-3 text-xs text-muted-foreground">
+            New leads not yet contacted — prioritise these for follow-up
+          </p>
+        </div>
+
+        <div className="rounded-xl border border-slate-200 bg-white p-5">
+          <div className="flex items-center gap-3">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-navy/10 text-navy">
+              <TrendingUp className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Response rate</p>
+              <p className="font-heading text-2xl font-bold text-navy">
+                {allLeads.length > 0
+                  ? `${Math.round((contactedLeads.length / allLeads.length) * 100)}%`
+                  : "—"}
+              </p>
+            </div>
+          </div>
+          <p className="mt-3 text-xs text-muted-foreground">
+            {contactedLeads.length} of {allLeads.length} leads contacted in the last 14 days
+          </p>
+        </div>
       </div>
 
       {/* Charts row — lead trend + source breakdown */}

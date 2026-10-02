@@ -132,9 +132,12 @@ export default async function BlogPostPage({
             </p>
           )}
           <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-600">
-            <span className="inline-flex items-center gap-1.5">
+            <Link
+              href={`/blog/author/${encodeURIComponent(post.author)}`}
+              className="inline-flex items-center gap-1.5 transition-colors hover:text-teal"
+            >
               <User className="h-4 w-4 text-teal" /> {post.author}
-            </span>
+            </Link>
             <span className="inline-flex items-center gap-1.5">
               <CalendarDays className="h-4 w-4 text-teal" />
               {format(publishedDate, "d MMMM yyyy")}
@@ -251,16 +254,24 @@ export default async function BlogPostPage({
 
         {/* Author footer */}
         <div className="mt-8 flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50/60 p-5">
-          <div>
-            <p className="text-[0.7rem] font-semibold uppercase tracking-wider text-muted-foreground">
-              Written by
-            </p>
-            <p className="mt-0.5 font-heading text-base font-semibold text-navy">
-              {post.author}
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              VertexIT — career-focused mortgage training.
-            </p>
+          <div className="flex items-center gap-3">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-navy/5">
+              <User className="h-5 w-5 text-navy" />
+            </span>
+            <div>
+              <p className="text-[0.7rem] font-semibold uppercase tracking-wider text-muted-foreground">
+                Written by
+              </p>
+              <Link
+                href={`/blog/author/${encodeURIComponent(post.author)}`}
+                className="mt-0.5 inline-block font-heading text-base font-semibold text-navy transition-colors hover:text-teal"
+              >
+                {post.author}
+              </Link>
+              <p className="mt-1 text-xs text-muted-foreground">
+                VertexIT — career-focused mortgage training.
+              </p>
+            </div>
           </div>
           <div className="hidden sm:block">
             <WhatsAppButton href={waHref} size="sm" variant="outline">
