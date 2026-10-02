@@ -85,6 +85,9 @@ export default async function AdminDashboardPage() {
     leadStatusBreakdown,
     courseEnquiryBreakdown,
     notifications,
+    enrolledCount,
+    placedCount,
+    counsellorStats,
   ] = await Promise.all([
     db.lead.count(),
     db.lead.count({ where: { status: "NEW" } }),
@@ -99,7 +102,38 @@ export default async function AdminDashboardPage() {
     db.lead.groupBy({ by: ["status"], _count: true, orderBy: { _count: { status: "desc" } } }),
     db.lead.groupBy({ by: ["courseId"], _count: true, orderBy: { _count: { courseId: "desc" } }, take: 5 }),
     db.adminNotification.findMany({ take: 5, orderBy: { createdAt: "desc" } }),
+    db.lead.count({ where: { status: "ENROLLED" } }),
+    db.lead.count({ where: { status: "PLACED" } }),
+    db.lead.groupBy({
+      by: ["assignedCounsellorId"],
+      _count: true,
+      where: { assignedCounsellorId: { not: null } },
+      orderBy: { _count: { assignedCounsellorId: "desc" } },
+      take: 5,
+    }),
   ]);
+
+  // Resolve counsellor names for leaderboard
+  const counsellorIds = counsellorStats.map((c) => c.assignedCounsellorId).filter(Boolean) as string[];
+  const counsellors = counsellorIds.length
+    ? await db.adminUser.findMany({
+        where: { id: { in: counsellorIds } },
+        select: { id: true, name: true, role: true },
+      })
+    : [];
+  const counsellorMap = new Map(counsellors.map((c) => [c.id, c]));
+  const leaderboard = counsellorStats
+    .map((c, i) => ({
+      rank: i + 1,
+      name: counsellorMap.get(c.assignedCounsellorId!)?.name || "Unknown",
+      role: counsellorMap.get(c.assignedCounsellorId!)?.role || "",
+      count: c._count.assignedCounsellorId,
+    }))
+    .filter((c) => c.name !== "Unknown");
+
+  // Conversion rate: enrolled + placed as percentage of total leads
+  const conversionRate = totalLeads > 0 ? Math.round(((enrolledCount + placedCount) / totalLeads) * 100) : 0;
+  const placementRate = enrolledCount > 0 ? Math.round((placedCount / enrolledCount) * 100) : 0;
 
   // Resolve course names for enquiry breakdown
   const courseIds = courseEnquiryBreakdown.map((c) => c.courseId).filter(Boolean) as string[];
@@ -381,6 +415,73 @@ export default async function AdminDashboardPage() {
                 );
               })}
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Conversion rate + Top counsellors */}
+      <div className="grid gap-6 lg:grid-cols-3">
+        {/* Conversion rate */}
+        <div className="rounded-xl border border-slate-200 bg-white p-5">
+          <h2 className="font-heading text-sm font-semibold text-navy">Conversion & Placement</h2>
+          <p className="mb-4 text-xs text-muted-foreground">Lead-to-enrollment funnel</p>
+          <div className="space-y-4">
+            <div>
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-medium text-slate-600">Enrollment rate</span>
+                <span className="font-bold text-navy">{conversionRate}%</span>
+              </div>
+              <div className="mt-1.5 h-2.5 overflow-hidden rounded-full bg-slate-100">
+                <div className="h-full rounded-full bg-teal transition-all duration-500" style={{ width: `${conversionRate}%` }} />
+              </div>
+              <p className="mt-1 text-[0.65rem] text-muted-foreground">{enrolledCount + placedCount} enrolled of {totalLeads} total leads</p>
+            </div>
+            <div>
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-medium text-slate-600">Placement rate</span>
+                <span className="font-bold text-navy">{placementRate}%</span>
+              </div>
+              <div className="mt-1.5 h-2.5 overflow-hidden rounded-full bg-slate-100">
+                <div className="h-full rounded-full bg-navy transition-all duration-500" style={{ width: `${placementRate}%` }} />
+              </div>
+              <p className="mt-1 text-[0.65rem] text-muted-foreground">{placedCount} placed of {enrolledCount} enrolled</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Top counsellors leaderboard */}
+        <div className="lg:col-span-2">
+          <div className="rounded-xl border border-slate-200 bg-white">
+            <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
+              <h2 className="font-heading text-sm font-semibold text-navy">Top Counsellors</h2>
+              <span className="text-xs text-muted-foreground">By assigned leads</span>
+            </div>
+            {leaderboard.length === 0 ? (
+              <p className="px-5 py-8 text-center text-sm text-muted-foreground">No counsellor assignments yet. Assign leads to see the leaderboard.</p>
+            ) : (
+              <ol className="divide-y divide-slate-100">
+                {leaderboard.map((c) => (
+                  <li key={c.rank} className="flex items-center gap-3 px-5 py-3">
+                    <span className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-heading text-sm font-bold ${
+                      c.rank === 1 ? "bg-amber-100 text-amber-700"
+                      : c.rank === 2 ? "bg-slate-100 text-slate-700"
+                      : c.rank === 3 ? "bg-orange-100 text-orange-700"
+                      : "bg-slate-50 text-slate-500"
+                    }`}>
+                      {c.rank === 1 ? "🥇" : c.rank === 2 ? "🥈" : c.rank === 3 ? "🥉" : c.rank}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-semibold text-navy">{c.name}</p>
+                      <p className="text-xs text-muted-foreground">{c.role}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-heading text-sm font-bold text-navy">{c.count}</p>
+                      <p className="text-[0.65rem] text-muted-foreground">leads</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            )}
           </div>
         </div>
       </div>

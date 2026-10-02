@@ -37,6 +37,38 @@ export default async function LeadDetailPage({
 
   if (!lead) notFound();
 
+  // Build a unified activity timeline combining status changes and notes
+  type Activity = {
+    id: string;
+    type: "status" | "note";
+    timestamp: Date;
+    authorName?: string | null;
+    title: string;
+    description?: string | null;
+    fromStatus?: string | null;
+    toStatus?: string;
+  };
+  const activities: Activity[] = [
+    ...lead.statusHistory.map((h) => ({
+      id: h.id,
+      type: "status" as const,
+      timestamp: h.createdAt,
+      authorName: h.changedByName,
+      title: h.toStatus,
+      description: h.note,
+      fromStatus: h.fromStatus,
+      toStatus: h.toStatus,
+    })),
+    ...lead.notes.map((n) => ({
+      id: n.id,
+      type: "note" as const,
+      timestamp: n.createdAt,
+      authorName: n.authorName,
+      title: "Note added",
+      description: n.body,
+    })),
+  ].sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+
   const counsellors = await db.adminUser.findMany({
     where: { isActive: true, role: { in: ["SUPER_ADMIN", "ADMIN", "COUNSELLOR"] } },
     select: { id: true, name: true, role: true },
@@ -126,27 +158,42 @@ export default async function LeadDetailPage({
             currentUserId={user.id}
           />
 
-          {/* Status history */}
+          {/* Activity timeline (status changes + notes combined) */}
           <div className="rounded-xl border border-slate-200 bg-white p-5">
-            <h2 className="mb-4 font-heading text-sm font-semibold text-navy">Status History</h2>
-            {lead.statusHistory.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No status changes yet.</p>
+            <h2 className="mb-4 font-heading text-sm font-semibold text-navy">Activity Timeline</h2>
+            {activities.length === 0 ? (
+              <p className="py-6 text-center text-sm text-muted-foreground">No activity yet. Update the lead status or add a note to start the timeline.</p>
             ) : (
-              <ol className="relative space-y-4 border-l-2 border-slate-100 pl-4">
-                {lead.statusHistory.map((h) => (
-                  <li key={h.id} className="relative">
-                    <span className="absolute -left-[21px] top-1 h-3 w-3 rounded-full border-2 border-teal bg-white" />
+              <ol className="relative space-y-3 border-l-2 border-slate-100 pl-5">
+                {activities.map((a) => (
+                  <li key={`${a.type}-${a.id}`} className="relative">
+                    {/* Timeline dot with type-based color */}
+                    <span className={`absolute -left-[26px] top-2 h-3 w-3 rounded-full border-2 border-white ${
+                      a.type === "status" ? "bg-teal" : "bg-navy"
+                    } shadow-[0_0_0_2px_rgba(14,158,142,0.15)]`} />
                     <div className="flex items-center gap-2">
-                      <StatusBadge status={h.toStatus} />
-                      {h.fromStatus && (
-                        <span className="text-xs text-slate-400">from {h.fromStatus}</span>
+                      {a.type === "status" ? (
+                        <>
+                          <StatusBadge status={a.toStatus || ""} />
+                          {a.fromStatus && (
+                            <span className="text-xs text-slate-400">from {a.fromStatus}</span>
+                          )}
+                        </>
+                      ) : (
+                        <span className="inline-flex items-center gap-1.5 rounded-md bg-navy/5 px-2 py-0.5 text-xs font-semibold text-navy">
+                          <FileText className="h-3 w-3" /> Note
+                        </span>
                       )}
                     </div>
+                    {a.description && (
+                      <p className="mt-1.5 rounded-md bg-slate-50 px-3 py-2 text-sm text-slate-600">
+                        {a.description}
+                      </p>
+                    )}
                     <p className="mt-1 text-xs text-muted-foreground">
-                      {format(new Date(h.createdAt), "d MMM yyyy, h:mm a")}
-                      {h.changedByName && ` · by ${h.changedByName}`}
+                      {format(new Date(a.timestamp), "d MMM yyyy, h:mm a")}
+                      {a.authorName && ` · by ${a.authorName}`}
                     </p>
-                    {h.note && <p className="mt-1 text-sm text-slate-600">{h.note}</p>}
                   </li>
                 ))}
               </ol>

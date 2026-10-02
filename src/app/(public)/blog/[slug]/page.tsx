@@ -74,6 +74,19 @@ export default async function BlogPostPage({
     whatsappUrl("contact"),
   ]);
 
+  // Fetch more posts by the same author (excluding current post)
+  const authorPosts = await db.blogPost.findMany({
+    where: {
+      isPublished: true,
+      publishedAt: { lte: new Date() },
+      author: post.author,
+      id: { not: post.id },
+    },
+    orderBy: { publishedAt: "desc" },
+    take: 3,
+    include: { category: true },
+  });
+
   // Resolve related course via post.courseId
   let courseLink: { slug: string; title: string } | null = null;
   if (post.courseId) {
@@ -392,6 +405,37 @@ export default async function BlogPostPage({
             </div>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((p, i) => (
+                <Reveal key={p.id} delay={i * 60}>
+                  <BlogCard post={p} className="h-full" />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* More by this author */}
+      {authorPosts.length > 0 && (
+        <section className="border-t border-slate-100 bg-white">
+          <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+            <div className="flex items-end justify-between">
+              <div>
+                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-teal">
+                  More from this author
+                </p>
+                <h2 className="mt-1 font-heading text-2xl font-bold text-navy sm:text-3xl">
+                  More by {post.author}
+                </h2>
+              </div>
+              <Link
+                href={`/blog/author/${encodeURIComponent(post.author)}`}
+                className="hidden text-sm font-semibold text-teal hover:text-teal/80 sm:inline-flex sm:items-center sm:gap-1.5"
+              >
+                View all by {post.author} <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {authorPosts.map((p, i) => (
                 <Reveal key={p.id} delay={i * 60}>
                   <BlogCard post={p} className="h-full" />
                 </Reveal>

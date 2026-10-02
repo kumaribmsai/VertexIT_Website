@@ -226,13 +226,32 @@ export default async function ContactPage() {
                         referrerPolicy="no-referrer-when-downgrade"
                       />
                     ) : (
-                      <div className="flex h-64 flex-col items-center justify-center bg-slate-50 text-center">
-                        <MapPin className="h-8 w-8 text-slate-300" aria-hidden />
-                        <p className="mt-3 text-sm font-medium text-slate-500">
-                          Map location will be displayed here once configured.
+                      <div className="relative flex h-64 flex-col items-center justify-center overflow-hidden bg-slate-50 text-center">
+                        {/* Decorative grid pattern */}
+                        <div
+                          className="absolute inset-0 opacity-50"
+                          style={{
+                            backgroundImage: "linear-gradient(#E2E8F0 1px, transparent 1px), linear-gradient(90deg, #E2E8F0 1px, transparent 1px)",
+                            backgroundSize: "24px 24px",
+                          }}
+                          aria-hidden
+                        />
+                        {/* Map pin pulse */}
+                        <div className="relative">
+                          <span className="absolute -inset-4 animate-ping rounded-full bg-teal/20" aria-hidden />
+                          <span className="relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-teal text-white shadow-lg">
+                            <MapPin className="h-7 w-7" />
+                          </span>
+                        </div>
+                        <p className="relative mt-4 font-heading text-sm font-bold text-navy">
+                          {settings.city}, {settings.state}
                         </p>
-                        <p className="mt-1 text-xs text-slate-400">
+                        <p className="relative mt-1 text-xs text-muted-foreground">
+                          {settings.addressLine ? `${settings.addressLine}, ` : ""}
                           {settings.city}, {settings.state}, {settings.country}
+                        </p>
+                        <p className="relative mt-3 text-[0.7rem] text-slate-400">
+                          Map embed will appear here once configured in Site Settings
                         </p>
                       </div>
                     )}
