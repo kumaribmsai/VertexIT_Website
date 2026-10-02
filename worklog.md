@@ -983,3 +983,76 @@ The VertexIT website was in a stable state from the previous round (QA-6). All r
 8. **Add a "Refer a friend" feature** with referral tracking
 9. **Add a course waitlist** for upcoming batches
 10. **Add a admin "bulk lead actions"** (bulk assign, bulk status change)
+
+---
+Task ID: QA-8 (cron review round 8)
+Agent: main (webDevReview cron)
+Task: Newsletter signup, course waitlist, refer-a-friend, new DB models
+
+## Current Project Status Assessment
+The VertexIT website was in a stable state from the previous round (QA-7). All routes returned 200, lint passed clean, placement stories and jobs were published. The priority recommendations from QA-7 were: email templates, visual monthly calendar, recently viewed leads, assign leads to counsellors, quick status change, course progress tracking, newsletter signup, refer a friend, course waitlist, bulk lead actions.
+
+## Completed Modifications
+
+### Database Schema Updates
+1. **Added 3 new Prisma models**:
+   - `NewsletterSubscriber` — email (unique), name, source (blog/footer/resources), isActive, timestamps
+   - `CourseWaitlist` — courseId (FK to Course), fullName, phone, email, message, status (WAITING/CONTACTED/ENROLLED/CLOSED), timestamps
+   - `Referral` — referrerName, referrerPhone, referrerEmail, friendName, friendPhone, friendEmail, courseId (optional FK), message, status (NEW/CONTACTED/CONVERTED/CLOSED), timestamps
+   - Added `waitlist` and `referrals` relations to the Course model
+   - Ran `bun run db:push` to sync schema
+
+### New Features
+2. **Newsletter signup** (content marketing feature):
+   - `NewsletterSignup` client component — card and inline variants, email validation, success state, loading state, error handling
+   - `POST /api/newsletter` API route — Zod validation, upsert (reactivates if already exists), sends confirmation email (fails gracefully), creates admin notification
+   - Added to blog page (below the CTA section)
+   - Tested: `{"ok":true}` response confirmed
+
+3. **Course waitlist** (conversion feature for upcoming batches):
+   - `WaitlistSignup` client component — name, phone, email (optional), message, Indian phone validation, success state
+   - `POST /api/waitlist` API route — Zod validation, verifies course exists and is published, creates waitlist entry, creates admin notification
+   - Added to course detail page sidebar (below the booking widget)
+   - Tested: API returns 200
+
+4. **Refer a friend** (growth/referral feature):
+   - `ReferralForm` client component — two sections: "Your details" and "Your friend's details", phone validation, success state with thank-you message
+   - `POST /api/referral` API route — Zod validation, creates referral record, creates admin notification
+   - New `/refer` page — "How it works" 3-step section, referral form, WhatsApp share + view courses CTA
+   - Added "Refer a Friend" link to footer Company column
+   - Added /refer to sitemap
+   - VLM rated the referral form **10/10** — "includes 'YOUR DETAILS' and 'YOUR FRIEND'S DETAILS' sections"
+
+### Bug Fixes
+5. **Fixed refer page onClick error** — the page had a `button` with `onClick` handler but the page is a server component. Replaced with a `LinkButton` (server-safe).
+6. **Fixed refer page missing LinkButton import** — added the import.
+
+## Verification Results
+- `bun run lint` — 0 errors, 0 warnings ✅
+- All routes return 200: /, /blog, /refer, /courses/us-mortgage-underwriting, /contact, /admin/login ✅
+- Newsletter API works: `{"ok":true}` ✅
+- Referral API works: `{"ok":true,"id":"..."}` ✅
+- Blog page has newsletter signup section ✅
+- Course detail page has waitlist signup ✅
+- Refer page has referral form with two sections (VLM: 10/10) ✅
+- Footer has "Refer a Friend" link ✅
+- Sitemap includes /refer ✅
+- Dev log shows no errors ✅
+
+## Unresolved Issues / Risks
+- **Dev server stability:** The background Next.js dev server process still dies between shell sessions (known environment limitation).
+- **Resend email not configured:** RESEND_API_KEY empty — leads/newsletter still save successfully, email fails gracefully (as designed).
+- **No admin pages for new entities:** Newsletter subscribers, waitlist entries, and referrals don't have admin management pages yet. They're stored in the DB and create admin notifications, but admins can't view/manage them from the admin panel.
+- **Top counsellors leaderboard still empty:** No leads have been assigned to counsellors yet.
+
+## Priority Recommendations for Next Phase
+1. **Add admin pages** for newsletter subscribers, course waitlist, and referrals (list + view + status management)
+2. **Add email templates** for lead status changes (e.g., "Your application moved to Interview Scheduled")
+3. **Add a visual monthly grid calendar** in admin (currently shows a list view, not a month grid)
+4. **Add a "Recently viewed leads" section** on the admin dashboard (requires tracking viewed leads)
+5. **Assign test leads to counsellors** to populate the leaderboard
+6. **Add a lead detail "quick status change" dropdown** for faster workflow
+7. **Add admin "bulk lead actions"** (bulk assign, bulk status change)
+8. **Add a newsletter signup to the footer** (currently only on blog page)
+9. **Add a course progress tracking system** for Phase 2 (student portal)
+10. **Add a "Share" button on blog posts** (social sharing with referral tracking)

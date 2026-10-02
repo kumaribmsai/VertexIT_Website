@@ -151,6 +151,7 @@ export async function SiteFooter() {
           <h3 className="font-heading text-sm font-semibold uppercase tracking-wider text-white">Company</h3>
           <ul className="mt-4 space-y-2 text-sm">
             <li><Link href="/apply" className="text-slate-400 hover:text-teal-soft">Apply / Enquire</Link></li>
+            <li><Link href="/refer" className="text-slate-400 hover:text-teal-soft">Refer a Friend</Link></li>
             <li><Link href="/privacy-policy" className="text-slate-400 hover:text-teal-soft">Privacy Policy</Link></li>
             <li><Link href="/terms-and-conditions" className="text-slate-400 hover:text-teal-soft">Terms</Link></li>
             <li><Link href="/disclaimer" className="text-slate-400 hover:text-teal-soft">Disclaimer</Link></li>

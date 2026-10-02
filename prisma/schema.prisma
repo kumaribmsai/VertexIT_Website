@@ -110,6 +110,8 @@ model Course {
   leads           Lead[]
   jobs            Job[]
   blogPosts       BlogPost[]
+  waitlist        CourseWaitlist[]
+  referrals      Referral[]
 }
 
 model CourseModule {
@@ -406,4 +408,52 @@ model AuditLog {
   entityId    String?
   metadata    String?  // JSON string
   createdAt   DateTime @default(now())
+}
+
+// ============================================================
+// NEWSLETTER SUBSCRIBERS
+// ============================================================
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  source    String   @default("blog") // blog | footer | resources | other
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ============================================================
+// COURSE WAITLIST
+// ============================================================
+model CourseWaitlist {
+  id        String   @id @default(cuid())
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  fullName  String
+  phone     String
+  email     String?
+  message   String   @default("")
+  status    String   @default("WAITING") // WAITING | CONTACTED | ENROLLED | CLOSED
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ============================================================
+// REFERRALS (Refer a Friend)
+// ============================================================
+model Referral {
+  id            String   @id @default(cuid())
+  referrerName  String
+  referrerPhone String
+  referrerEmail String?
+  friendName    String
+  friendPhone   String
+  friendEmail   String?
+  courseId      String?
+  course        Course?  @relation(fields: [courseId], references: [id])
+  message       String   @default("")
+  status        String   @default("NEW") // NEW | CONTACTED | CONVERTED | CLOSED
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

@@ -9,6 +9,7 @@ import { EmptyState } from "@/components/site/state";
 import { Reveal } from "@/components/site/reveal";
 import { BlogCategoryFilter } from "@/components/site/blog-category-filter";
 import { LinkButton } from "@/components/site/buttons";
+import { NewsletterSignup } from "@/components/site/newsletter-signup";
 import { Newspaper, BookOpen } from "lucide-react";
 
 export const metadata: Metadata = await buildPageMetadata({
@@ -152,6 +153,11 @@ export default async function BlogPage({
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Newsletter signup */}
+        <div className="mt-14">
+          <NewsletterSignup source="blog" />
         </div>
       </section>
     </div>

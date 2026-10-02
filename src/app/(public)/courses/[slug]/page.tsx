@@ -29,6 +29,7 @@ import { JsonLd } from "@/components/site/json-ld";
 import { Reveal } from "@/components/site/reveal";
 import { WhatsAppButton, LinkButton } from "@/components/site/buttons";
 import { BookingWidget } from "@/components/site/booking-widget";
+import { WaitlistSignup } from "@/components/site/waitlist-signup";
 import {
   Accordion,
   AccordionContent,
@@ -610,6 +611,11 @@ export default async function CourseDetailPage({
               {/* Counselling booking widget */}
               <div className="mt-4">
                 <BookingWidget courseTitle={course.title} source={`course-${course.slug}`} />
+              </div>
+
+              {/* Waitlist signup */}
+              <div className="mt-4">
+                <WaitlistSignup courseId={course.id} courseTitle={course.title} />
               </div>
             </div>
           </aside>
