@@ -6,12 +6,57 @@ import {
   TrendingUp, Clock, Phone, Mail, Calendar,
 } from "lucide-react";
 import { StatusBadge } from "@/components/site/status-badge";
-import { format, formatDistanceToNow } from "date-fns";
+import { LeadTrendChart } from "@/components/admin/charts/lead-trend-chart";
+import { SourceBreakdownChart } from "@/components/admin/charts/source-breakdown-chart";
+import { format, formatDistanceToNow, subDays, eachDayOfInterval } from "date-fns";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardPage() {
   const { user } = await requireAdmin("CONTENT_EDITOR");
+
+  // 14-day lead trend data
+  const trendStart = subDays(new Date(), 13);
+  const trendEnd = new Date();
+  const allLeads = await db.lead.findMany({
+    where: { createdAt: { gte: trendStart } },
+    select: { createdAt: true, utmSource: true, preferredMode: true },
+  });
+  const trendDays = eachDayOfInterval({ start: trendStart, end: trendEnd });
+  const leadTrend = trendDays.map((d) => {
+    const dayStart = new Date(d);
+    dayStart.setHours(0, 0, 0, 0);
+    const dayEnd = new Date(d);
+    dayEnd.setHours(23, 59, 59, 999);
+    const count = allLeads.filter(
+      (l) => l.createdAt >= dayStart && l.createdAt <= dayEnd,
+    ).length;
+    return { date: format(d, "yyyy-MM-dd"), label: format(d, "d MMM"), count };
+  });
+
+  // Source breakdown (organic, direct, social, referral, other)
+  const sourceColors: Record<string, string> = {
+    google: "#0E9E8E",
+    direct: "#0B2545",
+    facebook: "#1877F2",
+    instagram: "#E1306C",
+    linkedin: "#0A66C2",
+    whatsapp: "#25D366",
+    referral: "#F59E0B",
+    organic: "#0E9E8E",
+  };
+  const sourceCounts: Record<string, number> = {};
+  for (const l of allLeads) {
+    const src = (l.utmSource || l.preferredMode || "direct").toLowerCase();
+    const key = src in sourceColors ? src : "other";
+    sourceCounts[key] = (sourceCounts[key] || 0) + 1;
+  }
+  if (Object.keys(sourceCounts).length === 0) sourceCounts["direct"] = 0;
+  const sourceData = Object.entries(sourceCounts).map(([name, value]) => ({
+    name: name.charAt(0).toUpperCase() + name.slice(1),
+    value,
+    color: sourceColors[name] || "#94A3B8",
+  }));
 
   const [
     totalLeads,
@@ -101,6 +146,32 @@ export default async function AdminDashboardPage() {
             <p className="text-xs text-muted-foreground">{s.label}</p>
           </Link>
         ))}
+      </div>
+
+      {/* Charts row — lead trend + source breakdown */}
+      <div className="grid gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <div className="rounded-xl border border-slate-200 bg-white p-5">
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <h2 className="font-heading text-sm font-semibold text-navy">Lead Trend</h2>
+                <p className="text-xs text-muted-foreground">Last 14 days</p>
+              </div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-teal/10 px-2.5 py-1 text-[0.7rem] font-semibold text-teal">
+                <TrendingUp className="h-3.5 w-3.5" />
+                {leadTrend.reduce((s, d) => s + d.count, 0)} total
+              </span>
+            </div>
+            <LeadTrendChart data={leadTrend} />
+          </div>
+        </div>
+        <div>
+          <div className="rounded-xl border border-slate-200 bg-white p-5">
+            <h2 className="font-heading text-sm font-semibold text-navy">Lead Sources</h2>
+            <p className="mb-4 text-xs text-muted-foreground">Where enquiries come from</p>
+            <SourceBreakdownChart data={sourceData} total={totalLeads} />
+          </div>
+        </div>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">

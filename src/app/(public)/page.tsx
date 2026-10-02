@@ -1,6 +1,7 @@
 import { HomeHero } from "@/components/site/sections/home/hero";
 import { TrustStrip } from "@/components/site/sections/home/trust-strip";
 import { WhyVertexit } from "@/components/site/sections/home/why-vertexit";
+import { StatsSection } from "@/components/site/sections/home/stats-section";
 import { HomeCourses } from "@/components/site/sections/home/courses-section";
 import { CurriculumPreview } from "@/components/site/sections/home/curriculum-preview";
 import { WhatYouLearn } from "@/components/site/sections/home/what-you-learn";
@@ -31,6 +32,7 @@ export default async function HomePage() {
       <HomeHero settings={settings} />
       <TrustStrip />
       <WhyVertexit />
+      <StatsSection />
       <HomeCourses />
       <CurriculumPreview />
       <WhatYouLearn />

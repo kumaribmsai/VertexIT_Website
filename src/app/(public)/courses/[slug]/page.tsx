@@ -28,6 +28,7 @@ import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { JsonLd } from "@/components/site/json-ld";
 import { Reveal } from "@/components/site/reveal";
 import { WhatsAppButton, LinkButton } from "@/components/site/buttons";
+import { BookingWidget } from "@/components/site/booking-widget";
 import {
   Accordion,
   AccordionContent,
@@ -605,6 +606,11 @@ export default async function CourseDetailPage({
               <p className="mt-3 px-2 text-[0.7rem] leading-relaxed text-muted-foreground">
                 Have a quick question? Reach out on WhatsApp — we usually reply during business hours.
               </p>
+
+              {/* Counselling booking widget */}
+              <div className="mt-4">
+                <BookingWidget courseTitle={course.title} source={`course-${course.slug}`} />
+              </div>
             </div>
           </aside>
         </div>

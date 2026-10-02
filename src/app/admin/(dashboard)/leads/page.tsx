@@ -4,6 +4,7 @@ import { AdminPageHeader } from "@/components/admin/primitives";
 import { LeadFilters } from "@/components/admin/lead-filters";
 import { LeadsTable } from "@/components/admin/leads-table";
 import { LEAD_STATUSES } from "@/components/admin/nav-config";
+import { computeLeadScore } from "@/lib/lead-scoring";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -36,7 +37,7 @@ export default async function AdminLeadsPage({
       : {}),
   };
 
-  const [total, leads, courses] = await Promise.all([
+  const [total, leadsRaw, courses] = await Promise.all([
     db.lead.count({ where }),
     db.lead.findMany({
       where,
@@ -50,6 +51,21 @@ export default async function AdminLeadsPage({
     }),
     db.course.findMany({ select: { id: true, title: true }, orderBy: { title: "asc" } }),
   ]);
+
+  // Compute lead scores for prioritisation
+  const leads = leadsRaw.map((l) => ({
+    id: l.id,
+    fullName: l.fullName,
+    phone: l.phone,
+    email: l.email,
+    status: l.status,
+    score: computeLeadScore(l),
+    createdAt: l.createdAt,
+    nextFollowUpAt: l.nextFollowUpAt,
+    lastContactedAt: l.lastContactedAt,
+    course: l.course,
+    assignedCounsellor: l.assignedCounsellor,
+  }));
 
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
