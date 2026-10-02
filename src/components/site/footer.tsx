@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { getSiteSettings } from "@/lib/site";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { Logo } from "@/components/site/logo";
+import { NewsletterSignup } from "@/components/site/newsletter-signup";
 import { Phone, MessageCircle, MapPin, Clock, Linkedin, Instagram, Facebook, Youtube } from "lucide-react";
 
 async function getFooterData() {
@@ -156,6 +157,13 @@ export async function SiteFooter() {
             <li><Link href="/terms-and-conditions" className="text-slate-400 hover:text-teal-soft">Terms</Link></li>
             <li><Link href="/disclaimer" className="text-slate-400 hover:text-teal-soft">Disclaimer</Link></li>
           </ul>
+        </div>
+      </div>
+
+      {/* Newsletter strip */}
+      <div className="border-t border-white/10 bg-navy-light/50">
+        <div className="mx-auto max-w-7xl px-6 py-6">
+          <NewsletterSignup source="footer" variant="inline" className="max-w-md mx-auto [&_input]:bg-white/10 [&_input]:border-white/20 [&_input]:text-white [&_input]:placeholder:text-slate-400" />
         </div>
       </div>
 

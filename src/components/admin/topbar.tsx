@@ -10,12 +10,14 @@ import { ADMIN_NAV } from "@/components/admin/nav-config";
 import {
   LayoutDashboard, Users, GraduationCap, Briefcase, FileText, UserCog,
   Star, Trophy, HelpCircle, Settings, Image as ImageIcon, Shield, ScrollText, CalendarDays,
+  Mail, UserPlus,
   type LucideIcon,
 } from "lucide-react";
 
 const ICONS: Record<string, LucideIcon> = {
   LayoutDashboard, Users, GraduationCap, Briefcase, FileText, UserCog,
   Star, Trophy, HelpCircle, Settings, Image: ImageIcon, Shield, ScrollText, CalendarDays,
+  Mail, UserPlus,
 };
 
 export function AdminTopbar({

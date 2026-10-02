@@ -18,6 +18,7 @@ import { JsonLd } from "@/components/site/json-ld";
 import { Reveal } from "@/components/site/reveal";
 import { BlogCard } from "@/components/site/blog-card";
 import { WhatsAppButton, LinkButton } from "@/components/site/buttons";
+import { ShareButtons } from "@/components/site/share-buttons";
 
 export async function generateStaticParams() {
   try {
@@ -245,6 +246,22 @@ export default async function BlogPostPage({
           >
             {post.content || ""}
           </ReactMarkdown>
+        </div>
+
+        {/* Share buttons */}
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-slate-50/50 px-5 py-4">
+          <ShareButtons
+            url={`/blog/${post.slug}`}
+            title={post.title}
+          />
+          <a
+            href={`https://wa.me/919703686514?text=${encodeURIComponent(`Hi VertexIT, I just read your article "${post.title}" and I'd like to know more.`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-teal hover:text-teal/80"
+          >
+            <MessageCircle className="h-4 w-4" /> Discuss on WhatsApp
+          </a>
         </div>
 
         {/* Tags */}

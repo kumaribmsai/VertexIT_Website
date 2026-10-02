@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Users, GraduationCap, Briefcase, FileText, UserCog,
   Star, Trophy, HelpCircle, Settings, Image as ImageIcon, Shield, ScrollText, CalendarDays,
+  Mail, UserPlus,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -14,6 +15,7 @@ import { ADMIN_NAV } from "@/components/admin/nav-config";
 const ICONS: Record<string, LucideIcon> = {
   LayoutDashboard, Users, GraduationCap, Briefcase, FileText, UserCog,
   Star, Trophy, HelpCircle, Settings, Image: ImageIcon, Shield, ScrollText, CalendarDays,
+  Mail, UserPlus,
 };
 
 export function AdminSidebar({ userRole }: { userRole: string }) {

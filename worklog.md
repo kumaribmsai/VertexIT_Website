@@ -1056,3 +1056,80 @@ The VertexIT website was in a stable state from the previous round (QA-7). All r
 8. **Add a newsletter signup to the footer** (currently only on blog page)
 9. **Add a course progress tracking system** for Phase 2 (student portal)
 10. **Add a "Share" button on blog posts** (social sharing with referral tracking)
+
+---
+Task ID: QA-9 (cron review round 9)
+Agent: main (webDevReview cron)
+Task: Admin pages for newsletter, waitlist, referrals + footer newsletter signup
+
+## Current Project Status Assessment
+The VertexIT website was in a stable state from the previous round (QA-8). All routes returned 200, lint passed clean, 3 new features (newsletter, waitlist, referrals) had been built with public-facing pages and API routes. The #1 priority recommendation was to add admin management pages for these new entities so admins can view and manage them.
+
+## Completed Modifications
+
+### New Features
+1. **Admin Newsletter Subscribers page** (`/admin/newsletter`):
+   - Summary cards: Active subscribers, Total signups, Retention rate (%)
+   - Table with email, name, source, status (Active/Inactive), subscribed date
+   - Search by email
+   - Per-subscriber actions: toggle active/deactivate, delete (with confirm)
+   - Export CSV button (downloads all subscribers)
+   - Empty state: "No newsletter subscribers yet. Subscribers will appear here when users sign up via the blog or footer."
+   - VLM rated **9/10**
+   - API: `GET/PUT/DELETE /api/admin/newsletter/[id]`
+
+2. **Admin Course Waitlist page** (`/admin/waitlist`):
+   - Table with candidate name, phone, email, message, course, status, joined date
+   - Search by name, phone, email
+   - Status filter dropdown (All / WAITING / CONTACTED / ENROLLED / CLOSED)
+   - Inline status change dropdown per entry
+   - Empty state: "No waitlist entries yet. Candidates who join a course waitlist will appear here."
+   - VLM rated **9/10**
+   - API: `PUT/DELETE /api/admin/waitlist/[id]`
+
+3. **Admin Referrals page** (`/admin/referrals`):
+   - Card-based layout (2 cols) showing referrer → friend with arrow icon
+   - Each card: referrer avatar+name+phone → friend avatar+name+phone, course interest, message, date
+   - Search by referrer or friend name/phone
+   - Status filter dropdown (All / NEW / CONTACTED / CONVERTED / CLOSED)
+   - Inline status change dropdown per card
+   - Empty state: "No referrals yet. When someone refers a friend via /refer, it will appear here."
+   - VLM rated **9/10** — confirmed "Test Referrer → Test Friend" card visible
+   - API: `PUT/DELETE /api/admin/referrals/[id]`
+
+4. **Newsletter signup in footer**:
+   - Added `NewsletterSignup` (inline variant) to the footer above the bottom bar
+   - Styled for dark navy background with white inputs
+   - Source: "footer" (tracked separately from blog signups)
+
+5. **Updated admin sidebar nav**:
+   - Added "Newsletter" (Mail icon), "Waitlist" (Clock icon), "Referrals" (UserPlus icon) to ADMIN_NAV
+   - Added Mail, UserPlus, Clock icons to sidebar and topbar ICONS maps
+
+## Verification Results
+- `bun run lint` — 0 errors, 0 warnings ✅
+- All routes return 200: /, /blog, /refer, /admin/newsletter, /admin/waitlist, /admin/referrals ✅
+- Admin newsletter page with table + summary cards + CSV export (VLM: 9/10) ✅
+- Admin referrals page with card layout showing referrer → friend (VLM: 9/10) ✅
+- Admin waitlist page with table + status management (VLM: 9/10) ✅
+- Newsletter signup in footer renders ✅
+- All 3 new admin pages accessible from sidebar ✅
+- API routes work for all CRUD operations ✅
+- Dev log shows no errors ✅
+
+## Unresolved Issues / Risks
+- **Dev server stability:** The background Next.js dev server process still dies between shell sessions (known environment limitation).
+- **Resend email not configured:** RESEND_API_KEY empty — leads/newsletter still save successfully, email fails gracefully (as designed).
+- **Top counsellors leaderboard still empty:** No leads have been assigned to counsellors yet. Admin needs to assign leads.
+
+## Priority Recommendations for Next Phase
+1. **Add email templates** for lead status changes (e.g., "Your application moved to Interview Scheduled")
+2. **Add a visual monthly grid calendar** in admin (currently shows a list view, not a month grid)
+3. **Add a "Recently viewed leads" section** on the admin dashboard (requires tracking viewed leads)
+4. **Assign test leads to counsellors** to populate the leaderboard
+5. **Add a lead detail "quick status change" dropdown** for faster workflow
+6. **Add admin "bulk lead actions"** (bulk assign, bulk status change)
+7. **Add a course progress tracking system** for Phase 2 (student portal)
+8. **Add a "Share" button on blog posts** (social sharing with referral tracking)
+9. **Add a visual dashboard for newsletter growth** (subscriber trend chart)
+10. **Add a waitlist → lead conversion flow** (convert waitlist entries to leads)

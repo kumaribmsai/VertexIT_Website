@@ -6,13 +6,14 @@ import { AdminPageHeader } from "@/components/admin/primitives";
 import { LeadStatusUpdater } from "@/components/admin/lead-status-updater";
 import { LeadNotes } from "@/components/admin/lead-notes";
 import { LeadDetailActions } from "@/components/admin/lead-detail-actions";
+import { QuickStatusChanger } from "@/components/admin/quick-status-changer";
 import { LeadScoreBreakdown, NextActionCard } from "@/components/admin/lead-score-breakdown";
 import { computeLeadScore, getRecommendedNextAction } from "@/lib/lead-scoring";
 import { StatusBadge } from "@/components/site/status-badge";
 import { format } from "date-fns";
 import {
   Phone, Mail, MessageCircle, Globe, GraduationCap,
-  Briefcase, Clock, User, FileText, ExternalLink,
+  Briefcase, Clock, User, FileText, ExternalLink, Calendar,
 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -91,6 +92,20 @@ export default async function LeadDetailPage({
           </div>
         }
       />
+
+      {/* Quick status change bar */}
+      <div className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2.5">
+        <QuickStatusChanger leadId={lead.id} currentStatus={lead.status} />
+        <div className="hidden items-center gap-3 text-xs text-muted-foreground sm:flex">
+          <span>Last contacted: {lead.lastContactedAt ? format(new Date(lead.lastContactedAt), "d MMM, h:mm a") : "Never"}</span>
+          {lead.nextFollowUpAt && (
+            <span className="inline-flex items-center gap-1 text-amber-700">
+              <Calendar className="h-3 w-3" />
+              Next: {format(new Date(lead.nextFollowUpAt), "d MMM, h:mm a")}
+            </span>
+          )}
+        </div>
+      </div>
 
       <div className="grid gap-5 lg:grid-cols-3">
         <div className="space-y-5 lg:col-span-2">
