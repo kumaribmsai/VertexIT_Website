@@ -8,6 +8,7 @@ import {
 import { StatusBadge } from "@/components/site/status-badge";
 import { LeadTrendChart } from "@/components/admin/charts/lead-trend-chart";
 import { SourceBreakdownChart } from "@/components/admin/charts/source-breakdown-chart";
+import { LeadFunnelChart } from "@/components/admin/charts/lead-funnel-chart";
 import { format, formatDistanceToNow, subDays, eachDayOfInterval } from "date-fns";
 
 export const dynamic = "force-dynamic";
@@ -114,6 +115,23 @@ export default async function AdminDashboardPage() {
     purple: "bg-purple-100 text-purple-700",
   };
 
+  // Build funnel data from status counts (representing the conversion pipeline)
+  const statusCountMap = new Map(leadStatusBreakdown.map((r) => [r.status, r._count.status]));
+  const funnelStages = [
+    { stage: "New", key: "NEW", color: "#3B82F6" },
+    { stage: "Contacted", key: "CONTACTED", color: "#0E9E8E" },
+    { stage: "Counselled", key: "COUNSELLING COMPLETED", color: "#14B8A6" },
+    { stage: "Interested", key: "INTERESTED", color: "#0B2545" },
+    { stage: "Enrolled", key: "ENROLLED", color: "#F59E0B" },
+    { stage: "Placed", key: "PLACED", color: "#10B981" },
+  ];
+  const funnelData = funnelStages.map((s) => ({
+    stage: s.stage,
+    label: s.stage,
+    count: statusCountMap.get(s.key) || 0,
+    color: s.color,
+  }));
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -173,6 +191,23 @@ export default async function AdminDashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* Lead conversion funnel */}
+      {funnelData.length > 0 && (
+        <div className="rounded-xl border border-slate-200 bg-white p-5">
+          <div className="mb-4 flex items-center justify-between">
+            <div>
+              <h2 className="font-heading text-sm font-semibold text-navy">Conversion Funnel</h2>
+              <p className="text-xs text-muted-foreground">Lead pipeline from enquiry to placement</p>
+            </div>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-navy/5 px-2.5 py-1 text-[0.7rem] font-semibold text-navy">
+              <TrendingUp className="h-3.5 w-3.5" />
+              {funnelData.length} stages
+            </span>
+          </div>
+          <LeadFunnelChart data={funnelData} />
+        </div>
+      )}
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Recent leads */}

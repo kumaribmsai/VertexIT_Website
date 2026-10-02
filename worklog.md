@@ -752,3 +752,72 @@ The VertexIT website was in a stable state from the previous round (QA-3). All r
 8. **Add course enrollment count display** — show "N candidates enrolled" once enrollments exist
 9. **Publish placement stories** — replace demo data with real student stories
 10. **Add a lead conversion funnel chart** to the admin dashboard (New → Contacted → Enrolled → Placed)
+
+---
+Task ID: QA-5 (cron review round 5)
+Agent: main (webDevReview cron)
+Task: Generate real PDF resources, lead conversion funnel chart, resources page downloads
+
+## Current Project Status Assessment
+The VertexIT website was in a stable state from the previous round (QA-4). All routes returned 200, lint passed clean. The priority recommendations from QA-4 were: generate real PDF resources, Google Maps embed, email templates, visual calendar grid, lead response time metric, recently viewed leads, blog author profile page, lead conversion funnel chart.
+
+## Completed Modifications
+
+### New Features
+1. **Generated 3 real PDF resource guides** using ReportLab with VertexIT brand styling:
+   - `mortgage-underwriting-interview-questions.pdf` (6 pages) — 25 common interview questions with sample answers, covering conceptual, scenario-based, and behavioural questions, plus questions to ask the interviewer
+   - `mortgage-career-pathways-guide.pdf` (4 pages) — US and Australian mortgage career pathways, roles from entry-level to senior, skills hiring teams look for, how to start
+   - `us-mortgage-fundamentals-cheatsheet.pdf` (3 pages) — Quick reference for loan types, key ratios (DTI, LTV, CLTV), documents, AUS, underwriting decisions, income types
+   - All PDFs have: VertexIT navy header strip with brand text, page numbers, footer with contact info, branded cover page with VT badge, teal accent lines, info boxes, tables with navy headers
+   - Generated via `scripts/generate-guides.py` (Python + ReportLab)
+   - Stored in `/public/downloads/guides/`
+   - PDF metadata: title, author (VertexIT), subject, creator all set
+
+2. **Updated resources page** to link to the real PDF downloads:
+   - 3 ungated resources now point to actual PDF files (direct download links)
+   - 3 gated resources still point to /apply (email required)
+   - Updated page counts to match actual PDFs (6, 4, 3 pages respectively)
+   - Download links return 200 (verified)
+
+3. **Lead conversion funnel chart** on admin dashboard:
+   - `LeadFunnelChart` client component using Recharts (horizontal bar chart, vertical layout)
+   - Shows 6 pipeline stages: New → Contacted → Counselled → Interested → Enrolled → Placed
+   - Color-coded bars (blue, teal, teal-light, navy, amber, green)
+   - Tooltip shows count + percentage of top stage
+   - Added to admin dashboard between the charts row and recent enquiries
+   - Shows all stages even when count is 0 (so the funnel structure is always visible)
+   - VLM rated the dashboard **9/10** with all 3 charts confirmed
+
+4. **Added test leads** in different statuses for realistic dashboard data:
+   - 5 test leads created (NEW, CONTACTED, COUNSELLING COMPLETED, INTERESTED, ENROLLED)
+   - Each with realistic Indian names, phone numbers, emails, course interest, experience, education
+   - Makes the dashboard charts, funnel, and recent enquiries list populated for QA
+
+## Verification Results
+- `bun run lint` — 0 errors, 0 warnings ✅
+- All routes return 200: /, /resources, /courses/compare, /admin/login ✅
+- All 3 PDFs downloadable (200): mortgage-underwriting-interview-questions.pdf, mortgage-career-pathways-guide.pdf, us-mortgage-fundamentals-cheatsheet.pdf ✅
+- PDFs have valid metadata (title, author, page count) ✅
+- Resources page links to real PDF files (not placeholder # anchors) ✅
+- Admin dashboard with conversion funnel chart renders (VLM: 9/10) ✅
+- All 3 dashboard charts confirmed: Lead Trend (area), Lead Sources (donut), Conversion Funnel (horizontal bars) ✅
+- Dev log shows no errors ✅
+
+## Unresolved Issues / Risks
+- **Dev server stability:** The background Next.js dev server process still dies between shell sessions (known environment limitation).
+- **Resend email not configured:** RESEND_API_KEY empty — leads still save successfully, email fails gracefully (as designed).
+- **Placement stories still unpublished:** Demo placement stories remain unpublished. Admin should replace with real stories before publishing.
+- **3 gated resources still placeholder:** The resume template, Australia glossary, and interview checklist still point to /apply (no actual PDFs generated yet). Only 3 of 6 resources have real PDFs.
+- **Demo jobs still unpublished:** 2 demo jobs remain unpublished. Admin should add real job openings.
+
+## Priority Recommendations for Next Phase
+1. **Generate the remaining 3 gated PDF resources** — resume template, Australia glossary, interview checklist (currently point to /apply)
+2. **Add Google Maps embed** to the contact page once a maps URL is configured in Site Settings
+3. **Add email templates** for lead status changes (e.g., "Your application moved to Interview Scheduled")
+4. **Add a visual monthly grid calendar** in admin (currently shows a list view, not a month grid)
+5. **Add a lead response time metric** — track how quickly counsellors respond to new leads
+6. **Add a "Recently viewed leads" section** on the admin dashboard
+7. **Add a blog author profile page** (`/blog/author/[name]`) for author-based filtering
+8. **Publish placement stories** — replace demo data with real student stories
+9. **Add a lead-to-enrollment conversion rate** metric on the dashboard
+10. **Add a "Top counsellors" leaderboard** based on lead conversion performance
