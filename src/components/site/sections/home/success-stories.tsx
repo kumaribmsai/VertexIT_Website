@@ -1,12 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Quote, MapPin, Building2, Sparkles } from "lucide-react";
+import { Quote, MapPin, Building2 } from "lucide-react";
 import { getPublishedPlacementStories } from "@/services/public";
 import { SectionHeading } from "@/components/site/section-heading";
 import { Reveal } from "@/components/site/reveal";
-import { EmptyState } from "@/components/site/state";
-import { WhatsAppButton } from "@/components/site/buttons";
-import { whatsappUrl } from "@/lib/whatsapp";
 
 type Story = Awaited<ReturnType<typeof getPublishedPlacementStories>>[number];
 
@@ -82,6 +79,10 @@ export async function SuccessStories() {
     /* graceful */
   }
 
+  // Collapse on homepage when no published stories — prevents empty-state stacking.
+  // The dedicated /success-stories page keeps its empty state.
+  if (stories.length === 0) return null;
+
   return (
     <section className="bg-slate-50/60 py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -92,34 +93,23 @@ export async function SuccessStories() {
         />
 
         <div className="mt-10">
-          {stories.length === 0 ? (
-            <EmptyState
-              icon={Sparkles}
-              title="Success stories will appear here"
-              description="We are intentional about publishing only genuine, verified placement stories. As our candidates progress and consent to share their journeys, you will find them in this section. Speak with a counsellor to learn more about our placement assistance."
-              action={<WhatsAppButton href={waHref}>Talk to a counsellor</WhatsAppButton>}
-            />
-          ) : (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {stories.slice(0, 6).map((s, i) => (
-                <Reveal key={s.id} delay={i * 80} className="h-full">
-                  <StoryCard s={s} />
-                </Reveal>
-              ))}
-            </div>
-          )}
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {stories.slice(0, 6).map((s, i) => (
+              <Reveal key={s.id} delay={i * 80} className="h-full">
+                <StoryCard s={s} />
+              </Reveal>
+            ))}
+          </div>
         </div>
 
-        {stories.length > 0 && (
-          <div className="mt-10 flex justify-center">
-            <Link
-              href="/success-stories"
-              className="group inline-flex items-center gap-2 rounded-full border border-navy/15 bg-white px-6 py-3 text-sm font-semibold text-navy transition-all hover:border-teal hover:text-teal"
-            >
-              Read more stories
-            </Link>
-          </div>
-        )}
+        <div className="mt-10 flex justify-center">
+          <Link
+            href="/success-stories"
+            className="group inline-flex items-center gap-2 rounded-full border border-navy/15 bg-white px-6 py-3 text-sm font-semibold text-navy transition-all hover:border-teal hover:text-teal"
+          >
+            Read more stories
+          </Link>
+        </div>
       </div>
     </section>
   );

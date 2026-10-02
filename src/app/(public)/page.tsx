@@ -2,10 +2,13 @@ import { HomeHero } from "@/components/site/sections/home/hero";
 import { TrustStrip } from "@/components/site/sections/home/trust-strip";
 import { WhyVertexit } from "@/components/site/sections/home/why-vertexit";
 import { HomeCourses } from "@/components/site/sections/home/courses-section";
+import { CurriculumPreview } from "@/components/site/sections/home/curriculum-preview";
 import { WhatYouLearn } from "@/components/site/sections/home/what-you-learn";
+import { CourseComparison } from "@/components/site/sections/home/course-comparison";
 import { HowTrainingWorks } from "@/components/site/sections/home/how-training-works";
 import { PlacementJourney } from "@/components/site/sections/home/placement-journey";
 import { CareerPathways } from "@/components/site/sections/home/career-pathways";
+import { WhyBengaluru } from "@/components/site/sections/home/why-bengaluru";
 import { HomeJobs } from "@/components/site/sections/home/jobs-section";
 import { SuccessStories } from "@/components/site/sections/home/success-stories";
 import { HomeTrainers } from "@/components/site/sections/home/trainers-section";
@@ -29,10 +32,15 @@ export default async function HomePage() {
       <TrustStrip />
       <WhyVertexit />
       <HomeCourses />
+      <CurriculumPreview />
       <WhatYouLearn />
+      <CourseComparison />
       <HowTrainingWorks />
       <PlacementJourney />
       <CareerPathways />
+      <WhyBengaluru />
+      {/* These three sections collapse (return null) when there is no published content,
+          so the homepage never looks incomplete with empty states. */}
       <HomeJobs />
       <SuccessStories />
       <HomeTrainers />

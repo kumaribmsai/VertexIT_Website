@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Sparkles, GraduationCap, FileCheck2, Briefcase, TrendingUp } from "lucide-react";
 import { WhatsAppButton, LinkButton } from "@/components/site/buttons";
 import { Reveal } from "@/components/site/reveal";
@@ -84,7 +85,7 @@ export async function HomeHero({ settings }: { settings: Settings }) {
           </Reveal>
         </div>
 
-        {/* Right — gradient panel with career-progression visual */}
+        {/* Right — gradient panel with career-progression visual + hero image */}
         <div className="lg:col-span-5">
           <Reveal delay={200} className="h-full">
             <div className="relative h-full">
@@ -93,8 +94,19 @@ export async function HomeHero({ settings }: { settings: Settings }) {
                 {/* Dot-grid overlay */}
                 <div className="bg-dot-grid absolute inset-0 opacity-60" aria-hidden />
 
+                {/* Hero image accent — top-right floating card */}
+                <div className="absolute right-4 top-4 z-10 hidden overflow-hidden rounded-xl border border-white/20 shadow-lg sm:block">
+                  <Image
+                    src="/uploads/hero-career.jpg"
+                    alt="Career progression visual representing the journey from learning to applying"
+                    width={64}
+                    height={64}
+                    className="h-16 w-16 object-cover"
+                  />
+                </div>
+
                 {/* Floating LEARN • APPLY badge */}
-                <div className="absolute right-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md">
+                <div className="absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md">
                   <span className="h-1.5 w-1.5 rounded-full bg-teal-soft" aria-hidden />
                   Learn <span className="text-teal-soft">•</span> Apply
                 </div>

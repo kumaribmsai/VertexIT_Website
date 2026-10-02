@@ -436,3 +436,75 @@ Unresolved / Notes:
 - Blog posts seeded as drafts (unpublished) — admin reviews & publishes via CMS
 - Phase 2 student portal routes architecturally reserved (schema supports students/enrollments/progress/placement) but not publicly exposed in Phase 1
 - Admin pages are noindex; public pages are indexable with canonical URLs
+
+---
+Task ID: QA-1 (cron review round 1)
+Agent: main (webDevReview cron)
+Task: QA testing, fix missing images, add visual enhancements + new features (search, CSV export)
+
+## Current Project Status Assessment
+The VertexIT production website was in a stable state from the previous build round. All public routes returned 200, admin panel was functional, lead form worked end-to-end. However, VLM-based visual QA identified several issues:
+- **Critical:** Course images were missing (`/uploads/courses/us-mortgage.jpg` and `australia-mortgage.jpg` referenced in seed but files didn't exist) — causing broken image errors in dev.log
+- **Visual:** Homepage felt "top-heavy" — 3 consecutive empty-state sections (jobs, success stories, trainers) at the bottom made the page look incomplete (VLM rated 7/10)
+- **Missing:** No default OG image, no hero visual accent image
+
+## Completed Modifications
+
+### Bug Fixes
+1. **Generated missing course images** using Image Generation skill:
+   - `/public/uploads/courses/us-mortgage.jpg` — abstract financial dashboard with house silhouette, navy/teal theme
+   - `/public/uploads/courses/australia-mortgage.jpg` — Sydney Opera House with financial elements, navy/teal theme
+   - `/public/uploads/hero-career.jpg` — premium abstract career progression visual
+   - `/public/uploads/og-default.jpg` — brand OG image (1344x768)
+   - Updated `SiteSettings.defaultOgImage` to `/uploads/og-default.jpg` via direct DB update
+2. **Fixed dev.log errors:** "The requested resource isn't a valid image for /uploads/courses/..." resolved
+
+### Visual Enhancements (Styling Improvements)
+3. **Homepage empty sections now collapse gracefully:** Jobs, Success Stories, and Trainers sections return `null` on the homepage when there's no published content (instead of showing empty states). The dedicated list pages (/jobs, /success-stories, /trainers) keep their empty states. This eliminates the "top-heavy" issue.
+4. **Enhanced hero section:** Added floating hero image accent card (top-right of the gradient panel) using the generated `hero-career.jpg`, plus the existing "LEARN • APPLY" badge moved to top-left for better composition.
+5. **New "Curriculum Preview" section** (`curriculum-preview.tsx`): Always-populated section showing the first 6 modules from each published course with numbered list (01, 02, 03...), module count, and "+N more modules" hint. Includes "View full curriculum" CTA linking to the course detail page.
+6. **New "Course Comparison" section** (`course-comparison.tsx`): Premium comparison table showing US Mortgage vs Australia Mortgage side-by-side (focus area, training mode, module count, key skills, career pathway) with navy header and CTA row. Includes disclaimer: "Neither program guarantees employment."
+7. **New "Why Bengaluru" local SEO section** (`why-bengaluru.tsx`): 4-card grid (mortgage hub, hiring ecosystem, hybrid/remote, global process careers) with location badge and address block. Establishes Bengaluru relevance without fabricating fake location pages.
+8. **Homepage section order updated** to include new sections: Hero → Trust → Why VertexIT → Courses → Curriculum Preview → What You Learn → Course Comparison → How Training Works → Placement Journey → Career Pathways → Why Bengaluru → [Jobs if published] → [Stories if published] → [Trainers if published] → FAQ → Final CTA
+
+### New Features
+9. **Site-wide search** (high-value feature):
+   - `GET /api/search?q=...` API — searches across published courses, blog posts, jobs, and FAQs with relevance ranking
+   - `/search` page — full results page with grouped sections (Courses/Blog/Jobs/FAQs), SEO-friendly with WebSite+SearchAction JSON-LD structured data
+   - `SearchBox` client component — live dropdown with debounced search (300ms), grouped results, "See all results" CTA, outside-click-to-close
+   - Search icon added to header (next to WhatsApp button) for desktop and mobile
+   - Search page is `noindex` (per SEO best practice for search results pages)
+10. **Admin leads CSV export** (`GET /api/admin/leads/export`):
+    - Exports all leads (or filtered by status/q) as CSV with 17 columns (name, phone, email, course, status, counsellor, UTM tracking, timestamps)
+    - Respects current filter (status) via query param
+    - Updated admin leads page "Export CSV" button to link to the new endpoint
+    - Requires COUNSELLOR+ role
+
+## Verification Results
+- `bun run lint` — 0 errors, 0 warnings ✅
+- All routes return expected HTTP codes (200 for public, 307 redirect for unauthenticated admin) ✅
+- Course images render correctly (VLM confirmed: "digital illustration of a house with financial charts" for US Mortgage, "Sydney Opera House" for Australia Mortgage) ✅
+- Curriculum preview renders with module counts ("HYBRID 20 modules", "+14 more modules") ✅
+- Comparison table renders ("Compare Programs", "US Mortgage vs", "Program 01", "Program 02") ✅
+- Search API returns correct results (6 results for "mortgage": 2 courses + 4 FAQs) ✅
+- Search page renders with grouped results ✅
+- Homepage no longer shows empty states for unpublished content ✅
+- Dev log shows no image errors after fix ✅
+
+## Unresolved Issues / Risks
+- **Dev server stability:** The background Next.js dev server process dies between shell sessions (a known environment limitation). The cron-triggered agent must restart it at the start of each round. The `setsid` approach provides slightly better persistence but isn't reliable across sessions.
+- **Demo content still unpublished:** Demo trainers, testimonials, placement stories, and jobs remain unpublished (is_demo=true, isPublished=false) per the spec. Admin can publish them when ready. The homepage now collapses these sections gracefully.
+- **Blog posts still drafts:** 15 blog posts seeded as drafts — admin reviews & publishes via CMS. Blog list page shows empty state.
+- **Resend email not configured:** RESEND_API_KEY empty — leads still save successfully, email fails gracefully with server-side warning (as designed).
+
+## Priority Recommendations for Next Phase
+1. **Add a counselling booking widget** — let candidates pick a time slot for a counselling call (calendar integration)
+2. **Add course comparison "add to compare" feature** — let users compare any 2 courses side-by-side with a persistent comparison bar
+3. **Add blog tag pages** (`/blog/tag/[slug]`) for tag-based filtering beyond categories
+4. **Add a "Resources" section** — downloadable guides (PDF) for mortgage career preparation
+5. **Add admin dashboard charts** — use Recharts for lead trend over time, source breakdown pie chart
+6. **Publish 1-2 blog posts** from the drafts to make the blog look active (admin can do this via CMS)
+7. **Add Google Maps embed** to the contact page once a maps URL is configured in Site Settings
+8. **Add a lead scoring system** — auto-assign score based on course interest, experience, education
+9. **Add email templates** for lead status changes (e.g., "Your application moved to Interview Scheduled")
+10. **Add a student testimonials carousel** on the homepage once testimonials are published

@@ -62,12 +62,12 @@ export default async function AdminLeadsPage({
         title="Leads"
         description="Manage enquiries and the counselling pipeline."
         actions={
-          <Link
-            href="/admin/leads?export=csv"
+          <a
+            href={`/api/admin/leads/export${status ? `?status=${encodeURIComponent(status)}` : ""}`}
             className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-slate-200 px-3 text-sm font-medium text-navy hover:border-teal hover:text-teal"
           >
             Export CSV
-          </Link>
+          </a>
         }
       />
 

@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { getSiteSettings } from "@/lib/site";
 import { whatsappUrl } from "@/lib/whatsapp";
 import Link from "next/link";
+import { Search } from "lucide-react";
 import { Logo } from "@/components/site/logo";
 import { WhatsAppButton } from "@/components/site/buttons";
 import { MobileNav } from "./mobile-nav";
@@ -81,6 +82,13 @@ export async function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <Link
+              href="/search"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-navy hover:bg-teal/5 hover:text-teal"
+              aria-label="Search"
+            >
+              <Search className="h-4 w-4" />
+            </Link>
             <WhatsAppButton href={waHref} size="sm" className="hidden sm:inline-flex" />
             <MobileNav nav={NAV} waHref={waHref} phone={settings.phone} />
           </div>

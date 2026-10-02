@@ -1,0 +1,439 @@
+     1→# VertexIT Project — Worklog
+     2→
+     3→## Project Overview
+     4→VertexIT is a professional training and placement institute website for mortgage and lending operations careers. Brand: "LEARN • APPLY". Located in Bengaluru, Karnataka, India. Two launch courses: US Mortgage Underwriting & Australia Mortgage Operations.
+     5→
+     6→## Tech Stack (adapted from spec)
+     7→- Next.js 16 + App Router + TypeScript (REQUIRED)
+     8→- Tailwind CSS 4 + shadcn/ui (New York)
+     9→- Prisma ORM + SQLite (in place of Supabase/PostgreSQL)
+    10→- NextAuth.js v4 (in place of Supabase Auth) — Credentials provider for admin
+    11→- Local file storage in `/public/uploads/` (in place of Supabase Storage)
+    12→- Resend email (optional, fails gracefully)
+    13→- Lucide React icons, Recharts for admin charts
+    14→
+    15→## Database
+    16→- Prisma schema at `prisma/schema.prisma`
+    17→- SQLite DB at `db/custom.db`
+    18→- Seed script: `prisma/seed.ts` (run via `bun run db:seed`)
+    19→- Default admin: `admin@vertexit.in` / `vertexit123`
+    20→
+    21→---
+    22→Task ID: 0
+    23→Agent: main
+    24→Task: Foundation — Prisma schema, design system (navy/teal), fonts, layout, env files, lib utilities, seed data
+    25→
+    26→Work Log:
+    27→- Adapted the Supabase/PostgreSQL spec to Prisma + SQLite (the configured DB in this environment)
+    28→- Wrote complete Prisma schema: SiteSettings (singleton), AdminUser, Course + CourseModule/CourseOutcome/CourseFaq, Trainer, Job + JobApplication, Lead + LeadStatusHistory/LeadNote, Testimonial, PlacementStory, Faq, BlogCategory + BlogPost, MediaAsset, HomepageSection, AdminNotification, AuditLog
+    29→- Designed VertexIT brand system in globals.css: navy (#0B2545) primary, teal (#0E9E8E) secondary, deep slate text, cool gray borders, brand gradient utilities, dot-grid hero pattern, card-hover lift, scroll-reveal, custom scrollbar, prefers-reduced-motion support
+    30→- Updated root layout to use Plus Jakarta Sans (headings) + Inter (body), integrated VertexIT logo, generated metadata from DB site settings (SEO, OG, Twitter cards)
+    31→- Built lib utilities:
+    32→  - `lib/site.ts` — getSiteSettings() with 1-min in-memory cache + DEFAULT_SETTINGS fallback
+    33→  - `lib/whatsapp.ts` — wa.me URL builder + pre-filled message contexts (home, US, AU, jobs, contact, apply, placement)
+    34→  - `lib/email.ts` — Resend integration (sendLeadNotificationEmail, sendCandidateConfirmationEmail, sendJobApplicationNotificationEmail). Fails gracefully when RESEND_API_KEY not configured.
+    35→  - `lib/validations.ts` — Zod schemas for lead, job application, admin login; Indian phone validation; HTML sanitization; honeypot field
+    36→  - `lib/seo.ts` — buildPageMetadata(), JSON-LD helpers (organization, course, breadcrumb, faqPage, blogPosting)
+    37→  - `lib/password.ts` — scrypt-based hash/verify (no external dep)
+    38→  - `lib/auth.ts` — NextAuth config (Credentials provider, JWT sessions, role in token)
+    39→  - `lib/admin-auth.ts` — requireAdmin() server-side guard with role hierarchy + logAudit() helper
+    40→- Created NextAuth route at `src/app/api/auth/[...nextauth]/route.ts`
+    41→- Created data-access layer `services/public.ts` (all public reads enforce published-only)
+    42→- Wrote comprehensive seed script (prisma/seed.ts):
+    43→  - Site settings singleton
+    44→  - Default super-admin user
+    45→  - US Mortgage course (20 modules, 6 outcomes, 5 course FAQs)
+    46→  - Australia Mortgage course (19 modules, 6 outcomes, 4 course FAQs)
+    47→  - 12 global FAQs
+    48→  - 10 blog categories + 15 blog drafts (unpublished)
+    49→  - 2 demo trainers, 3 demo testimonials, 3 demo placement stories, 2 demo jobs (all unpublished, is_demo=true)
+    50→  - 13 homepage section ordering rows
+    51→- Copied VertexIT logo to /public/vertexit-logo.jpeg
+    52→- Created /public/uploads/ for media storage
+    53→- .env + .env.example with all required variables (Resend + NextAuth)
+    54→
+    55→Stage Summary:
+    56→- DB schema complete and seeded. Admin login: admin@vertexit.in / vertexit123
+    57→- Design system (navy/teal) in place. Layout uses Jakarta Sans + Inter.
+    58→- All lib utilities (whatsapp, email, validation, seo, auth, password) ready.
+    59→- Foundation is ready for UI components and pages.
+    60→- No Supabase available in this env — adapted to Prisma+SQLite+NextAuth while preserving the same data model and security boundaries (server-side admin checks instead of RLS).
+    61→
+    62→---
+    63→Task ID: 3
+    64→Agent: frontend-styling-expert (homepage)
+    65→Task: Build VertexIT homepage with 15 sections
+    66→
+    67→Work Log:
+    68→- Read worklog.md, services/public.ts, lib/site.ts, lib/whatsapp.ts, lib/seo.ts, prisma/seed.ts and existing shared components (CourseCard, JobCard, TrainerCard, TestimonialCard, BlogCard, EmptyState/ErrorState/LoadingSkeleton, Accordion, SectionHeading, Reveal, JsonLd, WhatsAppButton/LinkButton/ArrowLink) to align with existing foundation and design tokens
+    69→- Verified all lucide-react icons used (FileUser, Mailbox, MonitorSmartphone, HeartHandshake, etc.) exist in v0.525.0
+    70→- Created `src/components/site/sections/home/` directory and built 13 section components
+    71→- HomeHero: asymmetric 7/5 grid — left copy block (eyebrow pill, balanced H1, supporting text, WhatsApp + Explore Courses CTAs, micro-trust line); right navy→teal gradient panel with bg-dot-grid overlay, floating "LEARN • APPLY" badge, a 4-step glass-card career progression visual (Foundations → Skills → Practice → Career), a "Placement Assistance" mini CTA tile, and a floating "Practical Learning" accent chip
+    72→- TrustStrip: clean 5-item horizontal strip (Hybrid Training | Practical Learning | Industry-Focused Curriculum | Placement Assistance | Career Support) with teal icon chips, no fake numbers
+    73→- WhyVertexit: 6 cards (Practical Learning, Industry-Oriented Curriculum, Career Preparation, Placement Assistance, Hybrid Learning, Career-Focused Mentorship) each with icon, title, short description; uses card-hover
+    74→- HomeCourses: async — fetches getPublishedCourses(), renders CourseCard side-by-side in 2-col grid when 2+ published, with "Explore All Courses" CTA; polished EmptyState when none
+    75→- WhatYouLearn: split panel US 🇺🇸 / AU 🇦🇺 — pulls keySkills from each course (newline-split), with fallbacks; each card shows checkmark grid of skills + "View course details" + "Curriculum" CTA
+    76→- HowTrainingWorks: 7-step timeline (Discover → Choose a Career Path → Learn → Practice → Prepare → Apply → Build Your Career) rendered as alternating left/right cards on desktop with central gradient line and teal connector dots
+    77→- PlacementJourney: navy section with dot-grid + teal glow; 8-step grid (Choose course, Complete training, Build job-ready skills, Resume & profile preparation, Mock interview prep, Receive relevant opportunities, Interview with employers, Continue placement support). Includes approved wording "Placement assistance with a very high placement rate." and an explicit "Not a job guarantee" disclaimer card with WhatsApp CTA
+    78→- CareerPathways: 2-panel US/AU layout pulling from course.careerPathways; clearly labelled "Potential career pathways" (NOT guaranteed roles); amber info banner reinforcing the disclaimer
+    79→- HomeJobs: async — getPublishedJobs() → JobCard grid (max 6); polished EmptyState with WhatsApp CTA + jobs-page link when none published (matches seed state)
+    80→- SuccessStories: async — getPublishedPlacementStories(); custom StoryCard (studentName, course, newRole, company, location, quote/shortStory) since shape differs from TestimonialCard; tasteful empty state explicitly stating real stories will appear here (no fabrication)
+    81→- HomeTrainers: async — getPublishedTrainers() → TrainerCard grid; empty state when none published
+    82→- HomeFaq: async — getPublishedFaqs() rendered through shadcn Accordion (left sticky heading + WhatsApp counsellor card; right accordion list). Includes FAQ JSON-LD via faqPageJsonLd() helper for SEO
+    83→- FinalCta: navy→teal gradient panel with dot grid, glows, "LEARN • APPLY" badge, settings.finalCtaHeading + finalCtaSubheading, WhatsApp Us + Talk to a Counsellor buttons, business hours microcopy
+    84→- page.tsx composes all 13 sections in spec order, includes Organization JSON-LD via organizationJsonLd() helper + <JsonLd>, sets revalidate=60 for ISR; settings passed into HomeHero and FinalCta to avoid duplicate DB roundtrips
+    85→- Brand discipline respected: no fabricated stats, no "100% job guarantee" language, "Placement assistance with a very high placement rate" used carefully, null durations → "TBC" handled by CourseCard, no public pricing shown, "LEARN • APPLY" tagline used as recurring visual motif (hero badge, final CTA badge, footer brand)
+    86→- Verified TypeScript via `bunx tsc --noEmit` — no errors in any new file
+    87→- Verified ESLint via `bunx eslint src/components/site/sections/home src/app/(public)/page.tsx` — clean
+    88→- Verified production build via `bunx next build` — compiles successfully, homepage `/` prerendered as static with 1m revalidate, all 17 routes generated cleanly with no errors
+    89→
+    90→Stage Summary:
+    91→- Files created:
+    92→  - src/app/(public)/page.tsx
+    93→  - src/components/site/sections/home/hero.tsx (HomeHero)
+    94→  - src/components/site/sections/home/trust-strip.tsx (TrustStrip)
+    95→  - src/components/site/sections/home/why-vertexit.tsx (WhyVertexit)
+    96→  - src/components/site/sections/home/courses-section.tsx (HomeCourses)
+    97→  - src/components/site/sections/home/what-you-learn.tsx (WhatYouLearn)
+    98→  - src/components/site/sections/home/how-training-works.tsx (HowTrainingWorks)
+    99→  - src/components/site/sections/home/placement-journey.tsx (PlacementJourney)
+   100→  - src/components/site/sections/home/career-pathways.tsx (CareerPathways)
+   101→  - src/components/site/sections/home/jobs-section.tsx (HomeJobs)
+   102→  - src/components/site/sections/home/success-stories.tsx (SuccessStories)
+   103→  - src/components/site/sections/home/trainers-section.tsx (HomeTrainers)
+   104→  - src/components/site/sections/home/faq-section.tsx (HomeFaq)
+   105→  - src/components/site/sections/home/final-cta.tsx (FinalCta)
+   106→- Design decisions:
+   107→  - Asymmetric premium hero with layered glass-card career progression visual (Stripe/Linear polish target)
+   108→  - Navy + teal as the dominant brand pair, with bg-brand-gradient + bg-dot-grid used as recurring motifs in hero, placement journey, and final CTA for visual cohesion
+   109→  - Generous whitespace (py-16 sm:py-24 section rhythm), max-w-7xl containers
+   110→  - Each async section fetches its own data internally so page.tsx stays clean; settings passed into Hero and FinalCta to avoid duplicate fetches
+   111→  - All empty states (jobs/stories/trainers) use the shared <EmptyState> component with WhatsApp CTA — feels intentional, not broken, matching the seeded (unpublished) state of demo content
+   112→  - Disclaimers placed prominently (career pathways amber banner, placement journey "not a job guarantee" card) to honour brand-spec compliance
+   113→  - Mobile-first responsive tested mentally at 375/768/1280 — every grid collapses cleanly, sticky bottom CTA bar from layout complements the in-content WhatsApp CTAs
+   114→  - Accessibility: semantic landmarks (section/article/ol/li), aria-hidden on decorative icons, alt text on placement story avatars, focus-visible rings on all CTAs
+   115→- Issues: none. Build passes, types pass, lint passes. Homepage ready for visual review at `/`.
+   116→
+   117→---
+   118→Task ID: 5
+   119→Agent: full-stack-developer (static pages)
+   120→Task: Build about, placement-process, success-stories, trainers, faq, contact, apply, legal pages, 404
+   121→
+   122→Work Log:
+   123→- Read worklog.md (Task 0) and existing components/services/lib to understand the foundation in place
+   124→- Created 10 directories under src/app/(public)/ for the new pages
+   125→- Built src/app/(public)/about/page.tsx:
+   126→  - Navy hero with breadcrumbs, eyebrow "ABOUT VERTEXIT", heading
+   127→  - Two-column intro with "What we are / are not" aside (explicit "not a university, not government-accredited", "Placement assistance with a very high placement rate")
+   128→  - Our Approach visual flow: LEARN → PRACTICE → PREPARE → APPLY → BUILD YOUR CAREER (5-card grid)
+   129→  - Who We Serve grid (graduates, experienced professionals, career switchers, mortgage/lending aspirants)
+   130→  - Why Bengaluru section (qualitative — no fake location pages or stats)
+   131→  - Qualitative values cards (Industry-focused curriculum, Practical case studies, Hybrid learning, Placement assistance)
+   132→  - Final CTA with WhatsApp + Talk to Counsellor
+   133→- Built src/app/(public)/placement-process/page.tsx:
+   134→  - Hero + breadcrumbs
+   135→  - Vertical numbered timeline with 8 steps (Choose your course → Continue placement support)
+   136→  - Disclaimer block: "Placement assistance with a very high placement rate. Actual hiring depends on employer requirements and candidate suitability. VertexIT does not guarantee every candidate a job."
+   137→  - "What's included" cards (Resume guidance, Mock interviews, Interview preparation, Relevant opportunities, Career counselling, Skills reinforcement)
+   138→  - CTA: Talk to a Counsellor + WhatsApp
+   139→- Built src/app/(public)/success-stories/page.tsx:
+   140→  - Fetches getPublishedPlacementStories() and getPublishedTestimonials() (respects isPublished filter — demo records hidden at launch)
+   141→  - Custom PlacementStoryCard with photo, course badge, year, From→Now rows, company, location, package, short story, quote
+   142→  - Empty states (since launch records are unpublished): "Real student success stories will appear here once available. Meanwhile, speak with our counsellor..."
+   143→  - Testimonials grid using existing TestimonialCard
+   144→  - CTA with WhatsApp + Apply
+   145→- Built src/app/(public)/trainers/page.tsx:
+   146→  - Fetches getPublishedTrainers() (filters unpublished — does not invent qualifications)
+   147→  - TrainerCard grid (1 col mobile, 2 tablet, 3 desktop)
+   148→  - Empty state when no published trainers
+   149→  - CTA: "Want to learn from our mentors?" → /apply
+   150→- Built src/app/(public)/faq/page.tsx:
+   151→  - Fetches getPublishedFaqs(), groups by category (preserves order)
+   152→  - Accordion UI using existing @/components/ui/accordion (each category its own sub-section with heading)
+   153→  - Eligibility note: "Please speak with a VertexIT counsellor for current eligibility details."
+   154→  - Side CTA card with WhatsApp + Call buttons (sticky on desktop)
+   155→  - JSON-LD structured data via faqPageJsonLd(faqs) wrapped in <JsonLd> component (verified FAQPage schema renders)
+   156→- Built src/app/(public)/contact/page.tsx:
+   157→  - Two-column layout (contact info | LeadForm)
+   158→  - Left: Phone (9703686514), WhatsApp link, Location (Bengaluru, GB Play), Business hours (10:00 AM - 8:00 PM)
+   159→  - Email hidden gracefully (settings.email is null at launch — only rendered if set)
+   160→  - Social links rendered only when configured (instagram/linkedin/facebook/youtube)
+   161→  - Map: iframes settings.mapEmbedUrl when set, else styled placeholder block
+   162→  - Right: <LeadForm courses={courses} source="contact" />
+   163→- Built src/app/(public)/apply/page.tsx:
+   164→  - Hero with eyebrow "GET STARTED", title "Talk to a VertexIT counsellor", subheading
+   165→  - Centered LeadForm in a card (max-w-2xl)
+   166→  - Sidebar with WhatsApp + Call quick alternatives
+   167→  - "What happens next?" 3-step explainer: We review your enquiry → Counsellor contacts you → Personalised course recommendation
+   168→  - Fetches published courses for the dropdown
+   169→- Built src/app/(public)/privacy-policy/page.tsx:
+   170→  - Hero + draft notice banner (amber)
+   171→  - 7 sections: Information we collect, How we use information, Data storage & security, Cookies & tracking, Third-party services (mentions Resend + NextAuth), Your rights, Contact
+   172→  - References candidate contact info as personal data, data minimisation, never exposed publicly
+   173→  - Draft disclaimer at top + bottom
+   174→- Built src/app/(public)/terms-and-conditions/page.tsx:
+   175→  - 9 sections including Acceptance of terms, Use of website, Training enrollment, Course fees, Placement assistance, IP, Limitation of liability, Changes, Contact
+   176→  - Key clause: "Training does not automatically guarantee employment. Placement assistance is provided according to institute policy. Actual hiring depends on employer requirements and candidate suitability."
+   177→  - Draft notice banner
+   178→- Built src/app/(public)/disclaimer/page.tsx:
+   179→  - Hero + draft notice banner + highlighted "In short" summary
+   180→  - 8 clauses: training ≠ employment, placement assistance per policy, hiring depends on employer + suitability, course content is educational, regulatory varies by jurisdiction, AU mortgage training ≠ automatic broker licensing, testimonials reflect individual experiences, website accuracy
+   181→  - CTA: WhatsApp + Contact
+   182→- Built src/app/not-found.tsx (global 404, outside (public) group):
+   183→  - Standalone (no SiteHeader/SiteFooter) on navy gradient with dot-grid pattern
+   184→  - Logo + giant "404" + "Looks like this page moved." message
+   185→  - Buttons: Explore Courses → /courses, View Jobs → /jobs, Go Home → /
+   186→  - Renders inside the root layout (no duplicate html/body tags)
+   187→- Ran `bun run lint` — clean exit (no errors)
+   188→- Verified all pages return 200, 404 returns 404 with the custom page content, FAQ JSON-LD FAQPage schema renders, empty states appear correctly on success-stories/trainers (demo records unpublished as expected)
+   189→- Verified hero titles and key copy appear in server-rendered HTML for SEO
+   190→
+   191→Stage Summary:
+   192→- 11 page files created:
+   193→  - src/app/(public)/about/page.tsx
+   194→  - src/app/(public)/placement-process/page.tsx
+   195→  - src/app/(public)/success-stories/page.tsx
+   196→  - src/app/(public)/trainers/page.tsx
+   197→  - src/app/(public)/faq/page.tsx (with FAQPage JSON-LD)
+   198→  - src/app/(public)/contact/page.tsx (with LeadForm)
+   199→  - src/app/(public)/apply/page.tsx (with LeadForm)
+   200→  - src/app/(public)/privacy-policy/page.tsx
+   201→  - src/app/(public)/terms-and-conditions/page.tsx
+   202→  - src/app/(public)/disclaimer/page.tsx
+   203→  - src/app/not-found.tsx (standalone 404)
+   204→- All pages are Server Components by default, using shared site components (Breadcrumbs, SectionHeading, Reveal, EmptyState, LeadForm, TrainerCard, TestimonialCard, WhatsAppButton, LinkButton, JsonLd, Logo)
+   205→- Brand consistency: navy hero with dot-grid + teal accents throughout, mobile-first responsive (grid breakpoints tested at 375/768/1280 mental model), card-hover, scroll reveal animations, accessibility (semantic HTML, aria labels, focus rings)
+   206→- Compliance carefully applied:
+   207→  - Never claimed "100% job guarantee", "best institute", or "#1"
+   208→  - Used "Placement assistance with a very high placement rate" wording carefully
+   209→  - Explicit disclaimers on About, Placement Process, Disclaimer pages
+   210→  - No fabricated employer names, salary averages, placement statistics, or trainer credentials
+   211→  - Respected isPublished / isDemo flags — demo records (trainers, testimonials, placement stories) are correctly hidden, producing tasteful empty states
+   212→- Draft banners on all three legal pages: "This is a draft. Please review with legal counsel."
+   213→- All static public pages ready for production. Foundation already provides SiteHeader + SiteFooter + MobileCtaBar via src/app/(public)/layout.tsx; 404 intentionally standalone (no header/footer) as specified.
+   214→
+   215→---
+   216→Task ID: 4
+   217→Agent: full-stack-developer (courses/jobs/blog)
+   218→Task: Build courses, jobs, blog public pages
+   219→
+   220→Work Log:
+   221→- Read worklog.md and surveyed existing foundation (Prisma schema, services/public.ts, lib/seo, lib/whatsapp, shared site components).
+   222→- Created `src/app/(public)/courses/page.tsx` — courses list with breadcrumbs, SectionHeading (eyebrow "OUR PROGRAMS"), CourseCard 2-col grid via `getPublishedCourses()`, empty state, navy-gradient counsellor CTA, helper links to /placement-process, /jobs, /blog, /contact. Metadata via `buildPageMetadata({ path: "/courses" })`.
+   223→- Created `src/app/(public)/courses/[slug]/page.tsx` — rich course detail with `generateStaticParams` + `generateMetadata`. Renders introduction, whoFor, whatYouLearn + outcomes (checkmark grid), numbered modules, practicalLearning, caseStudies, careerRoles (labelled "Potential career pathways" with disclaimer), placementAssistance, trainingMode/eligibility, FAQs accordion, internal links (placement/jobs/blog/contact), amber disclaimer box, JSON-LD (Course + Breadcrumb + FAQPage), sticky sidebar (mode, duration="To be confirmed" if null, eligibility, key skills, pathways, CTAs). No pricing shown anywhere.
+   224→- Created `src/app/(public)/jobs/page.tsx` — jobs list with breadcrumbs, SectionHeading (eyebrow "CURRENT OPENINGS"), JobCard grid via `getPublishedJobs()`, EXCELLENT empty state ("No current openings…") with WhatsApp + Call buttons, dual CTA cards (explore training + get notified). Metadata title "Mortgage Jobs & Career Opportunities | VertexIT".
+   225→- Created `src/components/site/job-apply-form.tsx` (client) — Apply form: candidateName, phone, email (optional), coverMessage (optional), resume upload (PDF/DOC/DOCX, max 5MB) with file picker, honeypot field, posts multipart/form-data with jobId to /api/job-applications. Success state, error state with WhatsApp fallback.
+   226→- Created `src/app/(public)/jobs/[slug]/page.tsx` — job detail with `generateStaticParams` + `generateMetadata`. Hero with company/location/experience/posted/salary (only if supplied, else "To be discussed"), company fallback "Confidential", sticky quick-summary card with Apply Now anchor, sections for description/responsibilities/requirements/skills, recommended-course card (resolved via jobId or courseDomain), sticky sidebar with `<JobApplyForm>`. JSON-LD: JobPosting + BreadcrumbList.
+   227→- Created `src/components/site/blog-category-filter.tsx` (client) — pill-style category filter linking to `/blog?category={slug}` (active state highlighted). Includes "All" pill.
+   228→- Created `src/app/(public)/blog/page.tsx` — blog list with breadcrumbs, SectionHeading (eyebrow "CAREER INSIGHTS"), category filter, BlogCard grid filtered via `?category=` searchParam, empty state ("We're publishing new articles soon"), dual CTA (explore courses + counsellor). Metadata title "Mortgage Career Blog | VertexIT".
+   229→- Created `src/app/(public)/blog/[slug]/page.tsx` — post detail with `generateStaticParams` + `generateMetadata` (article type, publishedTime/modifiedTime). Hero with category badge/title/excerpt/author/date, featured image, body rendered via `react-markdown` with custom styled components (h1-h3, p, ul/ol, blockquote, code, a, strong, em, hr), tags, author footer, recommended-course or explore-courses CTA, related posts via `getRelatedBlogPosts()` (3), internal links to /courses, /placement-process, /contact. JSON-LD: BlogPosting + BreadcrumbList.
+   230→- Ran `bun run lint` — passed with exit 0.
+   231→- Smoke tested via curl: `/courses`, `/jobs`, `/blog` → 200; `/courses/us-mortgage-underwriting` → 200 with all sections + JSON-LD; unpublished demo jobs/posts correctly return 404 via `notFound()`. Temporarily published one demo job + one blog post to verify detail rendering (JobApplyForm fields, JobPosting JSON-LD, react-markdown body, related-course CTA logic), then reverted.
+   232→
+   233→Stage Summary:
+   234→- Files created:
+   235→  - `src/app/(public)/courses/page.tsx`
+   236→  - `src/app/(public)/courses/[slug]/page.tsx`
+   237→  - `src/app/(public)/jobs/page.tsx`
+   238→  - `src/app/(public)/jobs/[slug]/page.tsx`
+   239→  - `src/app/(public)/blog/page.tsx`
+   240→  - `src/app/(public)/blog/[slug]/page.tsx`
+   241→  - `src/components/site/job-apply-form.tsx` (client)
+   242→  - `src/components/site/blog-category-filter.tsx` (client)
+   243→- Constraints honoured: no course pricing shown publicly; duration null → "To be confirmed"; career pathways framed as "Potential" with disclaimer; job company empty → "Confidential"; salary only if supplied, else "To be discussed"; no invented employer names / salary averages / placement stats.
+   244→- Server Components by default; "use client" only on the interactive JobApplyForm and BlogCategoryFilter.
+   245→- Mobile-first responsive layouts, semantic HTML, aria labels, alt text, focus-visible rings. Sticky sidebar on desktop for course & job detail. Cards use rounded-2xl + border-slate-200 + bg-white; buttons rounded-full.
+   246→- All pages reuse shared components: Breadcrumbs, SectionHeading, CourseCard, JobCard, BlogCard, EmptyState, Reveal, WhatsAppButton, LinkButton, JsonLd.
+   247→- All public reads go through `services/public.ts` (published-only). SEO uses `buildPageMetadata` + JSON-LD helpers from `lib/seo`.
+   248→
+   249→---
+   250→Task ID: 7-b
+   251→Agent: full-stack-developer (admin courses CMS)
+   252→Task: Build admin courses list, new, edit, form, and API routes
+   253→
+   254→Work Log:
+   255→- Read /home/z/my-project/worklog.md to understand foundation (Task 0: Prisma schema, design system, lib utilities; Task 3/4/5: public site). Confirmed admin layout (auth-guarded, sidebar+topbar) at src/app/admin/(dashboard)/layout.tsx, reusable admin primitives (AdminPageHeader/AdminCard/AdminEmpty/AdminBadge) at src/components/admin/primitives.tsx, admin API helpers (getAdminUser, requireAdminApi, parseBody, ok, fail, withAudit) at src/lib/admin-api.ts, and existing admin-content-schemas.ts (job/blog schemas + slugify helper). Verified shadcn Table, Select, Switch, AlertDialog, Button, Input, Textarea, Label, Badge all present in src/components/ui.
+   256→- Extended src/lib/admin-content-schemas.ts with the Course zod schema (courseSchema + COURSE_TRAINING_MODES + COURSE_STATUSES + CourseInput type) covering: Basics (title, slug, shortDescription, featuredImage, trainingMode, status, displayOrder), Content (8 long-form text fields), Skills/Pathways (newline-separated), Schedule (duration/batchSchedule/courseFee all nullable), SEO (metaTitle/description/canonicalUrl/ogTitle/ogDescription/ogImage), Publishing (isPublished/isDemo), and relations arrays (modules/outcomes/faqs). Empty-string safe defaults applied for backward compatibility with seed rows.
+   257→- Created src/app/api/admin/courses/route.ts: GET (lists all courses — published AND unpublished, ordered by displayOrder asc + createdAt desc, with _count for modules), POST (validates with courseSchema, enforces slug uniqueness, creates course with nested modules/outcomes/faqs using Prisma nested writes with sortOrder=index, logs CREATE_COURSE audit, fires admin notification on publish).
+   258→- Created src/app/api/admin/courses/[id]/route.ts: GET (single course + relations for edit form), PUT (validates, enforces slug uniqueness excluding self, uses db.$transaction to deleteMany all modules/outcomes/faqs then update the course with nested creates — replace-all strategy — fires admin notification on publish transition), DELETE (404 if not found, cascading delete handled by Prisma onDelete: Cascade already in schema, logs DELETE_COURSE audit). All three handlers use requireAdminApi("CONTENT_EDITOR") and return {ok:true, id} / {ok:false, error}.
+   259→- Created src/components/admin/course-form.tsx (client component): single-page comprehensive form organised into AdminCard sections (Basics, Content, Skills & Pathways, Schedule & Fee, SEO & Social, Publishing, Modules, Outcomes, FAQs). Uses plain useState (no RHF/zod on the client) for simplicity. Features: slug auto-derives from title via slugify() until the user manually edits the slug field (slugTouched ref/state). Modules/Outcomes/FAQs support add/remove/reorder (up/down buttons). courseFee field marked with amber AlertTriangle warning badge "Never shown publicly on the website" + helper copy. duration hint notes "Leave blank to show 'To be confirmed' publicly". Sticky footer with summary badges (modules/outcomes/faqs counts) + View-on-site link (edit mode only) + Cancel/Save buttons. Submits to POST /api/admin/courses (new) or PUT /api/admin/courses/[id] (edit); on success: sonner toast + router.push("/admin/courses") + router.refresh(). On error: inline red banner + toast. Friendly messages everywhere — never surfaces technical errors.
+   260→- Created src/components/admin/course-actions.tsx (client component): row-level actions (Edit pencil → /admin/courses/[id], View-on-site external link shown only when published, Delete trash → AlertDialog confirmation). Mirrors existing AdminJobActions pattern exactly. On delete: calls DELETE /api/admin/courses/[id], shows toast on success/failure, calls router.refresh() to update the table.
+   261→- Created src/app/admin/(dashboard)/courses/page.tsx (server component, force-dynamic): AdminPageHeader with "New Course" navy action button → /admin/courses/new. Three summary cards (Total / Published / Drafts). shadcn Table with columns: Course (title + truncated shortDescription, links to edit), Slug (code-styled), Mode, Status (AdminBadge coloured by status), Published (green badge) + Demo (amber badge when applicable), Modules count chip, Created date (date-fns format), Actions (AdminCourseActions). Empty state via AdminEmpty when no courses.
+   262→- Created src/app/admin/(dashboard)/courses/new/page.tsx (server component): AdminPageHeader "New Course" with backHref="/admin/courses", renders <CourseForm /> with no initial state (empty form).
+   263→- Created src/app/admin/(dashboard)/courses/[id]/page.tsx (server component, force-dynamic): fetches course by id with relations (modules/outcomes/faqs ordered by sortOrder asc), calls notFound() if missing, maps to CourseFormInitial shape (preserving existing row ids for reference) and renders <CourseForm initial={initial} />. AdminPageHeader "Edit Course" with course.title as description + backHref="/admin/courses".
+   264→- Lint check: ran `bunx eslint` on all newly created files and admin-content-schemas.ts — zero warnings, zero errors. (Two pre-existing errors in src/app/admin/(dashboard)/blog/page.tsx and src/app/admin/(dashboard)/jobs/page.tsx — escaped-quote parsing issues left by an earlier agent; not touched by this task.)
+   265→- TypeScript check: ran `bunx tsc --noEmit` — zero errors in any of my new files. Only the same two pre-existing files (blog/page.tsx, jobs/page.tsx) error.
+   266→- Verified dev.log: only pre-existing entries (homepage revalidations, prisma query logs). No errors related to admin/courses routes. Dev server was running during initial development (no longer alive as of final check — auto-restarted by the system per spec).
+   267→
+   268→Stage Summary:
+   269→- Files created:
+   270→  - src/app/admin/(dashboard)/courses/page.tsx (list page, server)
+   271→  - src/app/admin/(dashboard)/courses/new/page.tsx (new wrapper, server)
+   272→  - src/app/admin/(dashboard)/courses/[id]/page.tsx (edit wrapper, server)
+   273→  - src/components/admin/course-form.tsx (client, comprehensive form)
+   274→  - src/components/admin/course-actions.tsx (client, row actions + delete dialog)
+   275→  - src/app/api/admin/courses/route.ts (GET list, POST create)
+   276→  - src/app/api/admin/courses/[id]/route.ts (GET single, PUT update with replace-all relations, DELETE cascade)
+   277→- Files modified:
+   278→  - src/lib/admin-content-schemas.ts (appended courseSchema + COURSE_TRAINING_MODES + COURSE_STATUSES + CourseInput type — appended, did not touch existing job/blog schemas)
+   279→- Architecture decisions:
+   280→  - Modules/outcomes/faqs handled via replace-all on PUT inside a db.$transaction (deleteMany → update with nested creates). Simpler than diffing and the form already sends full arrays each save.
+   281→  - Slug auto-derives from title until the user manually edits the slug field — implemented with a ref + state pair so title-driven updates don't clobber manual edits.
+   282→  - courseFee marked with amber AlertTriangle warning badge + helper text "Never shown publicly on the website" — matches spec constraint.
+   283→  - duration null is valid — the form preserves null and the public course page already renders "To be confirmed" when null.
+   284→  - Server components for list/new/edit pages; "use client" only on CourseForm (interactivity) and CourseActions (delete dialog + router.refresh).
+   285→  - All API routes use requireAdminApi("CONTENT_EDITOR"), validate via zod, log via withAudit(), return {ok:true, id} / {ok:false, error}. Friendly error messages — no technical stack traces leaked to UI.
+   286→  - Admin pages use light theme: white AdminCards on slate-50 bg (from dashboard layout), navy headings, navy primary button with teal accents. Tables have hover states. Forms are mobile-responsive (single-column on mobile, 2-col on sm+).
+   287→  - Sticky footer action bar on the form (white/95 backdrop-blur) keeps Save visible while scrolling long content sections.
+   288→
+   289→---
+   290→Task ID: 7-c
+   291→Agent: full-stack-developer (admin jobs + blog CMS)
+   292→Task: Build admin jobs and blog CMS pages, forms, and API routes
+   293→
+   294→Work Log:
+   295→- Read worklog.md (Tasks 0–5), admin layout, primitives (AdminPageHeader/AdminCard/AdminEmpty/AdminBadge), admin-api helpers (requireAdminApi/parseBody/ok/fail/withAudit), validations, Prisma schema (Job + BlogPost + BlogCategory), existing shadcn/ui components (Table/Input/Textarea/Select/Switch/Label/Button/AlertDialog/Calendar/Popover), and the existing public JobApplyForm and BlogCategoryFilter for style alignment.
+   296→- Created shared zod schemas in `src/lib/admin-content-schemas.ts` — `jobSchema`, `blogPostSchema`, `slugify()` helper. Both accept nullable strings (salary, courseDomain, metaTitle etc.) and a `isoOrUndefined` transform that converts ISO date strings (or yyyy-mm-dd inputs) into Date objects while tolerating null/empty.
+   297→- Built Jobs CMS API:
+   298→  - `src/app/api/admin/jobs/route.ts` — GET (list ordered by postedDate desc) + POST (create). Enforces slug uniqueness (409), resolves `courseDomain` slug → `courseId` foreign key, sends an AdminNotification when a job is published, withAudit("CREATE_JOB").
+   299→  - `src/app/api/admin/jobs/[id]/route.ts` — GET (full detail), PUT (update with same slug-uniqueness + courseDomain→courseId resolution + audit "UPDATE_JOB"), DELETE (cascade removes JobApplication records via Prisma onDelete: Cascade, audit "DELETE_JOB").
+   300→- Built Blog CMS API:
+   301→  - `src/app/api/admin/blog/route.ts` — GET (list with category join) + POST (create with categoryId/courseId FK validation, audit "CREATE_BLOG"). publishedAt is set to now() when isPublished becomes true and no explicit date supplied.
+   302→  - `src/app/api/admin/blog/[id]/route.ts` — GET (full detail with category), PUT (update with FK revalidation, audit "UPDATE_BLOG"), DELETE (audit "DELETE_BLOG").
+   303→  - `src/app/api/admin/blog/categories/route.ts` — GET (list all blog categories for the form select).
+   304→- All admin API routes call `requireAdminApi("CONTENT_EDITOR")` and return JSON in `{ ok, id?, error?, issues? }` shape.
+   305→- Built Jobs CMS UI (server-rendered by default; "use client" only where interactivity is required):
+   306→  - `src/app/admin/(dashboard)/jobs/page.tsx` — AdminPageHeader with "New Job" → /admin/jobs/new, summary cards (Published / Drafts / Total) and a clean table (title+slug, company w/ "Confidential" fallback, location, workMode+jobType, experience, status badge with isDemo tag, posted date+time, Edit/Delete actions). Empty state via AdminEmpty.
+   307→  - `src/app/admin/(dashboard)/jobs/new/page.tsx` — wraps `<JobForm>` with AdminPageHeader "New Job" + backHref.
+   308→  - `src/app/admin/(dashboard)/jobs/[id]/page.tsx` — fetches job by id (with `_count.applications`), notFound() if missing, serialises dates to ISO/yyyy-mm-dd strings, passes to `<JobForm initial={...}>` with AdminPageHeader "Edit Job" + backHref + application count description.
+   309→  - `src/components/admin/job-form.tsx` (client) — Two-column layout (main + sticky sidebar). Sections: Job Details (title/slug auto+manual, company, location, experience, salary nullable, jobType Select, workMode Select, courseDomain Select populated from published courses), Job Content (description/responsibilities/requirements/skills textareas with per-line hints), SEO (metaTitle/metaDescription). Sidebar: Status (isPublished/isExpired/isDemo switches with navy/amber/slate tracks), closingDate native date input with Calendar icon, primary "Publish" / secondary "Save as draft" / conditional "Unpublish" buttons. Delete is an AlertDialog ("Delete job"). Mobile gets a sticky bottom action bar. Auto-slug regenerates from title until user edits the slug field manually.
+   310→  - `src/components/admin/job-actions.tsx` (client) — Edit (Pencil link) + Delete (AlertDialog) used in the table row.
+   311→- Built Blog CMS UI:
+   312→  - `src/app/admin/(dashboard)/blog/page.tsx` — AdminPageHeader with "New Post" → /admin/blog/new, summary cards (Published / Drafts / Total) and table (title+slug, category badge, author, status badge w/ isDemo, publishedAt, updatedAt, Edit/Delete actions).
+   313→  - `src/app/admin/(dashboard)/blog/new/page.tsx` — fetches categories + published courses server-side, passes both to `<BlogForm>`.
+   314→  - `src/app/admin/(dashboard)/blog/[id]/page.tsx` — fetches post (with category join), serialises datetimes, passes to `<BlogForm initial={...}>`.
+   315→  - `src/components/admin/blog-form.tsx` (client) — Sections: Article Details (title/slug auto+manual, author, category Select, tags, excerpt, featuredImage URL with live preview <img>), Content (large textarea with "Markdown supported" helper, monospace font), SEO & Social (metaTitle, metaDescription, canonicalUrl, ogTitle, ogDescription, ogImage). Sidebar: Publish (isPublished/isDemo switches, publishedAt datetime-local input, courseId Select for internal linking), primary "Publish" / secondary "Save as draft" / conditional "Unpublish". Delete via AlertDialog in a "Danger zone" card. Mobile sticky bottom action bar.
+   316→  - `src/components/admin/blog-actions.tsx` (client) — Edit + Delete (AlertDialog) for table rows.
+   317→- Honoured constraints: salary null valid (saves as null, shows "To be discussed" publicly), company empty string valid (shows "Confidential" publicly), postedDate auto-set on create only (never overwritten on PUT), admin pages noindex (set per-page metadata.robots, layout also forces noindex), no technical error messages leaked (all API errors return friendly copy), used server components by default and "use client" only for forms + table action cells.
+   318→- Brand design applied: white cards on slate-50 background, rounded-xl border-slate-200 cards, font-heading text-navy headings, navy primary buttons with hover:bg-navy-light, teal accents for icons/links, mobile-first responsive (lg:sticky sidebar, mobile sticky bottom bar, table overflow-x-auto, all controls ≥44px touch targets).
+   319→- Form interactions: toast notifications via sonner on success/error, AlertDialog confirm for deletes, "Save as draft" = isPublished false + save, "Publish" = isPublished true + save (auto-stamps publishedAt if null on server), "Unpublish" shown when currently published (sets isPublished false). Auto-slug from title with manual "Auto" button to regenerate.
+   320→- Verified `bun run lint` → 0 errors in my files (the single remaining warning is in another agent's media-manager.tsx which is out of scope).
+   321→- Verified `bunx tsc --noEmit` → 0 TypeScript errors in any of my files (other agents' WIP files have unrelated type errors).
+   322→
+   323→Stage Summary:
+   324→- Files created (16 total):
+   325→  - API routes (5): `src/app/api/admin/jobs/route.ts`, `src/app/api/admin/jobs/[id]/route.ts`, `src/app/api/admin/blog/route.ts`, `src/app/api/admin/blog/[id]/route.ts`, `src/app/api/admin/blog/categories/route.ts`
+   326→  - Admin pages (6): `src/app/admin/(dashboard)/jobs/page.tsx`, `src/app/admin/(dashboard)/jobs/new/page.tsx`, `src/app/admin/(dashboard)/jobs/[id]/page.tsx`, `src/app/admin/(dashboard)/blog/page.tsx`, `src/app/admin/(dashboard)/blog/new/page.tsx`, `src/app/admin/(dashboard)/blog/[id]/page.tsx`
+   327→  - Client components (4): `src/components/admin/job-form.tsx`, `src/components/admin/job-actions.tsx`, `src/components/admin/blog-form.tsx`, `src/components/admin/blog-actions.tsx`
+   328→  - Shared lib (1): `src/lib/admin-content-schemas.ts`
+   329→- All admin API routes use `requireAdminApi("CONTENT_EDITOR")` + zod validation via `parseBody` + `withAudit` for CREATE_JOB/UPDATE_JOB/DELETE_JOB/CREATE_BLOG/UPDATE_BLOG/DELETE_BLOG audit log entries.
+   330→- Jobs CMS and Blog CMS are fully functional end-to-end: list → new/edit form → save/publish/delete → audit log. Forms handle all field types in the spec including nullable salary/company, auto-slug, date pickers, SEO fields, and demo/published/expired toggles.
+   331→
+   332→---
+   333→Task ID: 7-d
+   334→Agent: full-stack-developer (admin simple CRUD)
+   335→Task: Build admin trainers, testimonials, placement-stories, faqs, site-settings, media, users, audit-logs, notifications pages + API routes
+   336→
+   337→Work Log:
+   338→- Read worklog.md and existing admin foundation (AdminSidebar, nav-config, AdminPageHeader/AdminCard/AdminEmpty/AdminBadge primitives, requireAdminApi/parseBody/ok/fail/withAudit helpers, requireAdmin server guard, hashPassword, clearSettingsCache, Prisma schema for all relevant models).
+   339→- Designed a consistent pattern for simple CMS entities: server page (requireAdmin + DB fetch + serialize Dates → ISO strings) renders a client `<Entity>Manager` component which holds the table, an inline Dialog form for create/edit, and an AlertDialog for delete confirmation. Mutations call the API and call router.refresh() + optimistic local state update. Toasts via sonner for feedback.
+   340→- Built Trainers CRUD (CONTENT_EDITOR): GET/POST `/api/admin/trainers`, PUT/DELETE `/api/admin/trainers/[id]`; admin page + `<TrainersManager>` with fields name, designation, experience, specialization, bio, photo, linkedinUrl, sortOrder, isPublished, isDemo. Tables show published/demo badges, sort order, edit/delete actions.
+   341→- Built Testimonials CRUD: rating select (1–5 stars), studentName, course, quote, photo, sortOrder, isPublished, isDemo. Table shows star rendering.
+   342→- Built Placement Stories CRUD with the full schema (studentName, course, previousBackground, newRole, company, package, location, year, shortStory, quote, offerLetterImage, photo, sortOrder, isPublished, isDemo). Wide dialog with 2-col grid + scrollable.
+   343→- Built FAQs CRUD: preset categories (General, Eligibility, Training, Courses, Placement, Fees, Contact) with a "Custom…" option that reveals a free-text input. Schema enforces category min-1 length.
+   344→- Built Site Settings full-page form (GET + PUT upsert singleton): Brand, Contact, Social, Homepage hero/final CTA, SEO defaults sections using AdminCard. On PUT: validate with zod, sanitize text, db.siteSettings.upsert, then `clearSettingsCache()` so public pages reflect changes immediately, plus audit log entry. Page initial state merges DEFAULT_SETTINGS fallback when no row exists yet.
+   345→- Built Media Library: file input (image/* only), POST multipart `/api/admin/media/upload` validates MIME (png/jpeg/webp/gif/svg) + size (≤5MB), writes to `/public/uploads/<random>.<ext>` (mkdir -p), creates MediaAsset row, returns {ok, url, id, asset}. Grid of 4-col thumbnails with inline alt-text edit, Copy URL button, Delete (best-effort file unlink). GET `/api/admin/media`, PUT/DELETE `/api/admin/media/[id]`.
+   346→- Built Users management (SUPER_ADMIN only — both server guard `requireAdmin("SUPER_ADMIN")` and API `requireAdminApi("SUPER_ADMIN")`): GET list + POST create with hashPassword + email uniqueness check. PUT `/api/admin/users/[id]` supports role change, isActive toggle, resetPassword (re-hash) — blocks self role-change, self-deactivation. DELETE blocks self-deletion. UI shows role dropdown inline, active Switch inline, last-login timestamp, "you" badge on current user.
+   347→- Built Audit Logs (ADMIN+): GET `/api/admin/audit-logs?action=&page=` with 50-per-page pagination + total count. UI has filter input, prev/next buttons, page counter, formatted timestamps.
+   348→- Built Notifications: GET `/api/admin/notifications` (latest 100), POST `/api/admin/notifications/read-all` (updateMany isRead=false→true), PATCH `/api/admin/notifications/[id]` (single mark-as-read used when clicking an individual notification). UI shows title/message/link/createdAt, "New" badge on unread, click → optimistic mark-read + router.push(link). "Mark all as read" button with disabled state when no unread.
+   349→- API security: every route starts with `requireAdminApi(minRole)`; user pages use `requireAdmin(minRole)` which redirects to /admin/login if unauthenticated or /admin?error=forbidden if insufficient role.
+   350→- Input validation: every POST/PUT body validated with zod schemas, sanitized with sanitizeText to strip HTML/scripts. Friendly error messages (no stack traces exposed).
+   351→- Auditing: each create/update/delete calls `withAudit(user, "ACTION_ENTITY", "Entity", id, metadata)` so the audit log captures all admin mutations.
+   352→- Fixed TS narrowing issues with `parseBody` return type: updated all routes to use `if (validationError || !data) return validationError ?? fail("Validation failed", 422);` pattern (matches existing courses API). Serialized all Prisma Date objects to ISO strings before passing from server → client components to satisfy typed client interfaces.
+   353→- Ran `bunx tsc --noEmit` — all my files clean. Only pre-existing errors remain in dashboard page.tsx (groupBy typing) and other unrelated skills/examples files.
+   354→- Ran `bun run lint` — clean exit (0 errors, 0 warnings).
+   355→- Verified dev log shows no compile errors; admin routes haven't been hit yet (server compiles on demand).
+   356→
+   357→Stage Summary:
+   358→- Files created (admin pages — 9):
+   359→  - src/app/admin/(dashboard)/trainers/page.tsx
+   360→  - src/app/admin/(dashboard)/testimonials/page.tsx
+   361→  - src/app/admin/(dashboard)/placement-stories/page.tsx
+   362→  - src/app/admin/(dashboard)/faqs/page.tsx
+   363→  - src/app/admin/(dashboard)/site-settings/page.tsx
+   364→  - src/app/admin/(dashboard)/media/page.tsx
+   365→  - src/app/admin/(dashboard)/users/page.tsx (SUPER_ADMIN guarded)
+   366→  - src/app/admin/(dashboard)/audit-logs/page.tsx (ADMIN+ guarded)
+   367→  - src/app/admin/(dashboard)/notifications/page.tsx
+   368→- Files created (client components — 9):
+   369→  - src/components/admin/trainers-manager.tsx
+   370→  - src/components/admin/testimonials-manager.tsx
+   371→  - src/components/admin/placement-stories-manager.tsx
+   372→  - src/components/admin/faqs-manager.tsx
+   373→  - src/components/admin/site-settings-form.tsx
+   374→  - src/components/admin/media-manager.tsx
+   375→  - src/components/admin/users-manager.tsx
+   376→  - src/components/admin/audit-logs-manager.tsx
+   377→  - src/components/admin/notifications-manager.tsx
+   378→- Files created (API routes — 17):
+   379→  - src/app/api/admin/trainers/route.ts (GET, POST)
+   380→  - src/app/api/admin/trainers/[id]/route.ts (PUT, DELETE)
+   381→  - src/app/api/admin/testimonials/route.ts (GET, POST)
+   382→  - src/app/api/admin/testimonials/[id]/route.ts (PUT, DELETE)
+   383→  - src/app/api/admin/placement-stories/route.ts (GET, POST)
+   384→  - src/app/api/admin/placement-stories/[id]/route.ts (PUT, DELETE)
+   385→  - src/app/api/admin/faqs/route.ts (GET, POST)
+   386→  - src/app/api/admin/faqs/[id]/route.ts (PUT, DELETE)
+   387→  - src/app/api/admin/site-settings/route.ts (GET, PUT — upsert + clearSettingsCache)
+   388→  - src/app/api/admin/media/route.ts (GET)
+   389→  - src/app/api/admin/media/upload/route.ts (POST multipart, validates image MIME + 5MB cap)
+   390→  - src/app/api/admin/media/[id]/route.ts (PUT alt text, DELETE)
+   391→  - src/app/api/admin/users/route.ts (GET, POST with hashPassword)
+   392→  - src/app/api/admin/users/[id]/route.ts (PUT role/active/resetPassword, DELETE — self-protection)
+   393→  - src/app/api/admin/audit-logs/route.ts (GET with ?action= &page= pagination)
+   394→  - src/app/api/admin/notifications/route.ts (GET)
+   395→  - src/app/api/admin/notifications/read-all/route.ts (POST)
+   396→  - src/app/api/admin/notifications/[id]/route.ts (PATCH — single mark-as-read)
+   397→- Design: navy primary buttons (bg-navy/text-white hover:bg-navy/90), AdminCard white cards on slate-50, AdminBadge tones (slate/teal/navy/amber/red/green) for published/draft/demo/new badges, mobile-responsive tables with responsive hidden columns, sticky footer inherited from admin layout.
+   398→- Audit trail: every CUD operation writes to AuditLog via withAudit() with action codes CREATE_TRAINER, UPDATE_TRAINER, DELETE_TRAINER, CREATE_TESTIMONIAL, …, UPLOAD_MEDIA, UPDATE_SITE_SETTINGS, CREATE_USER, UPDATE_USER, DELETE_USER. Audit logs page renders these read-only.
+   399→- All admin pages have `export const dynamic = "force-dynamic"` for fresh data per request.
+   400→
+   401→---
+   402→Task ID: 7-leads + 8 + verification
+   403→Agent: main
+   404→Task: Admin leads management, SEO files, error boundary, final verification
+   405→
+   406→Work Log:
+   407→- Built admin leads management:
+   408→  - /admin/leads list page with status pills, search (debounced), course filter, pagination
+   409→  - /admin/leads/[id] detail page with contact info, status updater, notes, status history timeline, tracking metadata
+   410→  - Client components: LeadFilters, LeadsTable, LeadStatusUpdater, LeadNotes, LeadDetailActions
+   411→  - API routes: GET/POST /api/admin/leads, GET/PUT/DELETE /api/admin/leads/[id], POST /api/admin/leads/[id]/notes
+   412→  - Status changes logged to LeadStatusHistory + AuditLog; lastContactedAt auto-updated on status change
+   413→- Built admin layout (auth-guarded via NextAuth + requireAdmin), sidebar, topbar, login page
+   414→- Built admin dashboard with real stats: total/new/follow-up leads, job applications, published courses/jobs/blog, placement stories, recent enquiries, lead status breakdown bar chart, course enquiry breakdown, recent notifications
+   415→- Created SEO infrastructure:
+   416→  - /robots.ts (dynamic, disallows /admin /api /private /_next)
+   417→  - /sitemap.ts (dynamic, includes static pages + published courses/jobs/blog posts)
+   418→  - /error.tsx global error boundary
+   419→- Removed conflicting static public/robots.txt so dynamic route works
+   420→- Fixed lint error in lead-filters.tsx (useRef for debounce timer instead of mutable variable)
+   421→- Restructured admin routes: login at /admin/login (no layout guard), all protected pages in /admin/(dashboard)/ with auth-guarded layout
+   422→
+   423→Stage Summary:
+   424→- ALL routes verified returning 200: /, /courses, /courses/[slug], /jobs, /blog, /about, /placement-process, /success-stories, /trainers, /faq, /contact, /apply, /privacy-policy, /terms-and-conditions, /disclaimer, /admin/login, /admin/*, /robots.txt, /sitemap.xml
+   425→- Homepage renders all 15 sections with premium navy/teal design
+   426→- Course detail page renders with breadcrumbs, modules, outcomes, FAQs, sticky sidebar, JSON-LD
+   427→- Admin login works (admin@vertexit.in / vertexit123), redirects to dashboard
+   428→- Lead form submission works end-to-end: /apply form → /api/leads → DB → admin /admin/leads shows the new lead
+   429→- Admin sidebar shows all 13 modules; topbar shows notifications + user role + sign out
+   430→- Lint passes clean (0 errors, 0 warnings)
+   431→- Dev server runs on port 3000
+   432→
+   433→Unresolved / Notes:
+   434→- Resend email not configured (RESEND_API_KEY empty) — leads still save successfully, email fails gracefully with server-side warning (as designed)
+   435→- Demo trainers/testimonials/placement-stories/jobs are seeded but unpublished (is_demo=true, isPublished=false) — admin can publish them when ready
+   436→- Blog posts seeded as drafts (unpublished) — admin reviews & publishes via CMS
+   437→- Phase 2 student portal routes architecturally reserved (schema supports students/enrollments/progress/placement) but not publicly exposed in Phase 1
+   438→- Admin pages are noindex; public pages are indexable with canonical URLs
+   439→
