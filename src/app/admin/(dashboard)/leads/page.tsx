@@ -4,7 +4,8 @@ import { AdminPageHeader } from "@/components/admin/primitives";
 import { LeadFilters } from "@/components/admin/lead-filters";
 import { LeadsTable } from "@/components/admin/leads-table";
 import { LEAD_STATUSES } from "@/components/admin/nav-config";
-import { computeLeadScore } from "@/lib/lead-scoring";
+import { computeLeadScore, getScoreTone } from "@/lib/lead-scoring";
+import { Flame, TrendingUp, Minus } from "lucide-react";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -19,6 +20,7 @@ export default async function AdminLeadsPage({
 
   const status = params.status;
   const course = params.course;
+  const scoreFilter = params.score; // "hot" | "warm" | "cold"
   const q = params.q?.trim();
   const page = Math.max(1, parseInt(params.page || "1", 10));
   const pageSize = 20;
@@ -52,8 +54,8 @@ export default async function AdminLeadsPage({
     db.course.findMany({ select: { id: true, title: true }, orderBy: { title: "asc" } }),
   ]);
 
-  // Compute lead scores for prioritisation
-  const leads = leadsRaw.map((l) => ({
+  // Compute lead scores for prioritisation and apply score filter
+  const allLeadsWithScores = leadsRaw.map((l) => ({
     id: l.id,
     fullName: l.fullName,
     phone: l.phone,
@@ -66,6 +68,18 @@ export default async function AdminLeadsPage({
     course: l.course,
     assignedCounsellor: l.assignedCounsellor,
   }));
+
+  // Filter by score tone if requested
+  const leads = scoreFilter
+    ? allLeadsWithScores.filter((l) => getScoreTone(l.score) === scoreFilter)
+    : allLeadsWithScores;
+
+  // Count leads by score tone (across all filtered leads, not just current page)
+  const scoreCounts = {
+    hot: allLeadsWithScores.filter((l) => getScoreTone(l.score) === "hot").length,
+    warm: allLeadsWithScores.filter((l) => getScoreTone(l.score) === "warm").length,
+    cold: allLeadsWithScores.filter((l) => getScoreTone(l.score) === "cold").length,
+  };
 
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
@@ -109,6 +123,44 @@ export default async function AdminLeadsPage({
               }`}
             >
               {s} <span className="opacity-70">{count}</span>
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Score filter pills */}
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-xs font-semibold text-muted-foreground">Score:</span>
+        <Link
+          href={`/admin/leads?${new URLSearchParams({ ...(status ? { status } : {}), ...(course ? { course } : {}), ...(q ? { q } : {}) }).toString()}`}
+          className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold ${
+            !scoreFilter ? "bg-navy text-white" : "bg-white border border-slate-200 text-navy hover:border-teal"
+          }`}
+        >
+          All <span className="opacity-70">{allLeadsWithScores.length}</span>
+        </Link>
+        {([
+          { key: "hot", label: "Hot", count: scoreCounts.hot, icon: Flame, color: "red" },
+          { key: "warm", label: "Warm", count: scoreCounts.warm, icon: TrendingUp, color: "amber" },
+          { key: "cold", label: "Cold", count: scoreCounts.cold, icon: Minus, color: "slate" },
+        ] as const).map((s) => {
+          if (s.count === 0 && scoreFilter !== s.key) return null;
+          const isActive = scoreFilter === s.key;
+          const activeColor = {
+            red: "bg-red-500 text-white",
+            amber: "bg-amber-500 text-white",
+            slate: "bg-slate-500 text-white",
+          }[s.color];
+          return (
+            <Link
+              key={s.key}
+              href={`/admin/leads?${new URLSearchParams({ ...(status ? { status } : {}), ...(course ? { course } : {}), ...(q ? { q } : {}), score: s.key }).toString()}`}
+              className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold ${
+                isActive ? activeColor : "bg-white border border-slate-200 text-navy hover:border-teal"
+              }`}
+            >
+              <s.icon className="h-3 w-3" />
+              {s.label} <span className="opacity-70">{s.count}</span>
             </Link>
           );
         })}

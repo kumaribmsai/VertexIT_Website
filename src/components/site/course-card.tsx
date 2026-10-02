@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Clock, GraduationCap, Briefcase } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CompareButton } from "@/components/site/compare-button";
 
 export type CourseCardData = {
   id: string;
@@ -100,12 +101,15 @@ export function CourseCard({ course, className }: { course: CourseCardData; clas
           <span className="inline-flex items-center gap-1 text-sm font-semibold text-teal group-hover:gap-1.5 transition-all">
             View Course <ArrowRight className="h-4 w-4" />
           </span>
-          <Link
-            href="/apply"
-            className="relative z-10 rounded-full border border-navy/15 px-3 py-1 text-[0.7rem] font-semibold text-navy transition-colors hover:border-teal hover:text-teal"
-          >
-            Talk to Counsellor
-          </Link>
+          <div className="relative z-10 flex items-center gap-1.5">
+            <CompareButton courseId={course.id} />
+            <Link
+              href="/apply"
+              className="relative z-10 rounded-full border border-navy/15 px-3 py-1 text-[0.7rem] font-semibold text-navy transition-colors hover:border-teal hover:text-teal"
+            >
+              Talk to Counsellor
+            </Link>
+          </div>
         </div>
       </div>
     </article>

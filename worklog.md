@@ -678,3 +678,77 @@ The VertexIT website was in a stable state from the previous round (QA-2). All r
 8. **Add a lead response time metric** — track how quickly counsellors respond to new leads
 9. **Add a "Recently viewed leads" section** on the admin dashboard
 10. **Add a blog author profile page** (`/blog/author/[name]`) for author-based filtering
+
+---
+Task ID: QA-4 (cron review round 4)
+Agent: main (webDevReview cron)
+Task: Lead score filtering, course comparison feature, resources section, global compare bar
+
+## Current Project Status Assessment
+The VertexIT website was in a stable state from the previous round (QA-3). All routes returned 200, lint passed clean. The priority recommendations from QA-3 were: resources section, Google Maps embed, email templates, lead score filtering, comparison feature, visual calendar grid, lead response time metric, recently viewed leads, blog author profile page.
+
+## Completed Modifications
+
+### New Features
+1. **Lead score filtering in admin leads list**:
+   - Added score filter pills (All / Hot 🔥 / Warm / Cold) with counts
+   - Color-coded active states (red for hot, amber for warm, slate for cold)
+   - Preserves existing status/course/search filters when toggling score
+   - Updated leads page to compute score tones and filter server-side
+   - Counsellors can now prioritize hot leads at a glance
+
+2. **Course comparison feature** (high-value user feature):
+   - `CompareContext` + `CompareProvider` — client-side context with localStorage persistence (survives page reloads), max 3 courses
+   - `CompareButton` — toggle button on each course card (shows "Compare" / "Added" with check icon)
+   - `CompareBar` — original per-page sticky bottom bar
+   - `GlobalCompareBar` — global sticky bottom bar that auto-fetches selected course data via `/api/courses/mini` endpoint, appears on any page when courses are selected
+   - Added `CompareProvider` + `GlobalCompareBar` to the public layout so the compare feature works across the entire site
+   - `/courses/compare` page — full comparison table with 13 rows (training mode, duration, eligibility, status, description, who-for, what-you-learn, practical learning, career roles, key skills, modules count, placement assistance), navy header, color-coded rows
+   - `/api/courses/mini` API endpoint — returns minimal course data (id, title, slug) for the compare bar
+   - VLM confirmed Compare buttons render on course cards
+
+3. **Resources section** (new public route `/resources`):
+   - 6 resource cards: Mortgage Underwriting Interview Questions, Resume Template, US Mortgage Fundamentals Cheat Sheet, Career Pathways Guide, Australia Mortgage Glossary, Interview Preparation Checklist
+   - Each card: icon, category badge, title, description, type (PDF Guide / Checklist / Cheat Sheet), page count, download button
+   - Gated resources marked with "Email required" lock badge (links to /apply)
+   - Category filter pills (All / Interview Prep / Resume & LinkedIn / Fundamentals / Career Advice)
+   - CTA card: "Get the complete mortgage career prep kit" with navy gradient
+   - Disclaimer about educational resources and email handling
+   - VLM rated 10/10 for the resource cards section
+   - Added "Free Guides" link to footer Resources column
+   - Added /resources and /courses/compare to sitemap
+
+### Bug Fixes
+4. **Fixed React 19 `use()` hook usage** in GlobalCompareBar — used the `use()` hook with a promise instead of `useEffect + setState` to avoid the lint rule `react-hooks/set-state-in-effect`. This is the modern React 19 pattern for async data in client components.
+5. **Fixed CompareProvider hydration** — used a lazy `useState` initializer with `typeof window` check instead of `useEffect` to load from localStorage, avoiding the same lint rule.
+
+## Verification Results
+- `bun run lint` — 0 errors, 0 warnings ✅
+- All routes return 200: /, /courses, /courses/compare, /resources, /book, /blog, /search, /admin/login ✅
+- Lead score filtering works (hot/warm/cold pills with counts) ✅
+- Compare buttons render on course cards (confirmed in HTML) ✅
+- Resources page renders with 6 download cards (VLM: 10/10) ✅
+- GlobalCompareBar is wired into the public layout ✅
+- Compare page returns 200 with empty state when <2 courses selected ✅
+- Footer has "Free Guides" link to /resources ✅
+- Sitemap includes /resources and /courses/compare ✅
+- Dev log shows no errors ✅
+
+## Unresolved Issues / Risks
+- **Dev server stability:** The background Next.js dev server process still dies between shell sessions (known environment limitation).
+- **Resend email not configured:** RESEND_API_KEY empty — leads still save successfully, email fails gracefully (as designed).
+- **Placement stories still unpublished:** Demo placement stories remain unpublished. Admin should replace with real stories before publishing.
+- **Demo jobs still unpublished:** 2 demo jobs remain unpublished. Admin should add real job openings.
+- **Resource downloads are placeholder links:** The resource download links point to /apply (gated) or # anchors (ungated). Real PDF files need to be generated and hosted — currently the resources page is a marketing/catalog page.
+
+## Priority Recommendations for Next Phase
+1. **Generate real PDF resources** — create actual downloadable PDF guides for the 6 resources listed (interview questions, resume template, etc.)
+2. **Add Google Maps embed** to the contact page once a maps URL is configured in Site Settings
+3. **Add email templates** for lead status changes (e.g., "Your application moved to Interview Scheduled")
+4. **Add a visual monthly grid calendar** in admin (currently shows a list view, not a month grid)
+5. **Add a lead response time metric** — track how quickly counsellors respond to new leads
+6. **Add a "Recently viewed leads" section** on the admin dashboard
+7. **Add a blog author profile page** (`/blog/author/[name]`) for author-based filtering
+8. **Add course enrollment count display** — show "N candidates enrolled" once enrollments exist
+9. **Publish placement stories** — replace demo data with real student stories
+10. **Add a lead conversion funnel chart** to the admin dashboard (New → Contacted → Enrolled → Placed)
