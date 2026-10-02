@@ -1133,3 +1133,80 @@ The VertexIT website was in a stable state from the previous round (QA-8). All r
 8. **Add a "Share" button on blog posts** (social sharing with referral tracking)
 9. **Add a visual dashboard for newsletter growth** (subscriber trend chart)
 10. **Add a waitlist → lead conversion flow** (convert waitlist entries to leads)
+
+---
+Task ID: QA-10 (cron review round 10)
+Agent: main (webDevReview cron)
+Task: Blog share buttons, waitlist→lead conversion, quick status changer, newsletter growth chart
+
+## Current Project Status Assessment
+The VertexIT website was in a stable state from the previous round (QA-9). All routes returned 200, lint passed clean, 3 new admin pages (newsletter, waitlist, referrals) had been built. The priority recommendations were: email templates, visual monthly calendar, recently viewed leads, lead quick status change, bulk lead actions, blog share buttons, newsletter growth chart, waitlist→lead conversion.
+
+## Completed Modifications
+
+### New Features
+1. **Blog post social share buttons**:
+   - `ShareButtons` client component — LinkedIn, Twitter/X, Facebook share links + Copy link button
+   - Each button has brand-colored hover state (LinkedIn blue, Twitter dark, Facebook blue, teal for copy)
+   - Copy link button shows a check icon for 2 seconds after copying
+   - Added to blog post detail page in a styled bar below the article content
+   - Also includes a "Discuss on WhatsApp" link with pre-filled message referencing the article title
+   - Uses `navigator.clipboard` API for copy functionality
+
+2. **Waitlist → lead conversion flow**:
+   - "Convert" button on each WAITING status entry in the admin waitlist table
+   - `POST /api/admin/waitlist/[id]/convert` API route — uses a Prisma transaction to:
+     - Create a new lead with the waitlist entry's name, phone, email, course
+     - Create a lead status history entry (NEW status, "Converted from course waitlist")
+     - Update the waitlist entry status to ENROLLED
+     - Create an admin notification
+     - Log to audit trail (CONVERT_WAITLIST_TO_LEAD action)
+   - Assigns the converting counsellor as the lead's assigned counsellor
+   - Confirmation dialog before conversion
+   - Toast feedback on success/failure
+
+3. **Lead detail quick status change**:
+   - `QuickStatusChanger` client component — compact dropdown for fast status changes
+   - Shows current status in a Select dropdown with all 16 lead statuses
+   - On change: PUTs to `/api/admin/leads/[id]`, shows toast, refreshes the page
+   - Reverts to previous status on error
+   - Shows "Updating..." spinner during the request
+   - Added to the lead detail page header in a styled bar below the AdminPageHeader
+   - Also shows "Last contacted" date and "Next follow-up" date in the same bar
+
+4. **Newsletter growth chart** on newsletter admin page:
+   - `NewsletterGrowthChart` client component — Recharts area chart with two series:
+     - Total subscribers (navy area with gradient)
+     - New signups per day (teal area with gradient)
+   - 30-day trend data computed server-side from subscriber createdAt timestamps
+   - Shows "N new in 30 days" badge in the chart header
+   - VLM confirmed: "Subscriber Growth area chart present" (9/10)
+   - Added between the summary cards and the subscriber table
+
+### Verification Results
+- `bun run lint` — 0 errors, 0 warnings ✅
+- Homepage returns 200 ✅
+- Refer page returns 200 ✅
+- Admin login returns 200 ✅
+- Newsletter admin page with growth chart confirmed (VLM: 9/10) ✅
+- Blog share buttons render in HTML (Share, LinkedIn, Twitter, Discuss on WhatsApp) ✅
+- Quick status changer component created and added to lead detail ✅
+- Waitlist convert API route created with transaction ✅
+- Dev log shows no errors ✅
+
+## Unresolved Issues / Risks
+- **Dev server stability:** The background Next.js dev server process still dies between shell sessions (known environment limitation). The blog/[slug] route also takes a long time to compile on first hit with Turbopack.
+- **Resend email not configured:** RESEND_API_KEY empty — leads/newsletter still save successfully, email fails gracefully (as designed).
+- **Top counsellors leaderboard still empty:** No leads have been assigned to counsellors yet.
+
+## Priority Recommendations for Next Phase
+1. **Add email templates** for lead status changes (e.g., "Your application moved to Interview Scheduled")
+2. **Add a visual monthly grid calendar** in admin (currently shows a list view, not a month grid)
+3. **Add a "Recently viewed leads" section** on the admin dashboard (requires tracking viewed leads)
+4. **Assign test leads to counsellors** to populate the leaderboard
+5. **Add admin "bulk lead actions"** (bulk assign, bulk status change)
+6. **Add a course progress tracking system** for Phase 2 (student portal)
+7. **Add a referral → lead conversion flow** (similar to waitlist → lead conversion)
+8. **Add a newsletter → lead conversion** (when a subscriber shows interest in a course)
+9. **Add a visual dashboard for referral conversion** (referral funnel chart)
+10. **Add a "Share" button on course pages** (social sharing for courses)
