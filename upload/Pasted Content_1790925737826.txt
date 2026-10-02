@@ -1,0 +1,3469 @@
+You are acting as a senior product architect, UX/UI designer, full-stack engineer, database architect, SEO specialist, security engineer, QA engineer, and technical project manager.
+
+Your task is to build the complete production-ready website for a professional training and placement institute called:
+
+VERTEXIT
+
+Brand tagline:
+LEARN • APPLY
+
+Location:
+Bengaluru, Karnataka, India
+
+Primary business:
+Career-oriented training and placement assistance for candidates seeking employment in mortgage and lending operations.
+
+Launch courses:
+1. US Mortgage – Underwriting
+2. Australia Mortgage – Mortgage Operations
+
+IMPORTANT:
+This is NOT a simple static marketing website.
+
+Build it as the foundation of a long-term training + placement platform.
+
+PHASE 1:
+Public website + CMS/Admin + lead management + jobs + blog + placement content + database foundation.
+
+PHASE 2:
+Student authentication + student dashboard + course learning platform + progress tracking + tests + certificates + placement tracking + current package/job information.
+
+The Phase 1 architecture MUST be designed so Phase 2 can be added without rebuilding the application or database.
+
+==================================================
+1. NON-NEGOTIABLE TECHNOLOGY STACK
+==================================================
+
+Use the following technology stack unless there is a very strong technical reason otherwise:
+
+Frontend / Full-stack:
+- Next.js
+- TypeScript
+- App Router
+- React
+
+Styling:
+- Tailwind CSS
+- shadcn/ui
+- CSS variables for design tokens
+
+Database / Backend:
+- Supabase
+- PostgreSQL
+
+Authentication:
+- Supabase Auth
+- PHASE 1: Admin authentication only
+- PHASE 2: Candidate/student authentication
+
+Storage:
+- Supabase Storage
+
+Hosting:
+- Vercel
+
+Forms:
+- React Hook Form
+- Zod validation
+
+Rich text:
+- TipTap or another clean editor suitable for CMS content
+
+Email:
+- Resend or another clean transactional email provider
+- Build the integration so the provider can be swapped later
+
+Icons:
+- Lucide React
+
+Charts:
+- Use a lightweight charting library only where needed in the admin dashboard.
+
+Do NOT introduce:
+- Firebase
+- MongoDB
+- Prisma unless absolutely necessary
+- unnecessary microservices
+- unnecessary third-party SaaS
+- a separate backend server unless required
+
+Supabase should be the primary database/backend platform.
+
+Use current stable packages and APIs at implementation time.
+
+==================================================
+2. IMPORTANT BUILD PHILOSOPHY
+==================================================
+
+Do NOT build a visually impressive but technically weak template.
+
+Build a real application.
+
+Requirements:
+
+- Functional forms
+- Functional database integration
+- Functional CMS
+- Functional admin authentication
+- Functional CRUD
+- Functional job management
+- Functional lead management
+- Functional blog CMS
+- Functional course CMS
+- Functional trainer CMS
+- Functional testimonial/success-story CMS
+- Functional FAQ CMS
+- Functional placement content CMS
+- Functional email notification architecture
+- Proper error handling
+- Proper loading states
+- Empty states
+- Validation
+- Responsive design
+- Accessibility
+- SEO
+- Security
+- Maintainable code
+- Type-safe database access
+- Database migrations
+- Seed data
+- Environment variables
+- Documentation
+- Production deployment readiness
+
+Do not fake functionality with static buttons.
+
+Every button that represents a real feature should either work or clearly display an appropriate state.
+
+==================================================
+3. BRAND / VISUAL IDENTITY
+==================================================
+
+An official VertexIT logo has been supplied with this prompt.
+
+USE THE PROVIDED LOGO.
+
+Do not redesign the logo.
+
+Do not recreate the logo with random text.
+
+Do not distort the logo.
+
+Do not change its proportions.
+
+Do not replace it with a generic education icon.
+
+Brand:
+VertexIT
+
+Tagline:
+LEARN • APPLY
+
+The existing logo uses a combination of:
+- deep navy blue
+- teal/green
+- white
+
+Use the logo as the visual foundation.
+
+Suggested design system:
+- Primary: deep professional navy
+- Secondary: VertexIT teal
+- Background: white / very light neutral
+- Text: dark slate / charcoal
+- Borders: subtle cool gray
+- Accent: restrained teal gradients
+
+The design should communicate:
+
+Professional
+Trustworthy
+Career-focused
+Modern
+Premium
+Practical
+Technology-enabled
+Corporate
+Clean
+Human
+
+Avoid:
+- childish education graphics
+- cartoon illustrations
+- excessive gradients
+- neon colors
+- excessive glassmorphism
+- cheap-looking course marketplace design
+- overcrowded sections
+- excessive animation
+- stock-photo-heavy layouts
+- generic AI-generated faces
+- exaggerated “GET RICH / GUARANTEED JOB” language
+
+The site should look like a serious professional career institute.
+
+==================================================
+4. CORE POSITIONING
+==================================================
+
+VertexIT is a training and placement assistance institute.
+
+The central positioning is:
+
+LEARN → PRACTICE → PREPARE → APPLY → BUILD YOUR CAREER
+
+Core message:
+
+VertexIT helps graduates, experienced professionals and career switchers build practical skills for mortgage and lending operations roles through industry-focused training and placement assistance.
+
+Do NOT position VertexIT as a university.
+
+Do NOT claim government accreditation unless later provided by the company.
+
+Do NOT invent hiring partnerships.
+
+Do NOT invent placement statistics.
+
+Do NOT claim “100% guaranteed jobs.”
+
+The approved positioning is:
+
+“Placement assistance with a very high placement rate.”
+
+Use that wording carefully.
+
+The website should communicate confidence without making legally risky guarantees.
+
+==================================================
+5. TARGET AUDIENCE
+==================================================
+
+Primary audience:
+
+- Any graduate
+- Experienced professionals
+- Career switchers
+- Candidates looking to enter mortgage/lending operations
+- Candidates looking for international-process careers
+- Candidates interested in US Mortgage Underwriting
+- Candidates interested in Australian Mortgage Operations
+
+Primary geography:
+Bengaluru / Karnataka / India
+
+The website should also work for candidates across India.
+
+==================================================
+6. TRAINING MODEL
+==================================================
+
+Training mode:
+
+HYBRID
+
+The CMS must allow each course to specify:
+
+- Online
+- Offline
+- Hybrid
+- Live
+- Recorded
+- Batch schedule
+- Duration
+- Course fee
+- Eligibility
+- Course status
+
+However:
+
+DO NOT show course pricing publicly at launch.
+
+Public CTA should be:
+
+“TALK TO A COUNSELLOR”
+
+Do not invent course duration.
+
+If duration has not been entered into CMS, show:
+“Duration: To be confirmed”
+
+Do not invent batch dates.
+
+==================================================
+7. COURSES
+==================================================
+
+Build the system around a reusable dynamic course architecture.
+
+Do NOT hard-code only two courses.
+
+Future admins must be able to create unlimited courses from the CMS.
+
+Current launch courses:
+
+--------------------------------------------------
+COURSE 1
+--------------------------------------------------
+
+Name:
+US Mortgage – Underwriting
+
+Primary subject:
+US Mortgage Underwriting
+
+The content should be practical and job oriented.
+
+Suggested curriculum structure:
+
+Module 1:
+Introduction to the US Mortgage Industry
+
+Module 2:
+Mortgage Lifecycle
+
+Module 3:
+Loan Types and Mortgage Fundamentals
+
+Module 4:
+Loan Application and Documentation
+
+Module 5:
+Credit Analysis
+
+Module 6:
+Income Analysis
+
+Module 7:
+Asset Analysis
+
+Module 8:
+Debt-to-Income and related ratios
+
+Module 9:
+LTV / CLTV / HCLTV concepts
+
+Module 10:
+Property and Collateral Review
+
+Module 11:
+Underwriting Decision Process
+
+Module 12:
+Conditions and Documentation Review
+
+Module 13:
+Automated Underwriting concepts
+
+Module 14:
+Fannie Mae / Freddie Mac guideline awareness
+
+Module 15:
+FHA / VA concepts where applicable
+
+Module 16:
+Self-employed borrower analysis
+
+Module 17:
+Fraud and risk awareness
+
+Module 18:
+Case-study-based underwriting
+
+Module 19:
+Real-world file practice
+
+Module 20:
+Interview preparation
+
+The curriculum must remain CMS-editable.
+
+Do not present regulatory or compliance content as legal advice.
+
+--------------------------------------------------
+COURSE 2
+--------------------------------------------------
+
+Name:
+Australia Mortgage
+
+Primary subject:
+Australian Mortgage Operations
+
+The curriculum should include:
+
+- Mortgage Loan Processing
+- Broker Support
+- Loan Administration
+- Credit Assessment
+- Lending Operations
+- Broker Support / Virtual Assistant
+
+Suggested structure:
+
+Module 1:
+Australian Mortgage Industry Overview
+
+Module 2:
+Australian Home Loan Lifecycle
+
+Module 3:
+Loan Application Processing
+
+Module 4:
+Document Collection and Verification
+
+Module 5:
+Borrower and Applicant Assessment
+
+Module 6:
+Income Assessment
+
+Module 7:
+Living Expense / Liability Review
+
+Module 8:
+Credit Assessment
+
+Module 9:
+Property / Security Documentation
+
+Module 10:
+Loan Administration
+
+Module 11:
+Broker Support
+
+Module 12:
+Lender and Broker Communication
+
+Module 13:
+Loan Submission Support
+
+Module 14:
+Post-submission Follow-up
+
+Module 15:
+Settlement / Administration concepts
+
+Module 16:
+Lending Operations
+
+Module 17:
+Mortgage Broker Virtual Assistant responsibilities
+
+Module 18:
+Case studies and practical scenarios
+
+Module 19:
+Interview preparation
+
+Make clear that this training prepares candidates for mortgage/lending support and operations roles.
+
+Do NOT claim that completion automatically makes a person a licensed Australian mortgage broker.
+
+==================================================
+8. PUBLIC WEBSITE INFORMATION ARCHITECTURE
+==================================================
+
+Create these main routes.
+
+/
+/courses
+/courses/[slug]
+/jobs
+/jobs/[slug]
+/placement-process
+/success-stories
+/trainers
+/about
+/blog
+/blog/[slug]
+/faq
+/contact
+/apply
+
+Legal:
+/privacy-policy
+/terms-and-conditions
+/disclaimer
+
+Admin:
+/admin/login
+/admin
+/admin/courses
+/admin/courses/new
+/admin/courses/[id]
+/admin/jobs
+/admin/jobs/new
+/admin/jobs/[id]
+/admin/leads
+/admin/leads/[id]
+/admin/trainers
+/admin/testimonials
+/admin/placement-stories
+/admin/faqs
+/admin/blog
+/admin/blog/new
+/admin/blog/[id]
+/admin/site-settings
+/admin/media
+/admin/users
+
+Future student routes should already be architecturally reserved:
+
+/student/login
+/student/dashboard
+/student/courses
+/student/courses/[courseId]
+/student/progress
+/student/assignments
+/student/tests
+/student/certificates
+/student/placement
+/student/profile
+
+Do not expose student routes publicly in Phase 1.
+
+==================================================
+9. HEADER
+==================================================
+
+Create a premium responsive header.
+
+Desktop:
+
+Left:
+VertexIT logo
+
+Navigation:
+
+Home
+Courses
+Placement
+Jobs
+Success Stories
+About
+Blog
+Contact
+
+Primary CTA:
+WhatsApp Us
+
+Mobile:
+
+Logo
+Menu button
+
+Mobile navigation should contain all links.
+
+Make header sticky.
+
+On scroll:
+- slightly reduce height
+- retain brand visibility
+- maintain CTA
+
+Do not make header oversized.
+
+==================================================
+10. HERO SECTION
+==================================================
+
+Homepage hero should immediately explain the business.
+
+Suggested direction:
+
+Eyebrow:
+CAREER-FOCUSED MORTGAGE TRAINING
+
+Headline:
+Build Skills. Become Job-Ready. Build Your Mortgage Career.
+
+Supporting text:
+Industry-focused training in US Mortgage Underwriting and Australian Mortgage Operations, designed for graduates, experienced professionals and career switchers.
+
+Primary CTA:
+WhatsApp Us
+
+Secondary CTA:
+Explore Courses
+
+Include a strong visual representing:
+- learning
+- professional career progression
+- mortgage/lending operations
+- technology
+- global work environment
+
+Do NOT use generic classroom clipart.
+
+Possible visual:
+Professional abstract financial/lending dashboard + career pathway visual.
+
+Hero should be highly optimized for mobile.
+
+==================================================
+11. TRUST / VALUE STRIP
+==================================================
+
+Immediately beneath the hero create a clean trust strip.
+
+Examples:
+
+Hybrid Training
+Practical Learning
+Industry-Focused Curriculum
+Placement Assistance
+Career Support
+
+Do not display fake numbers.
+
+Do not write:
+“10,000+ Students”
+unless such data exists.
+
+==================================================
+12. WHY VERTEXIT
+==================================================
+
+Create a strong section explaining the VertexIT model.
+
+Possible cards:
+
+Practical Learning
+Learn through scenarios, processes and job-relevant concepts.
+
+Industry-Oriented Curriculum
+Focused on actual mortgage and lending workflows.
+
+Career Preparation
+Resume guidance, interview preparation and professional readiness.
+
+Placement Assistance
+Support throughout the job-search and interview journey.
+
+Hybrid Learning
+Designed to accommodate both online and offline learning.
+
+Career-Focused Mentorship
+Guidance for candidates entering or transitioning into the field.
+
+Keep claims factual.
+
+==================================================
+13. COURSES SECTION
+==================================================
+
+Create a premium Courses section.
+
+Two initial courses:
+
+US Mortgage – Underwriting
+Australia Mortgage
+
+Every course card must contain:
+
+Course title
+Short description
+Learning mode
+Eligibility
+Key skills
+Career pathways
+CTA:
+Talk to a Counsellor
+
+Do not show fees.
+
+Do not show fake ratings.
+
+Do not show fake student counts.
+
+Use “View Course” or “Explore Course”.
+
+==================================================
+14. COURSE DETAIL PAGE
+==================================================
+
+Every course must have a rich SEO-friendly course page.
+
+Structure:
+
+Breadcrumbs
+
+Course title
+
+Career-oriented introduction
+
+Who this course is for
+
+What you will learn
+
+Course modules
+
+Practical learning
+
+Case studies / simulations
+
+Career roles
+
+Placement assistance
+
+Learning mode
+
+Eligibility
+
+Frequently asked questions
+
+CTA
+
+Contact/WhatsApp CTA
+
+Disclaimer where applicable
+
+Course detail page should support:
+
+- SEO metadata
+- Open Graph
+- Course structured data
+- Breadcrumb structured data
+- internal linking
+- canonical URL
+
+Use CMS fields.
+
+==================================================
+15. CAREER ROLES
+==================================================
+
+US Mortgage page should explain potential job pathways such as:
+
+- Mortgage Underwriting roles
+- Mortgage Operations roles
+- Mortgage Processing roles
+- Credit / Lending support roles
+- Related mortgage operations roles
+
+Australia page:
+
+- Mortgage Loan Processing
+- Broker Support
+- Loan Administration
+- Credit Assessment support
+- Lending Operations
+- Mortgage Broker Virtual Assistant
+- Related lending operations roles
+
+Do not promise a specific job title or salary.
+
+Use:
+“Potential career pathways”
+rather than guaranteed placement language.
+
+==================================================
+16. PLACEMENT PROCESS PAGE
+==================================================
+
+Create a highly professional placement journey.
+
+Recommended flow:
+
+STEP 1
+Choose your course
+
+STEP 2
+Complete training
+
+STEP 3
+Build job-ready skills
+
+STEP 4
+Resume and profile preparation
+
+STEP 5
+Mock interview / interview preparation
+
+STEP 6
+Receive relevant opportunities
+
+STEP 7
+Interview with employers / hiring organizations where applicable
+
+STEP 8
+Continue placement support
+
+Approved positioning:
+“Placement assistance with a very high placement rate.”
+
+Do not claim:
+“Every student will definitely get a job.”
+
+Placement assistance should be described factually.
+
+==================================================
+17. SUCCESS STORIES
+==================================================
+
+Create a CMS-driven success story system.
+
+Each record can contain:
+
+Student name
+Photo
+Course
+Previous background
+New role
+Company
+Package
+Location
+Year
+Short story
+Quote
+Offer-letter image
+Published/unpublished
+
+VERY IMPORTANT:
+
+Do not invent actual student success stories.
+
+For seed/demo content:
+- Create realistic placeholder records
+- Mark them `is_demo = true`
+- Keep them unpublished by default
+
+Admin can later replace them with real success stories.
+
+==================================================
+18. TRAINERS
+==================================================
+
+Create a Trainer / Mentor CMS.
+
+Fields:
+
+Name
+Photo
+Designation
+Experience
+Specialization
+Bio
+LinkedIn URL
+Display order
+Published
+
+Do not invent qualifications or years of experience.
+
+Use sample unpublished trainer records until real data is entered.
+
+==================================================
+19. JOBS PAGE
+==================================================
+
+Build a full current-job-opportunities module.
+
+Route:
+/jobs
+
+Features:
+
+Job listing cards
+
+Filters:
+- Course/domain
+- Role
+- Location
+- Experience
+- Work mode
+
+Job detail page:
+
+Company
+Job title
+Location
+Experience
+Salary/package if supplied
+Job type
+Skills
+Responsibilities
+Requirements
+Posted date
+Closing date
+Apply button
+
+Admin can:
+
+Create job
+Edit job
+Publish job
+Unpublish job
+Mark expired
+Delete job
+
+No fabricated employer names.
+
+Demo job records must remain unpublished.
+
+Include excellent empty state:
+
+“No current openings have been published yet. Check back soon or speak to our career counsellor.”
+
+==================================================
+20. APPLY / LEAD GENERATION
+==================================================
+
+The main conversion system is:
+
+Website
+→ Enquiry form
+→ Supabase
+→ Lead record
+→ Email notification
+→ Counsellor follows up
+→ Lead status updated
+
+Primary CTA:
+WhatsApp Us
+
+Secondary CTA:
+Talk to a Counsellor
+
+Create a reusable lead form.
+
+Fields:
+
+Full Name
+Phone Number
+Email
+Interested Course
+Education
+Experience Level
+Preferred Training Mode
+Message
+
+Optional:
+How did you hear about us?
+
+Automatically capture:
+
+UTM source
+UTM medium
+UTM campaign
+UTM term
+UTM content
+Referrer
+Landing page
+Device information where practical
+Timestamp
+
+Do not expose technical tracking fields to the user.
+
+==================================================
+21. LEAD STATUS WORKFLOW
+==================================================
+
+Admin lead pipeline:
+
+New
+Contacted
+Counselling Scheduled
+Counselling Completed
+Demo Scheduled
+Demo Completed
+Interested
+Follow-up Required
+Enrolled
+Training
+Placement Support
+Interview Scheduled
+Placed
+Not Interested
+Not Eligible
+Closed
+
+Create a lead status history table.
+
+Every major status change should be logged.
+
+Admin should be able to see:
+
+Lead name
+Phone
+Email
+Course
+Source
+Status
+Assigned counsellor
+Created date
+Last contact
+Next follow-up
+Notes
+
+Add filters and search.
+
+==================================================
+22. WHATSAPP
+==================================================
+
+Official WhatsApp number:
+
+9703686514
+
+Create the WhatsApp URL using international India format:
+
++91 9703686514
+
+Use:
+https://wa.me/919703686514
+
+Every WhatsApp CTA should pre-fill an appropriate message.
+
+Examples:
+
+Homepage:
+“Hi VertexIT, I’m interested in your training programs. I’d like to speak with a counsellor.”
+
+US Mortgage:
+“Hi VertexIT, I’m interested in the US Mortgage – Underwriting program.”
+
+Australia:
+“Hi VertexIT, I’m interested in the Australia Mortgage program.”
+
+Job:
+“Hi VertexIT, I’d like to know about the current job opportunities.”
+
+==================================================
+23. CONTACT INFORMATION
+==================================================
+
+Phone:
+9703686514
+
+WhatsApp:
+9703686514
+
+Location:
+Bengaluru, Karnataka, India
+
+Address currently provided:
+GB Play
+
+Business hours:
+10:00 AM – 8:00 PM
+
+IMPORTANT:
+Do NOT invent a complete street address.
+
+Store address in Site Settings so it can be edited later.
+
+Email is currently not provided.
+
+DO NOT invent an email address.
+
+Email should be a CMS/site-settings field.
+
+Until a real email is configured:
+- do not display a fake email
+- do not create a fake email
+- hide the public email address field gracefully
+
+Lead forms can still accept candidate email addresses.
+
+==================================================
+24. EMAIL NOTIFICATIONS
+==================================================
+
+Implement email notification architecture.
+
+Preferred provider:
+Resend
+
+Create server-side email utility.
+
+Environment variable:
+
+RESEND_API_KEY
+
+ADMIN_NOTIFICATION_EMAIL
+
+NEXT_PUBLIC_SITE_URL
+
+When a new lead is created:
+
+Send notification to configured admin email.
+
+Subject:
+New VertexIT Enquiry — [Course]
+
+Email should contain:
+Name
+Phone
+Email
+Course
+Education
+Experience
+Training mode
+Message
+Source
+Timestamp
+
+If candidate email is provided:
+Send a confirmation email.
+
+Do not send emails if email configuration is missing.
+
+Instead:
+- store lead successfully
+- log a safe server-side warning
+- never fail the candidate's enquiry because email is not configured
+
+==================================================
+25. CONTACT PAGE
+==================================================
+
+Create:
+
+Contact information
+WhatsApp CTA
+Phone CTA
+Business hours
+Location
+Contact form
+Google Maps-ready location area
+
+Do not hard-code a fake Google Maps API key.
+
+Create a map placeholder / address block that can later accept a Google Maps embed URL from Site Settings.
+
+==================================================
+26. BLOG
+==================================================
+
+Create a real CMS-driven blog.
+
+Purpose:
+Long-term SEO and career education.
+
+Categories:
+
+US Mortgage
+Mortgage Underwriting
+Australia Mortgage
+Mortgage Careers
+Career Advice
+Interview Preparation
+Resume & LinkedIn
+Mortgage Operations
+Industry Knowledge
+Job Search
+
+Every blog post should support:
+
+Title
+Slug
+Excerpt
+Content
+Featured image
+Category
+Author
+Publish date
+Updated date
+Meta title
+Meta description
+Canonical URL
+OG title
+OG description
+OG image
+Published status
+
+Create SEO-friendly blog URLs:
+
+/blog/us-mortgage-underwriting-career
+/blog/australia-mortgage-processing
+etc.
+
+Do not keyword-stuff.
+
+==================================================
+27. INITIAL BLOG CONTENT
+==================================================
+
+Create draft blog content for CMS.
+
+Suggested initial article ideas:
+
+1.
+US Mortgage Underwriting: A Beginner's Career Guide
+
+2.
+What Does a Mortgage Underwriter Do?
+
+3.
+US Mortgage Underwriting Skills You Need to Build
+
+4.
+How Mortgage Underwriting Works
+
+5.
+Australia Mortgage Processing: Roles and Responsibilities
+
+6.
+What Does a Mortgage Broker Support Professional Do?
+
+7.
+Mortgage Loan Processing vs Underwriting
+
+8.
+Career Opportunities in Mortgage Operations
+
+9.
+How to Prepare for a Mortgage Interview
+
+10.
+Skills Graduates Can Build for Mortgage Operations Careers
+
+11.
+US Mortgage Careers in Bengaluru
+
+12.
+Australia Mortgage Operations Careers in India
+
+13.
+Mortgage Operations Resume Tips
+
+14.
+Common Mortgage Interview Questions
+
+15.
+How Practical Case Studies Help Mortgage Candidates Become Job-Ready
+
+All initial articles should be drafts or clearly marked for review.
+
+Do not invent company-specific hiring statistics.
+
+==================================================
+28. FAQ SYSTEM
+==================================================
+
+Create CMS-driven FAQs.
+
+Initial question themes:
+
+Who can join VertexIT?
+Are fresh graduates eligible?
+Is the training online or offline?
+What is hybrid training?
+What does the US Mortgage course cover?
+What does the Australia Mortgage course cover?
+Do I need previous mortgage experience?
+How does placement assistance work?
+Do you provide interview preparation?
+Are course fees displayed?
+How can I contact a counsellor?
+Where is VertexIT located?
+
+Do not publish unsupported answers.
+
+Where required, use:
+“Please speak with a VertexIT counsellor for current eligibility details.”
+
+==================================================
+29. HOMEPAGE SECTIONS
+==================================================
+
+Build the homepage in this approximate order:
+
+1. Header
+
+2. Hero
+
+3. Trust/value strip
+
+4. Why VertexIT
+
+5. Courses
+
+6. What You Will Learn
+
+7. How Training Works
+
+8. Placement Journey
+
+9. Career Pathways
+
+10. Current Job Opportunities
+
+11. Success Stories
+
+12. Trainers / Mentors
+
+13. FAQ
+
+14. Final CTA
+
+15. Footer
+
+Homepage content should be modular.
+
+Admin should eventually be able to reorder homepage sections.
+
+==================================================
+30. “HOW TRAINING WORKS”
+==================================================
+
+Create a visual process:
+
+Discover
+↓
+Choose a Career Path
+↓
+Learn
+↓
+Practice
+↓
+Prepare
+↓
+Apply
+↓
+Build Your Career
+
+Use minimal animations.
+
+==================================================
+31. INTERACTIVITY
+==================================================
+
+The website must be highly interactive but not gimmicky.
+
+Use:
+
+- Hover states
+- Subtle scroll reveals
+- Accordions
+- Sticky CTA
+- Course filters
+- Job filters
+- Search
+- Tabs where useful
+- Smooth section navigation
+- Animated counters ONLY when tied to real data
+- Microinteractions
+- Form validation feedback
+- Toast notifications
+- skeleton loading
+- empty states
+
+Avoid:
+- huge parallax effects
+- autoplay videos
+- excessive motion
+- bouncing cards
+- distracting animations
+
+Respect:
+prefers-reduced-motion.
+
+==================================================
+32. MOBILE UX
+==================================================
+
+Mobile should be treated as a first-class experience.
+
+Implement:
+
+- Responsive header
+- Thumb-friendly buttons
+- Bottom mobile CTA bar
+
+Mobile bottom bar:
+
+WhatsApp
+Call
+Talk to Counsellor
+
+Ensure it does not obscure content.
+
+Forms must be easy to complete on mobile.
+
+==================================================
+33. ADMIN PANEL
+==================================================
+
+Phase 1 admin panel is REQUIRED.
+
+Admin login:
+Supabase Auth
+
+Admin roles:
+
+Super Admin
+Admin
+Counsellor
+Content Editor
+
+Implement role-based access where practical.
+
+Admin dashboard should display:
+
+Total Leads
+New Leads
+Active Follow-ups
+Published Courses
+Active Jobs
+Published Blog Posts
+Placement Stories
+Recent Enquiries
+
+Dashboard cards should link to their relevant screens.
+
+==================================================
+34. ADMIN MODULES
+==================================================
+
+COURSES
+
+Create
+Read
+Update
+Delete
+Publish/unpublish
+Reorder modules
+Manage curriculum
+Manage eligibility
+Manage outcomes
+Manage FAQs
+
+JOBS
+
+Create
+Edit
+Delete
+Publish
+Expire
+Search
+Filter
+
+LEADS
+
+List
+Search
+Filter
+View
+Assign counsellor
+Change status
+Add note
+Add follow-up date
+View history
+
+BLOG
+
+Create
+Edit
+Save draft
+Preview
+Publish
+Unpublish
+SEO fields
+
+TRAINERS
+
+CRUD
+
+TESTIMONIALS
+
+CRUD
+
+SUCCESS STORIES
+
+CRUD
+
+FAQs
+
+CRUD
+
+SITE SETTINGS
+
+Manage:
+
+Logo
+Phone
+WhatsApp
+Email
+Address
+Business hours
+Social links
+SEO defaults
+Homepage content
+Footer content
+
+MEDIA
+
+Upload
+Delete
+View
+Copy URL
+
+==================================================
+35. DATABASE ARCHITECTURE
+==================================================
+
+Create proper relational PostgreSQL schema.
+
+Suggested tables:
+
+site_settings
+
+profiles
+
+roles
+
+courses
+
+course_modules
+
+course_outcomes
+
+course_faqs
+
+trainers
+
+jobs
+
+job_applications
+
+leads
+
+lead_status_history
+
+lead_notes
+
+testimonials
+
+placement_stories
+
+faqs
+
+blog_categories
+
+blog_posts
+
+media_assets
+
+homepage_sections
+
+admin_notifications
+
+site_pages
+
+social_links
+
+audit_logs
+
+For Phase 2, prepare architecture for:
+
+student_profiles
+
+enrollments
+
+lessons
+
+lesson_progress
+
+assignments
+
+assignment_submissions
+
+assessments
+
+assessment_questions
+
+assessment_attempts
+
+certificates
+
+placement_records
+
+placement_interactions
+
+student_documents
+
+student_packages
+
+student_announcements
+
+==================================================
+36. FUTURE STUDENT PACKAGE DATA
+==================================================
+
+The Phase 2 system must eventually allow candidates to see:
+
+Current package / CTC
+Company
+Role
+Joining date
+Placement status
+Interview status
+Placement notes
+Course completed
+Certificate
+Placement timeline
+
+This information must be private to the respective student.
+
+Never expose this information publicly.
+
+==================================================
+37. SUPABASE SECURITY
+==================================================
+
+This is extremely important.
+
+Use Row Level Security.
+
+Public users:
+
+Can create leads
+Can create job applications
+Can read published public content
+
+Public users MUST NOT:
+
+Read leads
+Read job applications
+Read admin data
+Read unpublished courses
+Read unpublished jobs
+Read unpublished blog posts
+Read audit logs
+Read student information
+
+Admins:
+
+Can manage authorized CMS records.
+
+Future students:
+
+Can only read their own data.
+
+Never expose:
+
+SUPABASE_SERVICE_ROLE_KEY
+
+to the browser.
+
+Never put secret keys in NEXT_PUBLIC_ variables.
+
+Use server-side utilities for privileged operations.
+
+Enable RLS on exposed tables.
+
+Write explicit policies.
+
+==================================================
+38. ADMIN AUTH SECURITY
+==================================================
+
+Admin route protection:
+
+/admin/*
+
+must require authenticated admin user.
+
+Check role server-side.
+
+Do not rely solely on client-side role checks.
+
+If unauthorized:
+redirect to /admin/login
+
+Admin session must be securely managed with Supabase Auth and the current recommended Next.js SSR approach.
+
+==================================================
+39. FUTURE STUDENT AUTH PREPARATION
+==================================================
+
+DO NOT implement public student sign-up in Phase 1.
+
+But database design must support:
+
+One Supabase Auth user
+→ one student profile
+
+Student can later access:
+
+Dashboard
+Courses
+Progress
+Tests
+Assignments
+Certificates
+Placement
+Package
+
+RLS should eventually enforce:
+
+auth.uid() = student profile user_id
+
+==================================================
+40. CMS CONTENT RULE
+==================================================
+
+Avoid hard-coding business content into components.
+
+Examples:
+
+Do NOT hard-code:
+
+Course titles
+Course descriptions
+Trainer biographies
+Testimonials
+Jobs
+FAQs
+Blog posts
+Phone number
+Business hours
+Address
+Social links
+
+Store these in database/CMS where reasonable.
+
+Components should consume typed data.
+
+==================================================
+41. SAMPLE / DEMO DATA
+==================================================
+
+Seed the database with useful demo data so the application can be tested.
+
+However:
+
+DO NOT fabricate real business claims.
+
+Use clear demo markers in database:
+
+is_demo
+is_published
+
+For:
+
+Testimonials
+Placement stories
+Jobs
+Trainers
+
+Seed demo data with:
+
+is_demo = true
+is_published = false
+
+For real launch content:
+
+courses can be seeded as initial VertexIT launch courses.
+
+Do not publicly display fake placement statistics, fake company partnerships or fake student reviews.
+
+==================================================
+42. SEO
+==================================================
+
+SEO is a core requirement.
+
+Do not treat SEO as a final plugin.
+
+Every public page must have:
+
+Unique title
+Unique meta description
+Canonical URL
+Open Graph metadata
+Twitter/X metadata where useful
+Correct heading hierarchy
+Semantic HTML
+Structured internal links
+
+Create:
+
+robots.txt
+sitemap.xml
+
+Generate sitemap dynamically where appropriate.
+
+Include structured data for:
+
+Organization / EducationalOrganization
+Course where applicable
+BreadcrumbList
+FAQPage only where valid
+BlogPosting for blog articles
+
+Do not create fake structured data.
+
+Do not place hidden keyword text.
+
+==================================================
+43. SEO KEYWORD STRATEGY
+==================================================
+
+Primary thematic keywords:
+
+US Mortgage Training
+US Mortgage Underwriting Training
+US Mortgage Underwriting Course
+US Mortgage Jobs
+US Mortgage Careers
+Mortgage Underwriting Training Bengaluru
+US Mortgage Training Bengaluru
+Mortgage Careers in Bengaluru
+Australia Mortgage Training
+Australia Mortgage Processing
+Australia Mortgage Loan Processing
+Australian Mortgage Operations
+Mortgage Broker Support Training
+Mortgage Loan Administration Training
+Mortgage Credit Assessment
+Mortgage Operations Training
+
+Use natural language.
+
+Do not keyword stuff.
+
+Use variations naturally across:
+
+Titles
+Headings
+Body text
+Internal links
+Blog content
+FAQs
+Metadata
+
+==================================================
+44. LOCAL SEO
+==================================================
+
+Primary location:
+Bengaluru, Karnataka, India
+
+Use Bengaluru naturally in relevant content.
+
+Create strong local relevance without generating fake location pages.
+
+Do not create dozens of duplicate city pages.
+
+Include:
+
+Bengaluru in Contact page
+Relevant course SEO copy
+About page
+Footer
+Metadata where appropriate
+
+==================================================
+45. PAGE METADATA
+==================================================
+
+Create reusable SEO utilities.
+
+Example:
+
+Homepage title:
+VertexIT | Mortgage Training & Placement Assistance in Bengaluru
+
+Homepage description:
+VertexIT provides career-focused US Mortgage Underwriting and Australia Mortgage training in Bengaluru with practical learning and placement assistance.
+
+US course title:
+US Mortgage Underwriting Training | VertexIT
+
+Australia course:
+Australia Mortgage Training | VertexIT
+
+Jobs:
+Mortgage Jobs & Career Opportunities | VertexIT
+
+These are starting drafts.
+
+Admin should be able to override metadata.
+
+==================================================
+46. BLOG SEO
+==================================================
+
+Each article must support:
+
+Meta title
+Meta description
+Slug
+Canonical
+OG image
+Author
+Publish date
+Updated date
+Category
+Related articles
+
+Related article recommendations should use internal linking.
+
+==================================================
+47. PERFORMANCE
+==================================================
+
+Performance matters.
+
+Use:
+
+Next.js Server Components where appropriate
+minimal Client Components
+next/image
+lazy loading
+responsive images
+font optimization
+code splitting
+dynamic imports where appropriate
+small JS bundles
+
+Avoid unnecessarily downloading large libraries.
+
+Do not use huge background videos.
+
+Target excellent Core Web Vitals.
+
+==================================================
+48. ACCESSIBILITY
+==================================================
+
+Build toward WCAG 2.2 AA principles.
+
+Requirements:
+
+Keyboard navigation
+Visible focus states
+Proper labels
+Alt text
+Accessible forms
+ARIA only where needed
+Semantic HTML
+Good contrast
+Reduced motion support
+Screen-reader friendly interactions
+
+Do not use buttons as links or links as buttons incorrectly.
+
+==================================================
+49. ERROR HANDLING
+==================================================
+
+Create:
+
+Loading states
+Error states
+Empty states
+Success states
+404 page
+Global error boundary
+Form validation errors
+
+Examples:
+
+Lead submission success:
+“Thank you. Your enquiry has been received. A VertexIT counsellor will contact you shortly.”
+
+Submission failure:
+“We couldn't submit your request right now. Please try again or contact us on WhatsApp.”
+
+==================================================
+50. FORM VALIDATION
+==================================================
+
+Use Zod.
+
+Validate:
+
+Name
+Phone
+Email
+Course
+Education
+Experience
+Message
+
+Phone:
+Indian mobile number validation.
+
+Email:
+valid email if supplied.
+
+Sanitize text input.
+
+Do not store malicious HTML.
+
+==================================================
+51. SPAM PROTECTION
+==================================================
+
+At minimum implement:
+
+honeypot field
+server-side validation
+basic submission throttling / abuse protection
+reasonable request size limits
+
+Make future support for Cloudflare Turnstile or another challenge possible without architectural changes.
+
+==================================================
+52. MEDIA STORAGE
+==================================================
+
+Create Supabase Storage architecture.
+
+Suggested buckets:
+
+public-assets
+course-assets
+blog-assets
+placement-assets
+private-student-assets
+
+Phase 1:
+
+public assets
+course images
+blog images
+trainer images
+placement documents where appropriate
+
+Phase 2:
+
+private student documents
+
+Private documents must never be publicly accessible.
+
+Use signed URLs where appropriate.
+
+==================================================
+53. IMAGE / MEDIA ADMIN
+==================================================
+
+Admin should be able to:
+
+Upload image
+Preview
+Replace
+Delete
+Copy URL
+
+Store:
+
+file path
+bucket
+alt text
+caption
+uploaded by
+created at
+
+==================================================
+54. FOOTER
+==================================================
+
+Create a premium multi-column footer.
+
+Columns:
+
+VertexIT
+Courses
+Career
+Resources
+Company
+Contact
+
+Contact:
+
+Bengaluru, Karnataka
+9703686514
+WhatsApp
+
+Business Hours:
+10 AM – 8 PM
+
+Do not show fake email.
+
+Include:
+
+Privacy Policy
+Terms
+Disclaimer
+
+Add:
+© [current year] VertexIT. All rights reserved.
+
+==================================================
+55. LEGAL / DISCLAIMER
+==================================================
+
+Create professional draft pages.
+
+Privacy Policy
+Terms and Conditions
+Disclaimer
+
+The disclaimer should clarify:
+
+- Training does not automatically guarantee employment.
+- Placement assistance is provided according to institute policy.
+- Actual hiring depends on employer requirements and candidate suitability.
+- Course content is educational.
+- Regulatory/licensing requirements vary by jurisdiction.
+- Australia Mortgage training should not be represented as automatically granting broker licensing.
+
+These pages should be clearly visible in the footer.
+
+==================================================
+56. ANALYTICS
+==================================================
+
+Do NOT hard-code Google Analytics, Meta Pixel or other tracking services unless configuration is provided.
+
+However, structure the code so future analytics can be added safely.
+
+Create:
+analytics abstraction / event helper
+
+Potential future events:
+
+course_view
+whatsapp_click
+contact_submit
+lead_submit
+job_view
+job_apply
+blog_view
+
+==================================================
+57. ADMIN ANALYTICS
+==================================================
+
+Phase 1 dashboard analytics:
+
+Lead count
+Lead status breakdown
+Course enquiry breakdown
+Job application count
+Recent enquiries
+
+Do not create fake conversion rates.
+
+==================================================
+58. DESIGN SYSTEM
+==================================================
+
+Create reusable components:
+
+Button
+Card
+Badge
+Input
+Select
+Textarea
+Dialog
+Drawer
+Tabs
+Accordion
+Breadcrumb
+Pagination
+Table
+DataTable
+Toast
+Modal
+FormField
+FileUploader
+RichTextEditor
+EmptyState
+ErrorState
+LoadingSkeleton
+CTASection
+CourseCard
+JobCard
+TestimonialCard
+TrainerCard
+BlogCard
+StatCard
+StatusBadge
+
+Use shadcn/ui where appropriate.
+
+==================================================
+59. COLOR TOKENS
+==================================================
+
+Use CSS variables.
+
+Example direction:
+
+--primary: VertexIT navy
+--secondary: VertexIT teal
+--background: white
+--surface: light cool gray
+--foreground: deep slate
+--muted: slate gray
+--border: subtle gray
+
+Use the actual logo colors as the source of truth.
+
+Do not specify dozens of colors.
+
+==================================================
+60. TYPOGRAPHY
+==================================================
+
+Use a modern professional sans serif.
+
+Good options:
+
+Inter
+Manrope
+Plus Jakarta Sans
+
+Use a maximum of two font families.
+
+Headings:
+strong and modern.
+
+Body:
+high readability.
+
+Do not use decorative fonts.
+
+==================================================
+61. ADMIN DESIGN
+==================================================
+
+Admin is different from public website.
+
+Admin should prioritize:
+
+speed
+clarity
+data density
+filters
+search
+editing
+
+Use sidebar navigation.
+
+Desktop dashboard:
+sidebar + content area.
+
+Mobile:
+responsive sidebar / drawer.
+
+==================================================
+62. AUDIT LOG
+==================================================
+
+Create audit logs for important admin operations.
+
+Store:
+
+user
+action
+entity
+entity_id
+timestamp
+metadata
+
+Examples:
+
+CREATE_COURSE
+UPDATE_COURSE
+PUBLISH_JOB
+UPDATE_LEAD
+DELETE_BLOG
+LOGIN_ADMIN
+
+Do not store passwords.
+
+==================================================
+63. DATABASE MIGRATIONS
+==================================================
+
+Database schema must be represented as migration files.
+
+Use Supabase CLI migration structure.
+
+Create:
+
+supabase/
+  migrations/
+  seed.sql
+  config.toml
+
+Do not only give instructions like:
+“create this table manually.”
+
+Create actual migration files.
+
+==================================================
+64. TYPES
+==================================================
+
+Generate strongly typed database models.
+
+Use Supabase-generated TypeScript types where appropriate.
+
+Do not duplicate database interfaces unnecessarily.
+
+==================================================
+65. ENVIRONMENT VARIABLES
+==================================================
+
+Create:
+
+.env.example
+
+Include:
+
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+NEXT_PUBLIC_SITE_URL=
+RESEND_API_KEY=
+ADMIN_NOTIFICATION_EMAIL=
+
+Never commit:
+
+.env.local
+
+Never expose:
+SUPABASE_SERVICE_ROLE_KEY
+RESEND_API_KEY
+
+==================================================
+66. ERROR-SAFE EMAIL
+==================================================
+
+The website must continue functioning when Resend is not configured.
+
+Forms should still save to Supabase.
+
+Email should become an optional side effect.
+
+==================================================
+67. RESPONSIVE BREAKPOINTS
+==================================================
+
+Support:
+
+Mobile
+Tablet
+Laptop
+Desktop
+Large desktop
+
+Test:
+
+375px
+390px
+768px
+1024px
+1280px
+1440px
+1920px
+
+Do not create horizontal overflow.
+
+==================================================
+68. SECURITY CHECKLIST
+==================================================
+
+Before declaring the project complete, check:
+
+RLS enabled
+Admin route protected
+Role authorization
+No service role key in client
+Environment variables secured
+Input validation
+HTML sanitization
+Safe file upload
+No unsafe dynamic HTML
+No exposed private documents
+Published/unpublished access rules
+Secure server actions
+Secure API routes
+No debug secrets
+No credentials committed
+No fake authentication
+No client-only authorization
+
+==================================================
+69. PUBLIC CONTENT RULE
+==================================================
+
+The public site may display:
+
+VertexIT branding
+Course descriptions
+Course curriculum
+Training methodology
+Placement assistance explanation
+Jobs that are actually entered/published
+Real testimonials once entered
+Real trainers once entered
+Blog posts
+FAQs
+
+It must NOT invent:
+
+Student numbers
+Placement percentages
+Partner company names
+Salary averages
+Guarantees
+Accreditations
+Awards
+Employer relationships
+Trainer credentials
+
+==================================================
+70. CURRENT BUSINESS DATA
+==================================================
+
+Seed these verified/current business fields:
+
+Brand:
+VertexIT
+
+Tagline:
+LEARN • APPLY
+
+Location:
+Bengaluru, Karnataka, India
+
+Phone:
+9703686514
+
+WhatsApp:
+9703686514
+
+Business hours:
+10:00 AM – 8:00 PM
+
+Address:
+GB Play
+
+Public email:
+NOT PROVIDED YET
+
+Training:
+Hybrid
+
+Audience:
+Any graduate
+Experienced professionals
+Career switchers
+
+Pricing:
+Do not display publicly.
+
+Primary CTA:
+WhatsApp Us
+
+Secondary CTA:
+Talk to a Counsellor
+
+Placement positioning:
+Placement assistance with a very high placement rate.
+
+==================================================
+71. CONTENT WRITING STYLE
+==================================================
+
+Write copy in professional English.
+
+Tone:
+
+Clear
+Confident
+Helpful
+Career-focused
+Transparent
+Modern
+
+Avoid:
+
+“Dream job guaranteed”
+“100% job guarantee”
+“Become rich”
+“Limited seats!!!”
+“Act now or lose your future”
+“Best institute in India”
+“#1 institute”
+
+unless actual independently supportable evidence is supplied later.
+
+The copy should sound established but not exaggerated.
+
+==================================================
+72. HOME PAGE COPY DIRECTION
+==================================================
+
+Use a message around:
+
+Learn the skills.
+Understand the process.
+Practice the work.
+Prepare for interviews.
+Apply with confidence.
+Build your career.
+
+Brand philosophy:
+
+LEARN • APPLY
+
+This should become an important visual and messaging element throughout the website.
+
+==================================================
+73. COURSE CTA LOGIC
+==================================================
+
+Every course page:
+
+Primary:
+Talk to a Counsellor
+
+Secondary:
+WhatsApp Us
+
+Do not use:
+“Buy Now”
+
+Do not use:
+“Pay Now”
+
+No online payment system in Phase 1.
+
+==================================================
+74. JOB CTA
+==================================================
+
+For active jobs:
+Apply Now
+
+If an applicant applies:
+
+Store job application in Supabase.
+
+Capture:
+
+job_id
+candidate name
+phone
+email
+resume URL if uploaded
+cover/message
+created_at
+source
+
+Send email notification if configured.
+
+==================================================
+75. RESUME UPLOAD
+==================================================
+
+Job application forms may optionally support resume upload.
+
+Allowed:
+
+PDF
+DOC
+DOCX
+
+Restrict:
+
+file type
+file size
+
+Do not make resumes public.
+
+Store them in a private Supabase Storage bucket.
+
+==================================================
+76. FUTURE STUDENT PORTAL DATABASE
+==================================================
+
+Prepare the architecture now.
+
+Student entity:
+
+id
+auth_user_id
+full_name
+phone
+email
+education
+experience
+profile_photo
+city
+created_at
+
+Enrollment:
+
+student_id
+course_id
+batch
+start_date
+completion_date
+status
+
+Progress:
+
+student_id
+course_id
+module_id
+lesson_id
+status
+percentage
+completed_at
+
+Placement:
+
+student_id
+status
+company
+role
+package
+location
+joining_date
+placement_date
+
+Certificate:
+
+student_id
+course_id
+certificate_number
+issued_date
+certificate_url
+
+Student package:
+
+student_id
+company
+role
+package
+currency
+effective_date
+notes
+
+==================================================
+77. FUTURE STUDENT DASHBOARD DESIGN
+==================================================
+
+Do not implement it publicly in Phase 1.
+
+But design data/API boundaries so Phase 2 can easily add:
+
+Dashboard
+My Course
+Course Progress
+Learning Modules
+Tests
+Assignments
+Certificates
+Placement
+Current Package
+Job Details
+Documents
+Announcements
+Profile
+
+==================================================
+78. COURSE CONTENT ARCHITECTURE
+==================================================
+
+Future learning hierarchy:
+
+Course
+→ Module
+→ Lesson
+→ Resource
+→ Assignment
+→ Assessment
+
+Resource types:
+
+video
+pdf
+document
+link
+text
+quiz
+
+==================================================
+79. CMS REUSABILITY
+==================================================
+
+The admin should eventually be able to add:
+
+Course 3
+Course 4
+Course 5
+etc.
+
+without developer code changes.
+
+Same for:
+
+Jobs
+Blog
+Testimonials
+Trainers
+FAQs
+Success stories
+
+==================================================
+80. NO HARDCODED COURSE LIMIT
+==================================================
+
+The homepage should query published courses.
+
+Do not write:
+
+const courses = [course1, course2]
+
+inside UI components as the primary data source.
+
+Use database-driven content.
+
+==================================================
+81. SEO-FRIENDLY URLS
+==================================================
+
+Use:
+
+/courses/us-mortgage-underwriting
+/courses/australia-mortgage
+
+Avoid:
+
+/course?id=1
+
+Jobs:
+
+/jobs/[slug]
+
+Blog:
+
+/blog/[slug]
+
+==================================================
+82. INTERNAL LINKING
+==================================================
+
+Course pages should link to:
+
+Placement
+Jobs
+Blog
+Contact
+
+Blog posts should link naturally to:
+
+Relevant course
+Placement page
+Contact
+Jobs
+
+Job pages should link to:
+
+Relevant course
+
+This creates a strong internal information architecture.
+
+==================================================
+83. BREADCRUMBS
+==================================================
+
+Implement visible breadcrumbs for:
+
+Course pages
+Job pages
+Blog pages
+Admin content
+
+Use BreadcrumbList structured data for appropriate public pages.
+
+==================================================
+84. 404 PAGE
+==================================================
+
+Create a polished 404:
+
+“Looks like this page moved.”
+
+Buttons:
+
+Explore Courses
+View Jobs
+Go Home
+
+Keep VertexIT branding.
+
+==================================================
+85. LOADING UI
+==================================================
+
+Use skeleton loading for:
+
+Course lists
+Jobs
+Blog
+Admin tables
+Dashboard cards
+
+Avoid blank white screens.
+
+==================================================
+86. DATABASE ERROR HANDLING
+==================================================
+
+If Supabase query fails:
+
+Do not expose database error details to users.
+
+Log server-side.
+
+Show user-friendly error.
+
+==================================================
+87. DEVELOPMENT QUALITY
+==================================================
+
+Use a clean folder architecture.
+
+Suggested:
+
+app/
+components/
+lib/
+types/
+hooks/
+services/
+public/
+supabase/
+docs/
+
+Use domain-based organization where useful.
+
+Avoid gigantic page files.
+
+Break complex sections into components.
+
+==================================================
+88. SERVER COMPONENTS
+==================================================
+
+Prefer Server Components.
+
+Use Client Components only where interaction requires them.
+
+Examples:
+forms
+filters
+accordions where stateful
+modals
+admin interactive tables
+
+Do not turn the entire site into a Client Component.
+
+==================================================
+89. SERVER ACTION / API DESIGN
+==================================================
+
+Use appropriate server actions or route handlers for:
+
+Lead submission
+Job application
+Admin mutations
+Email sending
+Privileged operations
+
+Validate on server.
+
+Never trust client validation alone.
+
+==================================================
+90. SEED CONTENT
+==================================================
+
+Create useful launch seed content.
+
+At minimum:
+
+2 courses
+10+ FAQ records
+10+ blog drafts
+several course modules
+sample site settings
+sample demo trainers
+sample demo testimonials
+sample demo placement stories
+sample demo jobs
+sample admin records only where safe
+
+Fake demo records must default to unpublished.
+
+==================================================
+91. HOME PAGE DATA
+==================================================
+
+The following homepage fields should be CMS editable:
+
+Hero heading
+Hero subheading
+Hero image
+CTA text
+Why VertexIT cards
+Placement process
+Featured courses
+Featured jobs
+Success stories
+Testimonials
+FAQ
+Final CTA
+
+==================================================
+92. ADMIN HOME PAGE SECTION MANAGEMENT
+==================================================
+
+Build a basic section visibility/order system if practical.
+
+Fields:
+
+section_key
+title
+enabled
+sort_order
+metadata
+
+Do not over-engineer this.
+
+The goal is future flexibility.
+
+==================================================
+93. SITE SETTINGS
+==================================================
+
+Create settings for:
+
+brand_name
+tagline
+phone
+whatsapp
+email
+address
+city
+state
+business_hours
+logo_url
+favicon_url
+social links
+default SEO title
+default SEO description
+default OG image
+
+==================================================
+94. SOCIAL LINKS
+==================================================
+
+Create CMS fields for:
+
+Instagram
+LinkedIn
+Facebook
+YouTube
+
+Do not display links if not configured.
+
+Do not invent URLs.
+
+==================================================
+95. FAVICON / BRAND ASSETS
+==================================================
+
+Use the VertexIT logo to create appropriate:
+
+favicon
+apple icon
+Open Graph default image
+
+Do not distort the official logo.
+
+==================================================
+96. NO TEMPLATE FEEL
+==================================================
+
+The result must not look like a downloaded template.
+
+Use strong custom layout design.
+
+Examples:
+
+- asymmetrical hero composition
+- clean typography
+- editorial spacing
+- premium cards
+- career pathway timeline
+- course comparison visual
+- job opportunity section
+- intelligent whitespace
+- brand-colored visual details
+
+==================================================
+97. INTERACTION PRIORITY
+==================================================
+
+Main conversion path:
+
+Visitor
+→ Understand VertexIT
+→ Explore course
+→ Understand career pathway
+→ See placement process
+→ Contact counsellor
+→ WhatsApp / Lead form
+
+Make this journey obvious.
+
+==================================================
+98. CONVERSION UX
+==================================================
+
+Do not bombard visitors with popups.
+
+Use:
+
+Header CTA
+Hero CTA
+Course CTA
+Placement CTA
+Final CTA
+Mobile sticky CTA
+
+That's enough.
+
+==================================================
+99. PRIVACY
+==================================================
+
+Candidate contact information is personal data.
+
+Minimize collection.
+
+Only collect information needed for:
+
+counselling
+course enquiry
+job application
+
+Never expose candidate details publicly.
+
+==================================================
+100. ADMIN USER MANAGEMENT
+==================================================
+
+Super Admin should eventually be able to:
+
+Create admin users
+Disable admin users
+Assign role
+View last login
+
+Do not allow ordinary content editors to modify admin permissions.
+
+==================================================
+101. AUDITABILITY
+==================================================
+
+Admin edits should be traceable.
+
+For important entities:
+
+who changed it
+what changed
+when
+
+==================================================
+102. TESTING
+==================================================
+
+Add tests for critical paths.
+
+At minimum verify:
+
+Homepage loads
+Course page loads
+Job page loads
+Blog page loads
+Lead submission works
+Lead stored in Supabase
+Email notification does not break lead creation
+Admin login works
+Unauthorized admin access blocked
+RLS prevents public lead reads
+Published content visible
+Unpublished content hidden
+Job application works
+Resume upload validation
+Mobile navigation
+404
+SEO metadata
+sitemap
+robots
+structured data
+
+==================================================
+103. BROWSER TESTING
+==================================================
+
+Verify in:
+
+Chrome
+Safari
+Firefox
+
+Desktop and mobile widths.
+
+==================================================
+104. ACCESSIBILITY TESTING
+==================================================
+
+Check:
+
+keyboard navigation
+focus
+labels
+button names
+color contrast
+alt text
+heading structure
+
+==================================================
+105. SEO TESTING
+==================================================
+
+Before completion verify:
+
+title
+meta description
+canonical
+robots
+sitemap
+OG metadata
+structured data
+heading hierarchy
+internal links
+crawlable content
+no accidental noindex on public pages
+
+Admin pages should be noindex.
+
+Future student pages should be noindex.
+
+==================================================
+106. PERFORMANCE TESTING
+==================================================
+
+Check:
+
+image sizes
+JS bundle
+client components
+large dependencies
+layout shifts
+loading state
+font loading
+
+==================================================
+107. PRODUCTION READINESS
+==================================================
+
+The code should not contain:
+
+console spam
+temporary debugging UI
+fake API responses
+hardcoded passwords
+hardcoded secrets
+“TODO” replacing core functionality
+fake loading delays
+
+Small documented configuration TODOs are acceptable.
+
+==================================================
+108. README
+==================================================
+
+Create a professional README containing:
+
+Project overview
+Tech stack
+Folder structure
+Local development
+Supabase setup
+Environment variables
+Database migration setup
+Seed data
+Admin setup
+Vercel deployment
+Email setup
+Storage setup
+SEO setup
+Troubleshooting
+
+==================================================
+109. DOCUMENTATION FOR ANTIGRAVITY
+==================================================
+
+Create:
+
+docs/ARCHITECTURE.md
+docs/DATABASE.md
+docs/ROUTES.md
+docs/ADMIN.md
+docs/SEO.md
+docs/SECURITY.md
+docs/DEPLOYMENT.md
+docs/ANTIGRAVITY_HANDOFF.md
+
+ANTIGRAVITY_HANDOFF.md should explain:
+
+What has been built
+What remains
+How database works
+How admin works
+How to extend courses
+How to add future student auth
+How to add future LMS
+How to deploy
+Known configuration values
+Testing checklist
+
+==================================================
+110. ANTIGRAVITY HANDOFF PRINCIPLE
+==================================================
+
+The generated repository will later be taken into Antigravity for further development.
+
+Therefore:
+
+Use clean code.
+Use predictable folder names.
+Use strongly typed interfaces.
+Use migration files.
+Use descriptive component names.
+Avoid obscure abstractions.
+Avoid unnecessarily clever code.
+Document architectural decisions.
+
+The next developer/agent must be able to understand the project quickly.
+
+==================================================
+111. GIT
+==================================================
+
+Create:
+
+.gitignore
+.env.example
+
+Do not include:
+
+.env.local
+secret keys
+private credentials
+generated temporary files
+
+==================================================
+112. FINAL PROJECT STRUCTURE
+==================================================
+
+Produce a coherent production-ready structure similar to:
+
+/
+├── app/
+├── components/
+├── lib/
+├── services/
+├── hooks/
+├── types/
+├── public/
+├── supabase/
+│   ├── migrations/
+│   ├── seed.sql
+│   └── config.toml
+├── docs/
+├── .env.example
+├── README.md
+├── package.json
+└── ...
+
+==================================================
+113. IMPORTANT Z.AI EXECUTION INSTRUCTIONS
+==================================================
+
+Do NOT only describe how to build the website.
+
+Actually generate the files.
+
+Do NOT answer with pseudo-code.
+
+Do NOT provide only a design mockup.
+
+Generate the real codebase.
+
+Where possible:
+
+1. Create the project structure.
+2. Create components.
+3. Create routes.
+4. Create Supabase schema.
+5. Create migrations.
+6. Create seed data.
+7. Create admin routes.
+8. Create RLS policies.
+9. Create lead forms.
+10. Create job system.
+11. Create blog CMS.
+12. Create SEO infrastructure.
+13. Create documentation.
+
+If a service requires credentials that are not provided:
+
+- build the integration
+- add the required environment variable to .env.example
+- fail gracefully when unconfigured
+- document exact configuration steps
+
+Do not invent credentials.
+
+==================================================
+114. FINAL QUALITY BAR
+==================================================
+
+The final result should feel like a real business website that could be shown to:
+
+- candidates
+- parents
+- experienced professionals
+- career switchers
+- employers
+- hiring partners
+- corporate clients
+
+It should NOT feel like:
+
+- a college project
+- a generic Tailwind template
+- an AI-generated landing page
+- a course marketplace clone
+
+The final design should feel like:
+
+“Professional mortgage career institute + modern technology company.”
+
+==================================================
+115. FINAL HOMEPAGE MESSAGE
+==================================================
+
+The core brand message should revolve around:
+
+VERTEXIT
+
+LEARN • APPLY
+
+Learn industry-focused skills.
+Practice practical workflows.
+Prepare for real opportunities.
+Apply with confidence.
+
+==================================================
+116. IMPORTANT BUSINESS DISCLAIMER
+==================================================
+
+Do not state that VertexIT guarantees every candidate a job.
+
+The approved public positioning is:
+
+“Placement assistance with a very high placement rate.”
+
+All placement language must remain transparent and professional.
+
+==================================================
+117. COMPLETION CHECKLIST
+==================================================
+
+Before declaring completion, verify:
+
+[ ] VertexIT logo integrated
+[ ] Responsive homepage
+[ ] Courses page
+[ ] US Mortgage course
+[ ] Australia Mortgage course
+[ ] Placement page
+[ ] Jobs page
+[ ] Success Stories
+[ ] Trainers
+[ ] Blog
+[ ] FAQ
+[ ] About
+[ ] Contact
+[ ] Legal pages
+[ ] WhatsApp CTA
+[ ] Phone CTA
+[ ] Lead form
+[ ] Supabase database
+[ ] Supabase migrations
+[ ] Seed data
+[ ] RLS
+[ ] Admin auth
+[ ] Admin dashboard
+[ ] Course CMS
+[ ] Job CMS
+[ ] Lead CMS
+[ ] Blog CMS
+[ ] Trainer CMS
+[ ] Testimonial CMS
+[ ] Success Story CMS
+[ ] FAQ CMS
+[ ] Site Settings
+[ ] Media uploads
+[ ] Email notification integration
+[ ] SEO metadata
+[ ] Sitemap
+[ ] Robots
+[ ] Structured data
+[ ] OpenGraph
+[ ] Responsive mobile CTA
+[ ] Accessibility
+[ ] Error handling
+[ ] Loading states
+[ ] Empty states
+[ ] 404
+[ ] README
+[ ] Architecture docs
+[ ] Database docs
+[ ] Deployment docs
+[ ] Antigravity handoff docs
+
+==================================================
+118. FINAL INSTRUCTION
+==================================================
+
+Start building the complete VertexIT Phase 1 production-ready website now.
+
+Do not ask unnecessary questions.
+
+Where business information is unavailable, create an editable CMS field or documented configuration placeholder rather than inventing facts.
+
+The finished codebase must be structured so that Phase 2 can add the student portal without replacing the existing architecture.
+
+Build with quality suitable for a real production deployment.

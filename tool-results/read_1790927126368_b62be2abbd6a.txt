@@ -1,0 +1,302 @@
+   100→          { title: "Loan Application and Documentation", sortOrder: 4, description: "1003, disclosures and supporting documents." },
+   101→          { title: "Credit Analysis", sortOrder: 5, description: "Credit reports, scores and tradeline review." },
+   102→          { title: "Income Analysis", sortOrder: 6, description: "W-2, self-employed and rental income." },
+   103→          { title: "Asset Analysis", sortOrder: 7, description: "Bank statements, large deposits and asset sourcing." },
+   104→          { title: "Debt-to-Income and Related Ratios", sortOrder: 8, description: "DTI, housing ratio and qualification." },
+   105→          { title: "LTV / CLTV / HCLTV Concepts", sortOrder: 9, description: "Loan-to-value and combined loan-to-value." },
+   106→          { title: "Property and Collateral Review", sortOrder: 10, description: "Appraisals, title and property types." },
+   107→          { title: "Underwriting Decision Process", sortOrder: 11, description: "Approve, suspend, deny and conditions." },
+   108→          { title: "Conditions and Documentation Review", sortOrder: 12, description: "Prior-to-doc and prior-to-funding conditions." },
+   109→          { title: "Automated Underwriting Concepts", sortOrder: 13, description: "DU / LP findings interpretation." },
+   110→          { title: "Fannie Mae / Freddie Mac Guideline Awareness", sortOrder: 14, description: "Selling-guide awareness for underwriters." },
+   111→          { title: "FHA / VA Concepts Where Applicable", sortOrder: 15, description: "Government loan basics." },
+   112→          { title: "Self-Employed Borrower Analysis", sortOrder: 16, description: "Personal and business returns analysis." },
+   113→          { title: "Fraud and Risk Awareness", sortOrder: 17, description: "Red flags and fraud prevention basics." },
+   114→          { title: "Case-Study-Based Underwriting", sortOrder: 18, description: "Practical decision scenarios." },
+   115→          { title: "Real-World File Practice", sortOrder: 19, description: "Hands-on practice files." },
+   116→          { title: "Interview Preparation", sortOrder: 20, description: "Mock interviews and role-specific questions." },
+   117→        ],
+   118→      },
+   119→    },
+   120→  });
+   121→
+   122→  // Outcomes for US course
+   123→  if ((await db.courseOutcome.count({ where: { courseId: usCourse.id } })) === 0) {
+   124→    await db.courseOutcome.createMany({
+   125→      data: [
+   126→        { courseId: usCourse.id, text: "Read and interpret US mortgage loan files", sortOrder: 1 },
+   127→        { courseId: usCourse.id, text: "Calculate DTI, LTV, CLTV and qualifying ratios", sortOrder: 2 },
+   128→        { courseId: usCourse.id, text: "Analyse credit reports and tradelines", sortOrder: 3 },
+   129→        { courseId: usCourse.id, text: "Assess W-2 and self-employed borrower income", sortOrder: 4 },
+   130→        { courseId: usCourse.id, text: "Understand AUS (DU / LP) outputs", sortOrder: 5 },
+   131→        { courseId: usCourse.id, text: "Apply underwriting conditions in realistic scenarios", sortOrder: 6 },
+   132→      ],
+   133→    });
+   134→  }
+   135→
+   136→  // Course FAQs for US course
+   137→  if ((await db.courseFaq.count({ where: { courseId: usCourse.id } })) === 0) {
+   138→    await db.courseFaq.createMany({
+   139→      data: [
+   140→        { courseId: usCourse.id, question: "Do I need previous mortgage experience to join?", answer: "No. The US Mortgage Underwriting program is designed for graduates and career switchers. Previous mortgage experience is not mandatory.", sortOrder: 1 },
+   141→        { courseId: usCourse.id, question: "Is the training online or offline?", answer: "The training is hybrid — combining live online sessions with in-person practice where applicable. Please speak with a VertexIT counsellor for current batch details.", sortOrder: 2 },
+   142→        { courseId: usCourse.id, question: "Will I become a licensed underwriter after this course?", answer: "This course builds job-ready underwriting skills and knowledge. It does not automatically confer any regulatory licence. Please speak with a counsellor for current eligibility details.", sortOrder: 3 },
+   143→        { courseId: usCourse.id, question: "Are course fees displayed publicly?", answer: "Course fees are not displayed publicly at launch. Please speak with a VertexIT counsellor for fee and batch information.", sortOrder: 4 },
+   144→        { courseId: usCourse.id, question: "How does placement assistance work?", answer: "VertexIT provides placement assistance with resume guidance, interview preparation and relevant opportunities. Actual hiring depends on employer requirements and candidate suitability.", sortOrder: 5 },
+   145→      ],
+   146→    });
+   147→  }
+   148→  console.log("✓ US Mortgage course + modules + outcomes + FAQs");
+   149→
+   150→  // 4. Courses — Australia Mortgage
+   151→  const ausCourse = await db.course.upsert({
+   152→    where: { slug: "australia-mortgage" },
+   153→    update: {},
+   154→    create: {
+   155→      title: "Australia Mortgage",
+   156→      slug: "australia-mortgage",
+   157→      shortDescription:
+   158→        "Practical training in Australian Mortgage Operations covering loan processing, broker support, loan administration, credit assessment and lending operations.",
+   159→      introduction:
+   160→        "The Australia Mortgage program at VertexIT prepares candidates for mortgage and lending operations roles in the Australian market. The curriculum covers the Australian home loan lifecycle, loan application processing, document collection and verification, borrower assessment, income and living-expense review, credit assessment, property and security documentation, loan administration, broker support and post-submission follow-up. The training is practical and designed around the real workflows used in Australian lending operations.",
+   161→      whoFor:
+   162→        "Graduates, experienced professionals and career switchers interested in Australian mortgage processing, broker support, loan administration and lending operations roles.",
+   163→      whatYouLearn:
+   164→        "You will learn the Australian mortgage industry, the home loan lifecycle, how to process loan applications, collect and verify documents, assess borrowers, review income and living expenses, support brokers, manage loan administration and handle post-submission follow-up.",
+   165→      practicalLearning:
+   166→        "Case studies and practical scenarios covering the full Australian loan lifecycle.",
+   167→      caseStudies:
+   168→        "Practical scenarios including document collection, broker communication and settlement administration concepts.",
+   169→      careerRoles:
+   170→        "Mortgage Loan Processing, Broker Support, Loan Administration, Credit Assessment support, Lending Operations, Mortgage Broker Virtual Assistant, Related lending operations roles.",
+   171→      placementAssistance:
+   172→        "Placement assistance with resume guidance, interview preparation and access to relevant opportunities.",
+   173→      trainingMode: "HYBRID",
+   174→      eligibility: "Any graduate. Previous mortgage experience is not mandatory.",
+   175→      keySkills:
+   176→        "Loan application processing\nDocument collection & verification\nBorrower assessment\nIncome & living expense review\nCredit assessment\nLoan administration\nBroker communication\nPost-submission follow-up",
+   177→      careerPathways:
+   178→        "Mortgage Loan Processor\nBroker Support Associate\nLoan Administration Analyst\nLending Operations Analyst\nMortgage Broker Virtual Assistant",
+   179→      duration: null,
+   180→      courseFee: null,
+   181→      status: "ACTIVE",
+   182→      featuredImage: "/uploads/courses/australia-mortgage.jpg",
+   183→      metaTitle: "Australia Mortgage Training | VertexIT",
+   184→      metaDescription:
+   185→        "Australia Mortgage operations training in Bengaluru covering loan processing, broker support, credit assessment and lending operations. Practical, job-focused curriculum.",
+   186→      isPublished: true,
+   187→      isDemo: false,
+   188→      displayOrder: 2,
+   189→      modules: {
+   190→        create: [
+   191→          { title: "Australian Mortgage Industry Overview", sortOrder: 1, description: "Structure of the Australian mortgage market." },
+   192→          { title: "Australian Home Loan Lifecycle", sortOrder: 2, description: "End-to-end lifecycle of an Australian home loan." },
+   193→          { title: "Loan Application Processing", sortOrder: 3, description: "Application intake, data entry and validation." },
+   194→          { title: "Document Collection and Verification", sortOrder: 4, description: "Identity, income and asset documentation." },
+   195→          { title: "Borrower and Applicant Assessment", sortOrder: 5, description: "Applicant profile and suitability." },
+   196→          { title: "Income Assessment", sortOrder: 6, description: "PAYG, self-employed and rental income." },
+   197→          { title: "Living Expense / Liability Review", sortOrder: 7, description: "HES, liabilities and expense verification." },
+   198→          { title: "Credit Assessment", sortOrder: 8, description: "Credit reports and credit risk basics." },
+   199→          { title: "Property / Security Documentation", sortOrder: 9, description: "Property and security review." },
+   200→          { title: "Loan Administration", sortOrder: 10, description: "Post-settlement administration." },
+   201→          { title: "Broker Support", sortOrder: 11, description: "Supporting mortgage brokers day-to-day." },
+   202→          { title: "Lender and Broker Communication", sortOrder: 12, description: "Effective written and verbal communication." },
+   203→          { title: "Loan Submission Support", sortOrder: 13, description: "Submission packaging and follow-up." },
+   204→          { title: "Post-submission Follow-up", sortOrder: 14, description: "Condition tracking and updates." },
+   205→          { title: "Settlement / Administration Concepts", sortOrder: 15, description: "Settlement workflow basics." },
+   206→          { title: "Lending Operations", sortOrder: 16, description: "Lending operations processes." },
+   207→          { title: "Mortgage Broker Virtual Assistant Responsibilities", sortOrder: 17, description: "Broker VA scope and responsibilities." },
+   208→          { title: "Case Studies and Practical Scenarios", sortOrder: 18, description: "Hands-on Australian mortgage scenarios." },
+   209→          { title: "Interview Preparation", sortOrder: 19, description: "Role-specific interview preparation." },
+   210→        ],
+   211→      },
+   212→    },
+   213→  });
+   214→
+   215→  if ((await db.courseOutcome.count({ where: { courseId: ausCourse.id } })) === 0) {
+   216→    await db.courseOutcome.createMany({
+   217→      data: [
+   218→        { courseId: ausCourse.id, text: "Process Australian loan applications end-to-end", sortOrder: 1 },
+   219→        { courseId: ausCourse.id, text: "Collect and verify borrower documentation", sortOrder: 2 },
+   220→        { courseId: ausCourse.id, text: "Assess income, living expenses and liabilities", sortOrder: 3 },
+   221→        { courseId: ausCourse.id, text: "Support brokers and lenders effectively", sortOrder: 4 },
+   222→        { courseId: ausCourse.id, text: "Handle loan administration and post-submission follow-up", sortOrder: 5 },
+   223→        { courseId: ausCourse.id, text: "Communicate professionally in Australian lending context", sortOrder: 6 },
+   224→      ],
+   225→    });
+   226→  }
+   227→
+   228→  if ((await db.courseFaq.count({ where: { courseId: ausCourse.id } })) === 0) {
+   229→    await db.courseFaq.createMany({
+   230→      data: [
+   231→        { courseId: ausCourse.id, question: "Will I become a licensed Australian mortgage broker after this course?", answer: "No. This training prepares candidates for mortgage and lending support and operations roles. It does not automatically grant broker licensing.", sortOrder: 1 },
+   232→        { courseId: ausCourse.id, question: "Is the training online or offline?", answer: "The training is hybrid. Please speak with a VertexIT counsellor for current batch details.", sortOrder: 2 },
+   233→        { courseId: ausCourse.id, question: "Do I need previous mortgage experience?", answer: "No previous mortgage experience is required. The program is designed for graduates and career switchers.", sortOrder: 3 },
+   234→        { courseId: ausCourse.id, question: "What roles does this prepare me for?", answer: "The training prepares candidates for mortgage loan processing, broker support, loan administration, credit assessment support and lending operations roles.", sortOrder: 4 },
+   235→      ],
+   236→    });
+   237→  }
+   238→  console.log("✓ Australia Mortgage course + modules + outcomes + FAQs");
+   239→
+   240→  // 5. Global FAQs
+   241→  const faqSeed: { question: string; answer: string; category: string; sortOrder: number }[] = [
+   242→    { question: "Who can join VertexIT?", answer: "Any graduate, experienced professional or career switcher interested in mortgage and lending operations can join VertexIT. Please speak with a counsellor for current eligibility details.", category: "General", sortOrder: 1 },
+   243→    { question: "Are fresh graduates eligible?", answer: "Yes. Fresh graduates are eligible to apply. Our programs are designed to build practical, job-ready skills from the ground up.", category: "Eligibility", sortOrder: 2 },
+   244→    { question: "Is the training online or offline?", answer: "VertexIT offers hybrid training — combining live online sessions with in-person practice where applicable. Please speak with a counsellor for current batch details.", category: "Training", sortOrder: 3 },
+   245→    { question: "What is hybrid training?", answer: "Hybrid training combines the flexibility of online learning with the depth of in-person, practical sessions — designed to accommodate working professionals and outstation candidates.", category: "Training", sortOrder: 4 },
+   246→    { question: "What does the US Mortgage course cover?", answer: "The US Mortgage Underwriting program covers the US mortgage industry, loan types, loan application and documentation, credit, income and asset analysis, DTI, LTV/CLTV, AUS concepts, Fannie Mae / Freddie Mac guideline awareness, case studies and interview preparation.", category: "Courses", sortOrder: 5 },
+   247→    { question: "What does the Australia Mortgage course cover?", answer: "The Australia Mortgage program covers the Australian mortgage industry, home loan lifecycle, loan application processing, document collection and verification, borrower assessment, income and living expense review, credit assessment, loan administration, broker support and interview preparation.", category: "Courses", sortOrder: 6 },
+   248→    { question: "Do I need previous mortgage experience?", answer: "No. Previous mortgage experience is not mandatory for either launch course. The curriculum is designed to build the required skills.", category: "Eligibility", sortOrder: 7 },
+   249→    { question: "How does placement assistance work?", answer: "VertexIT provides placement assistance with a very high placement rate. This includes resume guidance, interview preparation and relevant opportunities. Actual hiring depends on employer requirements and candidate suitability.", category: "Placement", sortOrder: 8 },
+   250→    { question: "Do you provide interview preparation?", answer: "Yes. Interview preparation is built into the curriculum, including mock interviews and role-specific question practice.", category: "Placement", sortOrder: 9 },
+   251→    { question: "Are course fees displayed?", answer: "Course fees are not displayed publicly at launch. Please speak with a VertexIT counsellor for fee and batch information.", category: "Fees", sortOrder: 10 },
+   252→    { question: "How can I contact a counsellor?", answer: "You can reach a VertexIT counsellor on WhatsApp at +91 97036 86514 or through the contact form on this website.", category: "Contact", sortOrder: 11 },
+   253→    { question: "Where is VertexIT located?", answer: "VertexIT is located in Bengaluru, Karnataka, India. Please speak with our team for the current office location and visiting hours.", category: "Contact", sortOrder: 12 },
+   254→  ];
+   255→  for (const f of faqSeed) {
+   256→    const existing = await db.faq.findFirst({ where: { question: f.question } });
+   257→    if (!existing) {
+   258→      await db.faq.create({ data: { ...f, isPublished: true } });
+   259→    }
+   260→  }
+   261→  console.log(`✓ ${faqSeed.length} FAQs`);
+   262→
+   263→  // 6. Blog Categories
+   264→  const categories = [
+   265→    "US Mortgage", "Mortgage Underwriting", "Australia Mortgage", "Mortgage Careers",
+   266→    "Career Advice", "Interview Preparation", "Resume & LinkedIn", "Mortgage Operations",
+   267→    "Industry Knowledge", "Job Search",
+   268→  ];
+   269→  const catMap: Record<string, string> = {};
+   270→  for (let i = 0; i < categories.length; i++) {
+   271→    const name = categories[i];
+   272→    const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+   273→    const cat = await db.blogCategory.upsert({
+   274→      where: { slug },
+   275→      update: {},
+   276→      create: { name, slug, sortOrder: i + 1 },
+   277→    });
+   278→    catMap[name] = cat.id;
+   279→  }
+   280→  console.log(`✓ ${categories.length} blog categories`);
+   281→
+   282→  // 7. Blog drafts (drafts — not published)
+   283→  const blogDrafts: { title: string; slug: string; excerpt: string; content: string; categoryName: string; tags?: string }[] = [
+   284→    {
+   285→      title: "US Mortgage Underwriting: A Beginner's Career Guide",
+   286→      slug: "us-mortgage-underwriting-beginner-career-guide",
+   287→      excerpt: "A practical introduction to starting a career in US mortgage underwriting — what the role involves, the skills you need, and how to get started.",
+   288→      content: "# US Mortgage Underwriting: A Beginner's Career Guide\n\nUS mortgage underwriting is one of the most in-demand career paths in the global mortgage and lending operations industry. In this guide, we walk through what the role involves, the core skills you need to build, and how to get started.\n\n## What does a mortgage underwriter do?\n\nA mortgage underwriter assesses whether a borrower meets the lender's guidelines for a home loan. This involves reviewing credit, income, assets, debts and the property itself before approving, suspending or denying the loan.\n\n## Skills you need\n\n- Loan file analysis\n- Credit report interpretation\n- Income analysis (W-2 and self-employed)\n- DTI, LTV and CLTV calculations\n- AUS (DU/LP) concepts\n\n## How to start\n\nThe most effective way to start is structured, practical training combined with case-study based practice. VertexIT's US Mortgage Underwriting program is designed to build exactly these skills.\n\n_Speak with a VertexIT counsellor to learn more._",
+   289→      categoryName: "Mortgage Underwriting",
+   290→      tags: "us mortgage, underwriting, careers",
+   291→    },
+   292→    {
+   293→      title: "What Does a Mortgage Underwriter Do?",
+   294→      slug: "what-does-a-mortgage-underwriter-do",
+   295→      excerpt: "Understand the day-to-day responsibilities of a mortgage underwriter and the decision-making process behind loan approvals.",
+   296→      content: "# What Does a Mortgage Underwriter Do?\n\nA mortgage underwriter evaluates the risk of lending to a borrower. Their job is to verify that the borrower, the property and the loan structure meet the lender's guidelines.\n\n## The underwriting decision\n\nAn underwriter typically decides between:\n- **Approve** — loan meets guidelines\n- **Suspend** — more information required\n- **Deny** — loan does not meet guidelines\n\n## Day-to-day tasks\n\n- Reviewing loan files\n- Verifying income, assets and credit\n- Calculating DTI, LTV and CLTV\n- Issuing conditions\n- Communicating with processors and loan officers",
+   297→      categoryName: "Mortgage Underwriting",
+   298→    },
+   299→    {
+   300→      title: "US Mortgage Underwriting Skills You Need to Build",
+   301→      slug: "us-mortgage-underwriting-skills-to-build",
+   302→      excerpt: "The core technical and analytical skills that hiring teams look for in entry-level US mortgage underwriting roles.",
+   303→      content: "# US Mortgage Underwriting Skills You Need to Build\n\nBreaking into US mortgage underwriting requires a mix of technical knowledge and analytical skill. Here are the most important skills to build.\n\n## Technical skills\n\n- Mortgage lifecycle understanding\n- Loan types (conventional, FHA, VA)\n- Credit analysis\n- Income analysis (W-2 and self-employed)\n- DTI, LTV, CLTV ratios\n- AUS interpretation (DU / LP)\n\n## Analytical skills\n\n- Attention to detail\n- Reading documentation carefully\n- Spotting red flags\n\n_Building these skills through practical case studies is the fastest path to becoming job-ready._",
+   304→      categoryName: "Mortgage Underwriting",
+   305→    },
+   306→    {
+   307→      title: "How Mortgage Underwriting Works",
+   308→      slug: "how-mortgage-underwriting-works",
+   309→      excerpt: "A simple, practical walkthrough of the mortgage underwriting process from application to decision.",
+   310→      content: "# How Mortgage Underwriting Works\n\nMortgage underwriting is the process by which a lender assesses the risk of a home loan. This article walks through the key steps.\n\n## The process\n\n1. Application received\n2. Document collection\n3. Credit, income and asset analysis\n4. Property and collateral review\n5. DTI, LTV and CLTV calculation\n6. AUS submission (where applicable)\n7. Decision: approve, suspend or deny\n8. Conditions issued and cleared",
+   311→      categoryName: "Mortgage Underwriting",
+   312→    },
+   313→    {
+   314→      title: "Australia Mortgage Processing: Roles and Responsibilities",
+   315→      slug: "australia-mortgage-processing-roles-responsibilities",
+   316→      excerpt: "An overview of Australian mortgage processing roles and the day-to-day responsibilities of loan processing professionals.",
+   317→      content: "# Australia Mortgage Processing: Roles and Responsibilities\n\nAustralian mortgage processing is a key function in the home loan lifecycle. This article explains what the role involves.\n\n## Core responsibilities\n\n- Loan application intake and data entry\n- Document collection and verification\n- Borrower and applicant assessment support\n- Income and living expense review\n- Communication with brokers and lenders\n- Post-submission follow-up",
+   318→      categoryName: "Australia Mortgage",
+   319→    },
+   320→    {
+   321→      title: "What Does a Mortgage Broker Support Professional Do?",
+   322→      slug: "what-does-a-mortgage-broker-support-professional-do",
+   323→      excerpt: "Understand the broker support role in the Australian mortgage industry and the value these professionals bring to brokers and borrowers.",
+   324→      content: "# What Does a Mortgage Broker Support Professional Do?\n\nMortgage broker support professionals help brokers manage loan pipelines, communicate with lenders, and ensure files move smoothly from application to settlement.\n\n## Day-to-day tasks\n\n- Managing broker pipelines\n- Preparing loan submissions\n- Following up on conditions\n- Coordinating with lenders\n- Assisting with documentation",
+   325→      categoryName: "Australia Mortgage",
+   326→    },
+   327→    {
+   328→      title: "Mortgage Loan Processing vs Underwriting",
+   329→      slug: "mortgage-loan-processing-vs-underwriting",
+   330→      excerpt: "Understand the difference between mortgage loan processing and underwriting — two distinct but complementary roles.",
+   331→      content: "# Mortgage Loan Processing vs Underwriting\n\nProcessing and underwriting are two distinct but complementary roles in the mortgage lifecycle.\n\n## Processing\n\n- Collects and organises documentation\n- Verifies data entry\n- Prepares the file for underwriting\n\n## Underwriting\n\n- Assesses risk against guidelines\n- Makes the approve / suspend / deny decision\n- Issues conditions",
+   332→      categoryName: "Mortgage Operations",
+   333→    },
+   334→    {
+   335→      title: "Career Opportunities in Mortgage Operations",
+   336→      slug: "career-opportunities-in-mortgage-operations",
+   337→      excerpt: "Explore the range of career opportunities available in mortgage operations across US and Australian lending markets.",
+   338→      content: "# Career Opportunities in Mortgage Operations\n\nMortgage operations is a broad field with multiple entry points and growth paths.\n\n## Common roles\n\n- Mortgage Loan Processor\n- Underwriting Assistant / Underwriter\n- Loan Administration Analyst\n- Credit / Lending Support\n- Broker Support / Virtual Assistant\n- Lending Operations Analyst\n\n_Graduates and career switchers can enter this field with the right practical training._",
+   339→      categoryName: "Mortgage Careers",
+   340→    },
+   341→    {
+   342→      title: "How to Prepare for a Mortgage Interview",
+   343→      slug: "how-to-prepare-for-a-mortgage-interview",
+   344→      excerpt: "Practical tips to prepare for mortgage operations and underwriting interviews — from core concepts to common questions.",
+   345→      content: "# How to Prepare for a Mortgage Interview\n\nMortgage interviews test both conceptual knowledge and practical reasoning. Here's how to prepare effectively.\n\n## Conceptual preparation\n\n- Mortgage lifecycle\n- Loan types\n- Credit, income, asset basics\n- DTI, LTV, CLTV\n- AUS concepts\n\n## Practical preparation\n\n- Case-study based reasoning\n- Document review scenarios\n- Red flag identification\n\n## Common questions\n\n- Walk me through the mortgage lifecycle\n- How would you assess a self-employed borrower?\n- What is DTI and why does it matter?",
+   346→      categoryName: "Interview Preparation",
+   347→    },
+   348→    {
+   349→      title: "Skills Graduates Can Build for Mortgage Operations Careers",
+   350→      slug: "skills-graduates-can-build-for-mortgage-operations",
+   351→      excerpt: "A practical skill-building roadmap for graduates looking to enter mortgage operations roles.",
+   352→      content: "# Skills Graduates Can Build for Mortgage Operations Careers\n\nGraduates entering mortgage operations should focus on building a mix of technical and communication skills.\n\n## Technical\n\n- Loan file review\n- Documentation verification\n- Ratio calculations\n- AUS interpretation\n\n## Communication\n\n- Clear written English\n- Professional email etiquette\n- Lender and broker communication",
+   353→      categoryName: "Career Advice",
+   354→    },
+   355→    {
+   356→      title: "US Mortgage Careers in Bengaluru",
+   357→      slug: "us-mortgage-careers-in-bengaluru",
+   358→      excerpt: "Why Bengaluru has become a hub for US mortgage operations careers and what candidates should know.",
+   359→      content: "# US Mortgage Careers in Bengaluru\n\nBengaluru is one of India's leading hubs for global mortgage operations, with strong demand for trained underwriters, processors and operations analysts.\n\n## Why Bengaluru?\n\n- Presence of global capability centres\n- Strong BFSI hiring ecosystem\n- Hybrid and remote-friendly roles\n\n## How to start\n\nStructured practical training is the fastest way to build the skills hiring teams in Bengaluru look for.",
+   360→      categoryName: "Mortgage Careers",
+   361→    },
+   362→    {
+   363→      title: "Australia Mortgage Operations Careers in India",
+   364→      slug: "australia-mortgage-operations-careers-in-india",
+   365→      excerpt: "An overview of Australia mortgage operations careers available to candidates in India.",
+   366→      content: "# Australia Mortgage Operations Careers in India\n\nAustralia mortgage operations is a growing career segment in India, with opportunities in loan processing, broker support, loan administration and lending operations.\n\n## Common roles\n\n- Mortgage Loan Processor\n- Broker Support Associate\n- Loan Administration Analyst\n- Mortgage Broker Virtual Assistant\n\n_Building Australian mortgage knowledge through structured training is the key to entering this segment._",
+   367→      categoryName: "Mortgage Careers",
+   368→    },
+   369→    {
+   370→      title: "Mortgage Operations Resume Tips",
+   371→      slug: "mortgage-operations-resume-tips",
+   372→      excerpt: "Practical resume tips for candidates applying to mortgage operations and underwriting roles.",
+   373→      content: "# Mortgage Operations Resume Tips\n\nA strong resume is essential for standing out in mortgage operations hiring.\n\n## What to highlight\n\n- Relevant training and certifications\n- Practical case-study experience\n- Analytical and detail-oriented skills\n- Communication skills\n\n## What to avoid\n\n- Generic summaries\n- Irrelevant experience listed in detail\n- Spelling or formatting errors",
+   374→      categoryName: "Resume & LinkedIn",
+   375→    },
+   376→    {
+   377→      title: "Common Mortgage Interview Questions",
+   378→      slug: "common-mortgage-interview-questions",
+   379→      excerpt: "A practical list of common mortgage operations and underwriting interview questions and how to approach them.",
+   380→      content: "# Common Mortgage Interview Questions\n\nPreparing for mortgage interviews is easier when you know what to expect.\n\n## Conceptual\n\n- What is the mortgage lifecycle?\n- Explain DTI, LTV and CLTV.\n- What is the role of AUS?\n\n## Scenario-based\n\n- How would you handle a file with missing income documents?\n- What red flags would you look for in a self-employed borrower file?\n\n## Behavioural\n\n- Tell me about a time you caught a critical error.\n- How do you prioritise when handling multiple files?",
+   381→      categoryName: "Interview Preparation",
+   382→    },
+   383→    {
+   384→      title: "How Practical Case Studies Help Mortgage Candidates Become Job-Ready",
+   385→      slug: "how-practical-case-studies-help-mortgage-candidates",
+   386→      excerpt: "Why case-study based learning is one of the most effective ways to become job-ready for mortgage operations.",
+   387→      content: "# How Practical Case Studies Help Mortgage Candidates Become Job-Ready\n\nCase-study based learning bridges the gap between theory and on-the-job performance.\n\n## Why case studies work\n\n- Simulate real loan files\n- Build decision-making instinct\n- Surface edge cases\n- Improve documentation review skills\n\nAt VertexIT, every program is built around practical case studies to ensure candidates are job-ready from day one.",
+   388→      categoryName: "Career Advice",
+   389→    },
+   390→  ];
+   391→  let blogCount = 0;
+   392→  for (const post of blogDrafts) {
+   393→    const existing = await db.blogPost.findUnique({ where: { slug: post.slug } });
+   394→    if (existing) continue;
+   395→    await db.blogPost.create({
+   396→      data: {
+   397→        title: post.title,
+   398→        slug: post.slug,
+   399→        excerpt: post.excerpt,
+
+[showing lines 100-399 of 538; use offset=400 with limit to continue reading]

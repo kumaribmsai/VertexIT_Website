@@ -1,0 +1,224 @@
+import { db } from "@/lib/db";
+import { requireAdmin } from "@/lib/admin-auth";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { AdminPageHeader } from "@/components/admin/primitives";
+import { LeadStatusUpdater } from "@/components/admin/lead-status-updater";
+import { LeadNotes } from "@/components/admin/lead-notes";
+import { LeadDetailActions } from "@/components/admin/lead-detail-actions";
+import { StatusBadge } from "@/components/site/status-badge";
+import { format } from "date-fns";
+import {
+  Phone, Mail, MessageCircle, Globe, GraduationCap,
+  Briefcase, Clock, User, FileText, ExternalLink,
+} from "lucide-react";
+
+export const dynamic = "force-dynamic";
+
+export default async function LeadDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { user } = await requireAdmin("COUNSELLOR");
+  const { id } = await params;
+
+  const lead = await db.lead.findUnique({
+    where: { id },
+    include: {
+      course: { select: { id: true, title: true, slug: true } },
+      assignedCounsellor: { select: { id: true, name: true } },
+      statusHistory: { orderBy: { createdAt: "desc" } },
+      notes: { orderBy: { createdAt: "desc" } },
+    },
+  });
+
+  if (!lead) notFound();
+
+  const counsellors = await db.adminUser.findMany({
+    where: { isActive: true, role: { in: ["SUPER_ADMIN", "ADMIN", "COUNSELLOR"] } },
+    select: { id: true, name: true, role: true },
+  });
+
+  const waHref = `https://wa.me/91${lead.phone.replace(/\D/g, "").slice(-10)}?text=${encodeURIComponent(
+    `Hi ${lead.fullName}, this is ${user.name} from VertexIT following up on your enquiry.`,
+  )}`;
+
+  return (
+    <div className="space-y-5">
+      <AdminPageHeader
+        title={lead.fullName}
+        description={`Lead since ${format(new Date(lead.createdAt), "d MMM yyyy, h:mm a")}`}
+        backHref="/admin/leads"
+        actions={
+          <div className="flex items-center gap-2">
+            <StatusBadge status={lead.status} />
+            <LeadDetailActions leadId={lead.id} phone={lead.phone} waHref={waHref} />
+          </div>
+        }
+      />
+
+      <div className="grid gap-5 lg:grid-cols-3">
+        <div className="space-y-5 lg:col-span-2">
+          {/* Lead info card */}
+          <div className="rounded-xl border border-slate-200 bg-white p-5">
+            <h2 className="mb-4 font-heading text-sm font-semibold text-navy">Contact Information</h2>
+            <dl className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <InfoRow icon={Phone} label="Phone" value={lead.phone} />
+              <InfoRow icon={Mail} label="Email" value={lead.email ?? "—"} />
+              <InfoRow
+                icon={GraduationCap}
+                label="Course"
+                value={
+                  lead.course ? (
+                    <Link
+                      href={`/courses/${lead.course.slug}`}
+                      target="_blank"
+                      className="inline-flex items-center gap-1 text-teal hover:underline"
+                    >
+                      {lead.course.title} <ExternalLink className="h-3 w-3" />
+                    </Link>
+                  ) : (
+                    "General enquiry"
+                  )
+                }
+              />
+              <InfoRow icon={GraduationCap} label="Education" value={lead.education ?? "—"} />
+              <InfoRow icon={Briefcase} label="Experience" value={lead.experienceLevel ?? "—"} />
+              <InfoRow icon={Globe} label="Preferred mode" value={lead.preferredMode ?? "—"} />
+              <InfoRow icon={User} label="Counsellor" value={lead.assignedCounsellor?.name ?? "Unassigned"} />
+              <InfoRow
+                icon={Clock}
+                label="Last contacted"
+                value={lead.lastContactedAt ? format(new Date(lead.lastContactedAt), "d MMM, h:mm a") : "Never"}
+              />
+            </dl>
+            {lead.message && (
+              <div className="mt-4 rounded-lg bg-slate-50 p-3">
+                <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  <FileText className="h-3.5 w-3.5" /> Message
+                </p>
+                <p className="text-sm text-slate-700">{lead.message}</p>
+              </div>
+            )}
+          </div>
+
+          <LeadStatusUpdater
+            leadId={lead.id}
+            currentStatus={lead.status}
+            nextFollowUpAt={lead.nextFollowUpAt?.toISOString() ?? null}
+            counsellors={counsellors}
+            assignedCounsellorId={lead.assignedCounsellorId}
+            currentUser={user}
+          />
+
+          <LeadNotes
+            leadId={lead.id}
+            notes={lead.notes.map((n) => ({
+              id: n.id,
+              authorName: n.authorName,
+              body: n.body,
+              createdAt: n.createdAt.toISOString(),
+            }))}
+            currentUserName={user.name}
+            currentUserId={user.id}
+          />
+
+          {/* Status history */}
+          <div className="rounded-xl border border-slate-200 bg-white p-5">
+            <h2 className="mb-4 font-heading text-sm font-semibold text-navy">Status History</h2>
+            {lead.statusHistory.length === 0 ? (
+              <p className="text-sm text-muted-foreground">No status changes yet.</p>
+            ) : (
+              <ol className="relative space-y-4 border-l-2 border-slate-100 pl-4">
+                {lead.statusHistory.map((h) => (
+                  <li key={h.id} className="relative">
+                    <span className="absolute -left-[21px] top-1 h-3 w-3 rounded-full border-2 border-teal bg-white" />
+                    <div className="flex items-center gap-2">
+                      <StatusBadge status={h.toStatus} />
+                      {h.fromStatus && (
+                        <span className="text-xs text-slate-400">from {h.fromStatus}</span>
+                      )}
+                    </div>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {format(new Date(h.createdAt), "d MMM yyyy, h:mm a")}
+                      {h.changedByName && ` · by ${h.changedByName}`}
+                    </p>
+                    {h.note && <p className="mt-1 text-sm text-slate-600">{h.note}</p>}
+                  </li>
+                ))}
+              </ol>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-5">
+          <div className="rounded-xl border border-slate-200 bg-white p-5">
+            <h2 className="mb-3 font-heading text-sm font-semibold text-navy">Quick Actions</h2>
+            <div className="space-y-2">
+              <a
+                href={waHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-teal text-sm font-semibold text-white hover:bg-teal/90"
+              >
+                <MessageCircle className="h-4 w-4" /> WhatsApp
+              </a>
+              <a
+                href={`tel:${lead.phone}`}
+                className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-lg border border-navy/15 text-sm font-semibold text-navy hover:border-teal hover:text-teal"
+              >
+                <Phone className="h-4 w-4" /> Call
+              </a>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-slate-200 bg-white p-5">
+            <h2 className="mb-3 font-heading text-sm font-semibold text-navy">Tracking</h2>
+            <dl className="space-y-2 text-xs">
+              <TrackRow label="Source" value={lead.utmSource} />
+              <TrackRow label="Medium" value={lead.utmMedium} />
+              <TrackRow label="Campaign" value={lead.utmCampaign} />
+              <TrackRow label="Term" value={lead.utmTerm} />
+              <TrackRow label="Content" value={lead.utmContent} />
+              <TrackRow label="Referrer" value={lead.referrer} />
+              <TrackRow label="Landing page" value={lead.landingPage} />
+              <TrackRow label="User agent" value={lead.userAgent} />
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function InfoRow({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: React.ReactNode;
+}) {
+  return (
+    <div className="flex items-start gap-2">
+      <Icon className="mt-0.5 h-4 w-4 shrink-0 text-teal" />
+      <div className="min-w-0">
+        <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</dt>
+        <dd className="text-sm text-navy break-words">{value}</dd>
+      </div>
+    </div>
+  );
+}
+
+function TrackRow({ label, value }: { label: string; value?: string | null }) {
+  return (
+    <div className="flex items-start justify-between gap-2 border-b border-slate-50 pb-2 last:border-0">
+      <span className="text-muted-foreground">{label}</span>
+      <span className="text-right font-mono text-[0.7rem] text-slate-600 break-all">
+        {value ?? "—"}
+      </span>
+    </div>
+  );
+}

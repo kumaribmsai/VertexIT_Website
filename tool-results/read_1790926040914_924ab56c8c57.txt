@@ -1,0 +1,2002 @@
+     1→You are acting as a senior product architect, UX/UI designer, full-stack engineer, database architect, SEO specialist, security engineer, QA engineer, and technical project manager.
+     2→
+     3→Your task is to build the complete production-ready website for a professional training and placement institute called:
+     4→
+     5→VERTEXIT
+     6→
+     7→Brand tagline:
+     8→LEARN • APPLY
+     9→
+    10→Location:
+    11→Bengaluru, Karnataka, India
+    12→
+    13→Primary business:
+    14→Career-oriented training and placement assistance for candidates seeking employment in mortgage and lending operations.
+    15→
+    16→Launch courses:
+    17→1. US Mortgage – Underwriting
+    18→2. Australia Mortgage – Mortgage Operations
+    19→
+    20→IMPORTANT:
+    21→This is NOT a simple static marketing website.
+    22→
+    23→Build it as the foundation of a long-term training + placement platform.
+    24→
+    25→PHASE 1:
+    26→Public website + CMS/Admin + lead management + jobs + blog + placement content + database foundation.
+    27→
+    28→PHASE 2:
+    29→Student authentication + student dashboard + course learning platform + progress tracking + tests + certificates + placement tracking + current package/job information.
+    30→
+    31→The Phase 1 architecture MUST be designed so Phase 2 can be added without rebuilding the application or database.
+    32→
+    33→==================================================
+    34→1. NON-NEGOTIABLE TECHNOLOGY STACK
+    35→==================================================
+    36→
+    37→Use the following technology stack unless there is a very strong technical reason otherwise:
+    38→
+    39→Frontend / Full-stack:
+    40→- Next.js
+    41→- TypeScript
+    42→- App Router
+    43→- React
+    44→
+    45→Styling:
+    46→- Tailwind CSS
+    47→- shadcn/ui
+    48→- CSS variables for design tokens
+    49→
+    50→Database / Backend:
+    51→- Supabase
+    52→- PostgreSQL
+    53→
+    54→Authentication:
+    55→- Supabase Auth
+    56→- PHASE 1: Admin authentication only
+    57→- PHASE 2: Candidate/student authentication
+    58→
+    59→Storage:
+    60→- Supabase Storage
+    61→
+    62→Hosting:
+    63→- Vercel
+    64→
+    65→Forms:
+    66→- React Hook Form
+    67→- Zod validation
+    68→
+    69→Rich text:
+    70→- TipTap or another clean editor suitable for CMS content
+    71→
+    72→Email:
+    73→- Resend or another clean transactional email provider
+    74→- Build the integration so the provider can be swapped later
+    75→
+    76→Icons:
+    77→- Lucide React
+    78→
+    79→Charts:
+    80→- Use a lightweight charting library only where needed in the admin dashboard.
+    81→
+    82→Do NOT introduce:
+    83→- Firebase
+    84→- MongoDB
+    85→- Prisma unless absolutely necessary
+    86→- unnecessary microservices
+    87→- unnecessary third-party SaaS
+    88→- a separate backend server unless required
+    89→
+    90→Supabase should be the primary database/backend platform.
+    91→
+    92→Use current stable packages and APIs at implementation time.
+    93→
+    94→==================================================
+    95→2. IMPORTANT BUILD PHILOSOPHY
+    96→==================================================
+    97→
+    98→Do NOT build a visually impressive but technically weak template.
+    99→
+   100→Build a real application.
+   101→
+   102→Requirements:
+   103→
+   104→- Functional forms
+   105→- Functional database integration
+   106→- Functional CMS
+   107→- Functional admin authentication
+   108→- Functional CRUD
+   109→- Functional job management
+   110→- Functional lead management
+   111→- Functional blog CMS
+   112→- Functional course CMS
+   113→- Functional trainer CMS
+   114→- Functional testimonial/success-story CMS
+   115→- Functional FAQ CMS
+   116→- Functional placement content CMS
+   117→- Functional email notification architecture
+   118→- Proper error handling
+   119→- Proper loading states
+   120→- Empty states
+   121→- Validation
+   122→- Responsive design
+   123→- Accessibility
+   124→- SEO
+   125→- Security
+   126→- Maintainable code
+   127→- Type-safe database access
+   128→- Database migrations
+   129→- Seed data
+   130→- Environment variables
+   131→- Documentation
+   132→- Production deployment readiness
+   133→
+   134→Do not fake functionality with static buttons.
+   135→
+   136→Every button that represents a real feature should either work or clearly display an appropriate state.
+   137→
+   138→==================================================
+   139→3. BRAND / VISUAL IDENTITY
+   140→==================================================
+   141→
+   142→An official VertexIT logo has been supplied with this prompt.
+   143→
+   144→USE THE PROVIDED LOGO.
+   145→
+   146→Do not redesign the logo.
+   147→
+   148→Do not recreate the logo with random text.
+   149→
+   150→Do not distort the logo.
+   151→
+   152→Do not change its proportions.
+   153→
+   154→Do not replace it with a generic education icon.
+   155→
+   156→Brand:
+   157→VertexIT
+   158→
+   159→Tagline:
+   160→LEARN • APPLY
+   161→
+   162→The existing logo uses a combination of:
+   163→- deep navy blue
+   164→- teal/green
+   165→- white
+   166→
+   167→Use the logo as the visual foundation.
+   168→
+   169→Suggested design system:
+   170→- Primary: deep professional navy
+   171→- Secondary: VertexIT teal
+   172→- Background: white / very light neutral
+   173→- Text: dark slate / charcoal
+   174→- Borders: subtle cool gray
+   175→- Accent: restrained teal gradients
+   176→
+   177→The design should communicate:
+   178→
+   179→Professional
+   180→Trustworthy
+   181→Career-focused
+   182→Modern
+   183→Premium
+   184→Practical
+   185→Technology-enabled
+   186→Corporate
+   187→Clean
+   188→Human
+   189→
+   190→Avoid:
+   191→- childish education graphics
+   192→- cartoon illustrations
+   193→- excessive gradients
+   194→- neon colors
+   195→- excessive glassmorphism
+   196→- cheap-looking course marketplace design
+   197→- overcrowded sections
+   198→- excessive animation
+   199→- stock-photo-heavy layouts
+   200→- generic AI-generated faces
+   201→- exaggerated “GET RICH / GUARANTEED JOB” language
+   202→
+   203→The site should look like a serious professional career institute.
+   204→
+   205→==================================================
+   206→4. CORE POSITIONING
+   207→==================================================
+   208→
+   209→VertexIT is a training and placement assistance institute.
+   210→
+   211→The central positioning is:
+   212→
+   213→LEARN → PRACTICE → PREPARE → APPLY → BUILD YOUR CAREER
+   214→
+   215→Core message:
+   216→
+   217→VertexIT helps graduates, experienced professionals and career switchers build practical skills for mortgage and lending operations roles through industry-focused training and placement assistance.
+   218→
+   219→Do NOT position VertexIT as a university.
+   220→
+   221→Do NOT claim government accreditation unless later provided by the company.
+   222→
+   223→Do NOT invent hiring partnerships.
+   224→
+   225→Do NOT invent placement statistics.
+   226→
+   227→Do NOT claim “100% guaranteed jobs.”
+   228→
+   229→The approved positioning is:
+   230→
+   231→“Placement assistance with a very high placement rate.”
+   232→
+   233→Use that wording carefully.
+   234→
+   235→The website should communicate confidence without making legally risky guarantees.
+   236→
+   237→==================================================
+   238→5. TARGET AUDIENCE
+   239→==================================================
+   240→
+   241→Primary audience:
+   242→
+   243→- Any graduate
+   244→- Experienced professionals
+   245→- Career switchers
+   246→- Candidates looking to enter mortgage/lending operations
+   247→- Candidates looking for international-process careers
+   248→- Candidates interested in US Mortgage Underwriting
+   249→- Candidates interested in Australian Mortgage Operations
+   250→
+   251→Primary geography:
+   252→Bengaluru / Karnataka / India
+   253→
+   254→The website should also work for candidates across India.
+   255→
+   256→==================================================
+   257→6. TRAINING MODEL
+   258→==================================================
+   259→
+   260→Training mode:
+   261→
+   262→HYBRID
+   263→
+   264→The CMS must allow each course to specify:
+   265→
+   266→- Online
+   267→- Offline
+   268→- Hybrid
+   269→- Live
+   270→- Recorded
+   271→- Batch schedule
+   272→- Duration
+   273→- Course fee
+   274→- Eligibility
+   275→- Course status
+   276→
+   277→However:
+   278→
+   279→DO NOT show course pricing publicly at launch.
+   280→
+   281→Public CTA should be:
+   282→
+   283→“TALK TO A COUNSELLOR”
+   284→
+   285→Do not invent course duration.
+   286→
+   287→If duration has not been entered into CMS, show:
+   288→“Duration: To be confirmed”
+   289→
+   290→Do not invent batch dates.
+   291→
+   292→==================================================
+   293→7. COURSES
+   294→==================================================
+   295→
+   296→Build the system around a reusable dynamic course architecture.
+   297→
+   298→Do NOT hard-code only two courses.
+   299→
+   300→Future admins must be able to create unlimited courses from the CMS.
+   301→
+   302→Current launch courses:
+   303→
+   304→--------------------------------------------------
+   305→COURSE 1
+   306→--------------------------------------------------
+   307→
+   308→Name:
+   309→US Mortgage – Underwriting
+   310→
+   311→Primary subject:
+   312→US Mortgage Underwriting
+   313→
+   314→The content should be practical and job oriented.
+   315→
+   316→Suggested curriculum structure:
+   317→
+   318→Module 1:
+   319→Introduction to the US Mortgage Industry
+   320→
+   321→Module 2:
+   322→Mortgage Lifecycle
+   323→
+   324→Module 3:
+   325→Loan Types and Mortgage Fundamentals
+   326→
+   327→Module 4:
+   328→Loan Application and Documentation
+   329→
+   330→Module 5:
+   331→Credit Analysis
+   332→
+   333→Module 6:
+   334→Income Analysis
+   335→
+   336→Module 7:
+   337→Asset Analysis
+   338→
+   339→Module 8:
+   340→Debt-to-Income and related ratios
+   341→
+   342→Module 9:
+   343→LTV / CLTV / HCLTV concepts
+   344→
+   345→Module 10:
+   346→Property and Collateral Review
+   347→
+   348→Module 11:
+   349→Underwriting Decision Process
+   350→
+   351→Module 12:
+   352→Conditions and Documentation Review
+   353→
+   354→Module 13:
+   355→Automated Underwriting concepts
+   356→
+   357→Module 14:
+   358→Fannie Mae / Freddie Mac guideline awareness
+   359→
+   360→Module 15:
+   361→FHA / VA concepts where applicable
+   362→
+   363→Module 16:
+   364→Self-employed borrower analysis
+   365→
+   366→Module 17:
+   367→Fraud and risk awareness
+   368→
+   369→Module 18:
+   370→Case-study-based underwriting
+   371→
+   372→Module 19:
+   373→Real-world file practice
+   374→
+   375→Module 20:
+   376→Interview preparation
+   377→
+   378→The curriculum must remain CMS-editable.
+   379→
+   380→Do not present regulatory or compliance content as legal advice.
+   381→
+   382→--------------------------------------------------
+   383→COURSE 2
+   384→--------------------------------------------------
+   385→
+   386→Name:
+   387→Australia Mortgage
+   388→
+   389→Primary subject:
+   390→Australian Mortgage Operations
+   391→
+   392→The curriculum should include:
+   393→
+   394→- Mortgage Loan Processing
+   395→- Broker Support
+   396→- Loan Administration
+   397→- Credit Assessment
+   398→- Lending Operations
+   399→- Broker Support / Virtual Assistant
+   400→
+   401→Suggested structure:
+   402→
+   403→Module 1:
+   404→Australian Mortgage Industry Overview
+   405→
+   406→Module 2:
+   407→Australian Home Loan Lifecycle
+   408→
+   409→Module 3:
+   410→Loan Application Processing
+   411→
+   412→Module 4:
+   413→Document Collection and Verification
+   414→
+   415→Module 5:
+   416→Borrower and Applicant Assessment
+   417→
+   418→Module 6:
+   419→Income Assessment
+   420→
+   421→Module 7:
+   422→Living Expense / Liability Review
+   423→
+   424→Module 8:
+   425→Credit Assessment
+   426→
+   427→Module 9:
+   428→Property / Security Documentation
+   429→
+   430→Module 10:
+   431→Loan Administration
+   432→
+   433→Module 11:
+   434→Broker Support
+   435→
+   436→Module 12:
+   437→Lender and Broker Communication
+   438→
+   439→Module 13:
+   440→Loan Submission Support
+   441→
+   442→Module 14:
+   443→Post-submission Follow-up
+   444→
+   445→Module 15:
+   446→Settlement / Administration concepts
+   447→
+   448→Module 16:
+   449→Lending Operations
+   450→
+   451→Module 17:
+   452→Mortgage Broker Virtual Assistant responsibilities
+   453→
+   454→Module 18:
+   455→Case studies and practical scenarios
+   456→
+   457→Module 19:
+   458→Interview preparation
+   459→
+   460→Make clear that this training prepares candidates for mortgage/lending support and operations roles.
+   461→
+   462→Do NOT claim that completion automatically makes a person a licensed Australian mortgage broker.
+   463→
+   464→==================================================
+   465→8. PUBLIC WEBSITE INFORMATION ARCHITECTURE
+   466→==================================================
+   467→
+   468→Create these main routes.
+   469→
+   470→/
+   471→/courses
+   472→/courses/[slug]
+   473→/jobs
+   474→/jobs/[slug]
+   475→/placement-process
+   476→/success-stories
+   477→/trainers
+   478→/about
+   479→/blog
+   480→/blog/[slug]
+   481→/faq
+   482→/contact
+   483→/apply
+   484→
+   485→Legal:
+   486→/privacy-policy
+   487→/terms-and-conditions
+   488→/disclaimer
+   489→
+   490→Admin:
+   491→/admin/login
+   492→/admin
+   493→/admin/courses
+   494→/admin/courses/new
+   495→/admin/courses/[id]
+   496→/admin/jobs
+   497→/admin/jobs/new
+   498→/admin/jobs/[id]
+   499→/admin/leads
+   500→/admin/leads/[id]
+   501→/admin/trainers
+   502→/admin/testimonials
+   503→/admin/placement-stories
+   504→/admin/faqs
+   505→/admin/blog
+   506→/admin/blog/new
+   507→/admin/blog/[id]
+   508→/admin/site-settings
+   509→/admin/media
+   510→/admin/users
+   511→
+   512→Future student routes should already be architecturally reserved:
+   513→
+   514→/student/login
+   515→/student/dashboard
+   516→/student/courses
+   517→/student/courses/[courseId]
+   518→/student/progress
+   519→/student/assignments
+   520→/student/tests
+   521→/student/certificates
+   522→/student/placement
+   523→/student/profile
+   524→
+   525→Do not expose student routes publicly in Phase 1.
+   526→
+   527→==================================================
+   528→9. HEADER
+   529→==================================================
+   530→
+   531→Create a premium responsive header.
+   532→
+   533→Desktop:
+   534→
+   535→Left:
+   536→VertexIT logo
+   537→
+   538→Navigation:
+   539→
+   540→Home
+   541→Courses
+   542→Placement
+   543→Jobs
+   544→Success Stories
+   545→About
+   546→Blog
+   547→Contact
+   548→
+   549→Primary CTA:
+   550→WhatsApp Us
+   551→
+   552→Mobile:
+   553→
+   554→Logo
+   555→Menu button
+   556→
+   557→Mobile navigation should contain all links.
+   558→
+   559→Make header sticky.
+   560→
+   561→On scroll:
+   562→- slightly reduce height
+   563→- retain brand visibility
+   564→- maintain CTA
+   565→
+   566→Do not make header oversized.
+   567→
+   568→==================================================
+   569→10. HERO SECTION
+   570→==================================================
+   571→
+   572→Homepage hero should immediately explain the business.
+   573→
+   574→Suggested direction:
+   575→
+   576→Eyebrow:
+   577→CAREER-FOCUSED MORTGAGE TRAINING
+   578→
+   579→Headline:
+   580→Build Skills. Become Job-Ready. Build Your Mortgage Career.
+   581→
+   582→Supporting text:
+   583→Industry-focused training in US Mortgage Underwriting and Australian Mortgage Operations, designed for graduates, experienced professionals and career switchers.
+   584→
+   585→Primary CTA:
+   586→WhatsApp Us
+   587→
+   588→Secondary CTA:
+   589→Explore Courses
+   590→
+   591→Include a strong visual representing:
+   592→- learning
+   593→- professional career progression
+   594→- mortgage/lending operations
+   595→- technology
+   596→- global work environment
+   597→
+   598→Do NOT use generic classroom clipart.
+   599→
+   600→Possible visual:
+   601→Professional abstract financial/lending dashboard + career pathway visual.
+   602→
+   603→Hero should be highly optimized for mobile.
+   604→
+   605→==================================================
+   606→11. TRUST / VALUE STRIP
+   607→==================================================
+   608→
+   609→Immediately beneath the hero create a clean trust strip.
+   610→
+   611→Examples:
+   612→
+   613→Hybrid Training
+   614→Practical Learning
+   615→Industry-Focused Curriculum
+   616→Placement Assistance
+   617→Career Support
+   618→
+   619→Do not display fake numbers.
+   620→
+   621→Do not write:
+   622→“10,000+ Students”
+   623→unless such data exists.
+   624→
+   625→==================================================
+   626→12. WHY VERTEXIT
+   627→==================================================
+   628→
+   629→Create a strong section explaining the VertexIT model.
+   630→
+   631→Possible cards:
+   632→
+   633→Practical Learning
+   634→Learn through scenarios, processes and job-relevant concepts.
+   635→
+   636→Industry-Oriented Curriculum
+   637→Focused on actual mortgage and lending workflows.
+   638→
+   639→Career Preparation
+   640→Resume guidance, interview preparation and professional readiness.
+   641→
+   642→Placement Assistance
+   643→Support throughout the job-search and interview journey.
+   644→
+   645→Hybrid Learning
+   646→Designed to accommodate both online and offline learning.
+   647→
+   648→Career-Focused Mentorship
+   649→Guidance for candidates entering or transitioning into the field.
+   650→
+   651→Keep claims factual.
+   652→
+   653→==================================================
+   654→13. COURSES SECTION
+   655→==================================================
+   656→
+   657→Create a premium Courses section.
+   658→
+   659→Two initial courses:
+   660→
+   661→US Mortgage – Underwriting
+   662→Australia Mortgage
+   663→
+   664→Every course card must contain:
+   665→
+   666→Course title
+   667→Short description
+   668→Learning mode
+   669→Eligibility
+   670→Key skills
+   671→Career pathways
+   672→CTA:
+   673→Talk to a Counsellor
+   674→
+   675→Do not show fees.
+   676→
+   677→Do not show fake ratings.
+   678→
+   679→Do not show fake student counts.
+   680→
+   681→Use “View Course” or “Explore Course”.
+   682→
+   683→==================================================
+   684→14. COURSE DETAIL PAGE
+   685→==================================================
+   686→
+   687→Every course must have a rich SEO-friendly course page.
+   688→
+   689→Structure:
+   690→
+   691→Breadcrumbs
+   692→
+   693→Course title
+   694→
+   695→Career-oriented introduction
+   696→
+   697→Who this course is for
+   698→
+   699→What you will learn
+   700→
+   701→Course modules
+   702→
+   703→Practical learning
+   704→
+   705→Case studies / simulations
+   706→
+   707→Career roles
+   708→
+   709→Placement assistance
+   710→
+   711→Learning mode
+   712→
+   713→Eligibility
+   714→
+   715→Frequently asked questions
+   716→
+   717→CTA
+   718→
+   719→Contact/WhatsApp CTA
+   720→
+   721→Disclaimer where applicable
+   722→
+   723→Course detail page should support:
+   724→
+   725→- SEO metadata
+   726→- Open Graph
+   727→- Course structured data
+   728→- Breadcrumb structured data
+   729→- internal linking
+   730→- canonical URL
+   731→
+   732→Use CMS fields.
+   733→
+   734→==================================================
+   735→15. CAREER ROLES
+   736→==================================================
+   737→
+   738→US Mortgage page should explain potential job pathways such as:
+   739→
+   740→- Mortgage Underwriting roles
+   741→- Mortgage Operations roles
+   742→- Mortgage Processing roles
+   743→- Credit / Lending support roles
+   744→- Related mortgage operations roles
+   745→
+   746→Australia page:
+   747→
+   748→- Mortgage Loan Processing
+   749→- Broker Support
+   750→- Loan Administration
+   751→- Credit Assessment support
+   752→- Lending Operations
+   753→- Mortgage Broker Virtual Assistant
+   754→- Related lending operations roles
+   755→
+   756→Do not promise a specific job title or salary.
+   757→
+   758→Use:
+   759→“Potential career pathways”
+   760→rather than guaranteed placement language.
+   761→
+   762→==================================================
+   763→16. PLACEMENT PROCESS PAGE
+   764→==================================================
+   765→
+   766→Create a highly professional placement journey.
+   767→
+   768→Recommended flow:
+   769→
+   770→STEP 1
+   771→Choose your course
+   772→
+   773→STEP 2
+   774→Complete training
+   775→
+   776→STEP 3
+   777→Build job-ready skills
+   778→
+   779→STEP 4
+   780→Resume and profile preparation
+   781→
+   782→STEP 5
+   783→Mock interview / interview preparation
+   784→
+   785→STEP 6
+   786→Receive relevant opportunities
+   787→
+   788→STEP 7
+   789→Interview with employers / hiring organizations where applicable
+   790→
+   791→STEP 8
+   792→Continue placement support
+   793→
+   794→Approved positioning:
+   795→“Placement assistance with a very high placement rate.”
+   796→
+   797→Do not claim:
+   798→“Every student will definitely get a job.”
+   799→
+   800→Placement assistance should be described factually.
+   801→
+   802→==================================================
+   803→17. SUCCESS STORIES
+   804→==================================================
+   805→
+   806→Create a CMS-driven success story system.
+   807→
+   808→Each record can contain:
+   809→
+   810→Student name
+   811→Photo
+   812→Course
+   813→Previous background
+   814→New role
+   815→Company
+   816→Package
+   817→Location
+   818→Year
+   819→Short story
+   820→Quote
+   821→Offer-letter image
+   822→Published/unpublished
+   823→
+   824→VERY IMPORTANT:
+   825→
+   826→Do not invent actual student success stories.
+   827→
+   828→For seed/demo content:
+   829→- Create realistic placeholder records
+   830→- Mark them `is_demo = true`
+   831→- Keep them unpublished by default
+   832→
+   833→Admin can later replace them with real success stories.
+   834→
+   835→==================================================
+   836→18. TRAINERS
+   837→==================================================
+   838→
+   839→Create a Trainer / Mentor CMS.
+   840→
+   841→Fields:
+   842→
+   843→Name
+   844→Photo
+   845→Designation
+   846→Experience
+   847→Specialization
+   848→Bio
+   849→LinkedIn URL
+   850→Display order
+   851→Published
+   852→
+   853→Do not invent qualifications or years of experience.
+   854→
+   855→Use sample unpublished trainer records until real data is entered.
+   856→
+   857→==================================================
+   858→19. JOBS PAGE
+   859→==================================================
+   860→
+   861→Build a full current-job-opportunities module.
+   862→
+   863→Route:
+   864→/jobs
+   865→
+   866→Features:
+   867→
+   868→Job listing cards
+   869→
+   870→Filters:
+   871→- Course/domain
+   872→- Role
+   873→- Location
+   874→- Experience
+   875→- Work mode
+   876→
+   877→Job detail page:
+   878→
+   879→Company
+   880→Job title
+   881→Location
+   882→Experience
+   883→Salary/package if supplied
+   884→Job type
+   885→Skills
+   886→Responsibilities
+   887→Requirements
+   888→Posted date
+   889→Closing date
+   890→Apply button
+   891→
+   892→Admin can:
+   893→
+   894→Create job
+   895→Edit job
+   896→Publish job
+   897→Unpublish job
+   898→Mark expired
+   899→Delete job
+   900→
+   901→No fabricated employer names.
+   902→
+   903→Demo job records must remain unpublished.
+   904→
+   905→Include excellent empty state:
+   906→
+   907→“No current openings have been published yet. Check back soon or speak to our career counsellor.”
+   908→
+   909→==================================================
+   910→20. APPLY / LEAD GENERATION
+   911→==================================================
+   912→
+   913→The main conversion system is:
+   914→
+   915→Website
+   916→→ Enquiry form
+   917→→ Supabase
+   918→→ Lead record
+   919→→ Email notification
+   920→→ Counsellor follows up
+   921→→ Lead status updated
+   922→
+   923→Primary CTA:
+   924→WhatsApp Us
+   925→
+   926→Secondary CTA:
+   927→Talk to a Counsellor
+   928→
+   929→Create a reusable lead form.
+   930→
+   931→Fields:
+   932→
+   933→Full Name
+   934→Phone Number
+   935→Email
+   936→Interested Course
+   937→Education
+   938→Experience Level
+   939→Preferred Training Mode
+   940→Message
+   941→
+   942→Optional:
+   943→How did you hear about us?
+   944→
+   945→Automatically capture:
+   946→
+   947→UTM source
+   948→UTM medium
+   949→UTM campaign
+   950→UTM term
+   951→UTM content
+   952→Referrer
+   953→Landing page
+   954→Device information where practical
+   955→Timestamp
+   956→
+   957→Do not expose technical tracking fields to the user.
+   958→
+   959→==================================================
+   960→21. LEAD STATUS WORKFLOW
+   961→==================================================
+   962→
+   963→Admin lead pipeline:
+   964→
+   965→New
+   966→Contacted
+   967→Counselling Scheduled
+   968→Counselling Completed
+   969→Demo Scheduled
+   970→Demo Completed
+   971→Interested
+   972→Follow-up Required
+   973→Enrolled
+   974→Training
+   975→Placement Support
+   976→Interview Scheduled
+   977→Placed
+   978→Not Interested
+   979→Not Eligible
+   980→Closed
+   981→
+   982→Create a lead status history table.
+   983→
+   984→Every major status change should be logged.
+   985→
+   986→Admin should be able to see:
+   987→
+   988→Lead name
+   989→Phone
+   990→Email
+   991→Course
+   992→Source
+   993→Status
+   994→Assigned counsellor
+   995→Created date
+   996→Last contact
+   997→Next follow-up
+   998→Notes
+   999→
+  1000→Add filters and search.
+  1001→
+  1002→==================================================
+  1003→22. WHATSAPP
+  1004→==================================================
+  1005→
+  1006→Official WhatsApp number:
+  1007→
+  1008→9703686514
+  1009→
+  1010→Create the WhatsApp URL using international India format:
+  1011→
+  1012→+91 9703686514
+  1013→
+  1014→Use:
+  1015→https://wa.me/919703686514
+  1016→
+  1017→Every WhatsApp CTA should pre-fill an appropriate message.
+  1018→
+  1019→Examples:
+  1020→
+  1021→Homepage:
+  1022→“Hi VertexIT, I’m interested in your training programs. I’d like to speak with a counsellor.”
+  1023→
+  1024→US Mortgage:
+  1025→“Hi VertexIT, I’m interested in the US Mortgage – Underwriting program.”
+  1026→
+  1027→Australia:
+  1028→“Hi VertexIT, I’m interested in the Australia Mortgage program.”
+  1029→
+  1030→Job:
+  1031→“Hi VertexIT, I’d like to know about the current job opportunities.”
+  1032→
+  1033→==================================================
+  1034→23. CONTACT INFORMATION
+  1035→==================================================
+  1036→
+  1037→Phone:
+  1038→9703686514
+  1039→
+  1040→WhatsApp:
+  1041→9703686514
+  1042→
+  1043→Location:
+  1044→Bengaluru, Karnataka, India
+  1045→
+  1046→Address currently provided:
+  1047→GB Play
+  1048→
+  1049→Business hours:
+  1050→10:00 AM – 8:00 PM
+  1051→
+  1052→IMPORTANT:
+  1053→Do NOT invent a complete street address.
+  1054→
+  1055→Store address in Site Settings so it can be edited later.
+  1056→
+  1057→Email is currently not provided.
+  1058→
+  1059→DO NOT invent an email address.
+  1060→
+  1061→Email should be a CMS/site-settings field.
+  1062→
+  1063→Until a real email is configured:
+  1064→- do not display a fake email
+  1065→- do not create a fake email
+  1066→- hide the public email address field gracefully
+  1067→
+  1068→Lead forms can still accept candidate email addresses.
+  1069→
+  1070→==================================================
+  1071→24. EMAIL NOTIFICATIONS
+  1072→==================================================
+  1073→
+  1074→Implement email notification architecture.
+  1075→
+  1076→Preferred provider:
+  1077→Resend
+  1078→
+  1079→Create server-side email utility.
+  1080→
+  1081→Environment variable:
+  1082→
+  1083→RESEND_API_KEY
+  1084→
+  1085→ADMIN_NOTIFICATION_EMAIL
+  1086→
+  1087→NEXT_PUBLIC_SITE_URL
+  1088→
+  1089→When a new lead is created:
+  1090→
+  1091→Send notification to configured admin email.
+  1092→
+  1093→Subject:
+  1094→New VertexIT Enquiry — [Course]
+  1095→
+  1096→Email should contain:
+  1097→Name
+  1098→Phone
+  1099→Email
+  1100→Course
+  1101→Education
+  1102→Experience
+  1103→Training mode
+  1104→Message
+  1105→Source
+  1106→Timestamp
+  1107→
+  1108→If candidate email is provided:
+  1109→Send a confirmation email.
+  1110→
+  1111→Do not send emails if email configuration is missing.
+  1112→
+  1113→Instead:
+  1114→- store lead successfully
+  1115→- log a safe server-side warning
+  1116→- never fail the candidate's enquiry because email is not configured
+  1117→
+  1118→==================================================
+  1119→25. CONTACT PAGE
+  1120→==================================================
+  1121→
+  1122→Create:
+  1123→
+  1124→Contact information
+  1125→WhatsApp CTA
+  1126→Phone CTA
+  1127→Business hours
+  1128→Location
+  1129→Contact form
+  1130→Google Maps-ready location area
+  1131→
+  1132→Do not hard-code a fake Google Maps API key.
+  1133→
+  1134→Create a map placeholder / address block that can later accept a Google Maps embed URL from Site Settings.
+  1135→
+  1136→==================================================
+  1137→26. BLOG
+  1138→==================================================
+  1139→
+  1140→Create a real CMS-driven blog.
+  1141→
+  1142→Purpose:
+  1143→Long-term SEO and career education.
+  1144→
+  1145→Categories:
+  1146→
+  1147→US Mortgage
+  1148→Mortgage Underwriting
+  1149→Australia Mortgage
+  1150→Mortgage Careers
+  1151→Career Advice
+  1152→Interview Preparation
+  1153→Resume & LinkedIn
+  1154→Mortgage Operations
+  1155→Industry Knowledge
+  1156→Job Search
+  1157→
+  1158→Every blog post should support:
+  1159→
+  1160→Title
+  1161→Slug
+  1162→Excerpt
+  1163→Content
+  1164→Featured image
+  1165→Category
+  1166→Author
+  1167→Publish date
+  1168→Updated date
+  1169→Meta title
+  1170→Meta description
+  1171→Canonical URL
+  1172→OG title
+  1173→OG description
+  1174→OG image
+  1175→Published status
+  1176→
+  1177→Create SEO-friendly blog URLs:
+  1178→
+  1179→/blog/us-mortgage-underwriting-career
+  1180→/blog/australia-mortgage-processing
+  1181→etc.
+  1182→
+  1183→Do not keyword-stuff.
+  1184→
+  1185→==================================================
+  1186→27. INITIAL BLOG CONTENT
+  1187→==================================================
+  1188→
+  1189→Create draft blog content for CMS.
+  1190→
+  1191→Suggested initial article ideas:
+  1192→
+  1193→1.
+  1194→US Mortgage Underwriting: A Beginner's Career Guide
+  1195→
+  1196→2.
+  1197→What Does a Mortgage Underwriter Do?
+  1198→
+  1199→3.
+  1200→US Mortgage Underwriting Skills You Need to Build
+  1201→
+  1202→4.
+  1203→How Mortgage Underwriting Works
+  1204→
+  1205→5.
+  1206→Australia Mortgage Processing: Roles and Responsibilities
+  1207→
+  1208→6.
+  1209→What Does a Mortgage Broker Support Professional Do?
+  1210→
+  1211→7.
+  1212→Mortgage Loan Processing vs Underwriting
+  1213→
+  1214→8.
+  1215→Career Opportunities in Mortgage Operations
+  1216→
+  1217→9.
+  1218→How to Prepare for a Mortgage Interview
+  1219→
+  1220→10.
+  1221→Skills Graduates Can Build for Mortgage Operations Careers
+  1222→
+  1223→11.
+  1224→US Mortgage Careers in Bengaluru
+  1225→
+  1226→12.
+  1227→Australia Mortgage Operations Careers in India
+  1228→
+  1229→13.
+  1230→Mortgage Operations Resume Tips
+  1231→
+  1232→14.
+  1233→Common Mortgage Interview Questions
+  1234→
+  1235→15.
+  1236→How Practical Case Studies Help Mortgage Candidates Become Job-Ready
+  1237→
+  1238→All initial articles should be drafts or clearly marked for review.
+  1239→
+  1240→Do not invent company-specific hiring statistics.
+  1241→
+  1242→==================================================
+  1243→28. FAQ SYSTEM
+  1244→==================================================
+  1245→
+  1246→Create CMS-driven FAQs.
+  1247→
+  1248→Initial question themes:
+  1249→
+  1250→Who can join VertexIT?
+  1251→Are fresh graduates eligible?
+  1252→Is the training online or offline?
+  1253→What is hybrid training?
+  1254→What does the US Mortgage course cover?
+  1255→What does the Australia Mortgage course cover?
+  1256→Do I need previous mortgage experience?
+  1257→How does placement assistance work?
+  1258→Do you provide interview preparation?
+  1259→Are course fees displayed?
+  1260→How can I contact a counsellor?
+  1261→Where is VertexIT located?
+  1262→
+  1263→Do not publish unsupported answers.
+  1264→
+  1265→Where required, use:
+  1266→“Please speak with a VertexIT counsellor for current eligibility details.”
+  1267→
+  1268→==================================================
+  1269→29. HOMEPAGE SECTIONS
+  1270→==================================================
+  1271→
+  1272→Build the homepage in this approximate order:
+  1273→
+  1274→1. Header
+  1275→
+  1276→2. Hero
+  1277→
+  1278→3. Trust/value strip
+  1279→
+  1280→4. Why VertexIT
+  1281→
+  1282→5. Courses
+  1283→
+  1284→6. What You Will Learn
+  1285→
+  1286→7. How Training Works
+  1287→
+  1288→8. Placement Journey
+  1289→
+  1290→9. Career Pathways
+  1291→
+  1292→10. Current Job Opportunities
+  1293→
+  1294→11. Success Stories
+  1295→
+  1296→12. Trainers / Mentors
+  1297→
+  1298→13. FAQ
+  1299→
+  1300→14. Final CTA
+  1301→
+  1302→15. Footer
+  1303→
+  1304→Homepage content should be modular.
+  1305→
+  1306→Admin should eventually be able to reorder homepage sections.
+  1307→
+  1308→==================================================
+  1309→30. “HOW TRAINING WORKS”
+  1310→==================================================
+  1311→
+  1312→Create a visual process:
+  1313→
+  1314→Discover
+  1315→↓
+  1316→Choose a Career Path
+  1317→↓
+  1318→Learn
+  1319→↓
+  1320→Practice
+  1321→↓
+  1322→Prepare
+  1323→↓
+  1324→Apply
+  1325→↓
+  1326→Build Your Career
+  1327→
+  1328→Use minimal animations.
+  1329→
+  1330→==================================================
+  1331→31. INTERACTIVITY
+  1332→==================================================
+  1333→
+  1334→The website must be highly interactive but not gimmicky.
+  1335→
+  1336→Use:
+  1337→
+  1338→- Hover states
+  1339→- Subtle scroll reveals
+  1340→- Accordions
+  1341→- Sticky CTA
+  1342→- Course filters
+  1343→- Job filters
+  1344→- Search
+  1345→- Tabs where useful
+  1346→- Smooth section navigation
+  1347→- Animated counters ONLY when tied to real data
+  1348→- Microinteractions
+  1349→- Form validation feedback
+  1350→- Toast notifications
+  1351→- skeleton loading
+  1352→- empty states
+  1353→
+  1354→Avoid:
+  1355→- huge parallax effects
+  1356→- autoplay videos
+  1357→- excessive motion
+  1358→- bouncing cards
+  1359→- distracting animations
+  1360→
+  1361→Respect:
+  1362→prefers-reduced-motion.
+  1363→
+  1364→==================================================
+  1365→32. MOBILE UX
+  1366→==================================================
+  1367→
+  1368→Mobile should be treated as a first-class experience.
+  1369→
+  1370→Implement:
+  1371→
+  1372→- Responsive header
+  1373→- Thumb-friendly buttons
+  1374→- Bottom mobile CTA bar
+  1375→
+  1376→Mobile bottom bar:
+  1377→
+  1378→WhatsApp
+  1379→Call
+  1380→Talk to Counsellor
+  1381→
+  1382→Ensure it does not obscure content.
+  1383→
+  1384→Forms must be easy to complete on mobile.
+  1385→
+  1386→==================================================
+  1387→33. ADMIN PANEL
+  1388→==================================================
+  1389→
+  1390→Phase 1 admin panel is REQUIRED.
+  1391→
+  1392→Admin login:
+  1393→Supabase Auth
+  1394→
+  1395→Admin roles:
+  1396→
+  1397→Super Admin
+  1398→Admin
+  1399→Counsellor
+  1400→Content Editor
+  1401→
+  1402→Implement role-based access where practical.
+  1403→
+  1404→Admin dashboard should display:
+  1405→
+  1406→Total Leads
+  1407→New Leads
+  1408→Active Follow-ups
+  1409→Published Courses
+  1410→Active Jobs
+  1411→Published Blog Posts
+  1412→Placement Stories
+  1413→Recent Enquiries
+  1414→
+  1415→Dashboard cards should link to their relevant screens.
+  1416→
+  1417→==================================================
+  1418→34. ADMIN MODULES
+  1419→==================================================
+  1420→
+  1421→COURSES
+  1422→
+  1423→Create
+  1424→Read
+  1425→Update
+  1426→Delete
+  1427→Publish/unpublish
+  1428→Reorder modules
+  1429→Manage curriculum
+  1430→Manage eligibility
+  1431→Manage outcomes
+  1432→Manage FAQs
+  1433→
+  1434→JOBS
+  1435→
+  1436→Create
+  1437→Edit
+  1438→Delete
+  1439→Publish
+  1440→Expire
+  1441→Search
+  1442→Filter
+  1443→
+  1444→LEADS
+  1445→
+  1446→List
+  1447→Search
+  1448→Filter
+  1449→View
+  1450→Assign counsellor
+  1451→Change status
+  1452→Add note
+  1453→Add follow-up date
+  1454→View history
+  1455→
+  1456→BLOG
+  1457→
+  1458→Create
+  1459→Edit
+  1460→Save draft
+  1461→Preview
+  1462→Publish
+  1463→Unpublish
+  1464→SEO fields
+  1465→
+  1466→TRAINERS
+  1467→
+  1468→CRUD
+  1469→
+  1470→TESTIMONIALS
+  1471→
+  1472→CRUD
+  1473→
+  1474→SUCCESS STORIES
+  1475→
+  1476→CRUD
+  1477→
+  1478→FAQs
+  1479→
+  1480→CRUD
+  1481→
+  1482→SITE SETTINGS
+  1483→
+  1484→Manage:
+  1485→
+  1486→Logo
+  1487→Phone
+  1488→WhatsApp
+  1489→Email
+  1490→Address
+  1491→Business hours
+  1492→Social links
+  1493→SEO defaults
+  1494→Homepage content
+  1495→Footer content
+  1496→
+  1497→MEDIA
+  1498→
+  1499→Upload
+  1500→Delete
+  1501→View
+  1502→Copy URL
+  1503→
+  1504→==================================================
+  1505→35. DATABASE ARCHITECTURE
+  1506→==================================================
+  1507→
+  1508→Create proper relational PostgreSQL schema.
+  1509→
+  1510→Suggested tables:
+  1511→
+  1512→site_settings
+  1513→
+  1514→profiles
+  1515→
+  1516→roles
+  1517→
+  1518→courses
+  1519→
+  1520→course_modules
+  1521→
+  1522→course_outcomes
+  1523→
+  1524→course_faqs
+  1525→
+  1526→trainers
+  1527→
+  1528→jobs
+  1529→
+  1530→job_applications
+  1531→
+  1532→leads
+  1533→
+  1534→lead_status_history
+  1535→
+  1536→lead_notes
+  1537→
+  1538→testimonials
+  1539→
+  1540→placement_stories
+  1541→
+  1542→faqs
+  1543→
+  1544→blog_categories
+  1545→
+  1546→blog_posts
+  1547→
+  1548→media_assets
+  1549→
+  1550→homepage_sections
+  1551→
+  1552→admin_notifications
+  1553→
+  1554→site_pages
+  1555→
+  1556→social_links
+  1557→
+  1558→audit_logs
+  1559→
+  1560→For Phase 2, prepare architecture for:
+  1561→
+  1562→student_profiles
+  1563→
+  1564→enrollments
+  1565→
+  1566→lessons
+  1567→
+  1568→lesson_progress
+  1569→
+  1570→assignments
+  1571→
+  1572→assignment_submissions
+  1573→
+  1574→assessments
+  1575→
+  1576→assessment_questions
+  1577→
+  1578→assessment_attempts
+  1579→
+  1580→certificates
+  1581→
+  1582→placement_records
+  1583→
+  1584→placement_interactions
+  1585→
+  1586→student_documents
+  1587→
+  1588→student_packages
+  1589→
+  1590→student_announcements
+  1591→
+  1592→==================================================
+  1593→36. FUTURE STUDENT PACKAGE DATA
+  1594→==================================================
+  1595→
+  1596→The Phase 2 system must eventually allow candidates to see:
+  1597→
+  1598→Current package / CTC
+  1599→Company
+  1600→Role
+  1601→Joining date
+  1602→Placement status
+  1603→Interview status
+  1604→Placement notes
+  1605→Course completed
+  1606→Certificate
+  1607→Placement timeline
+  1608→
+  1609→This information must be private to the respective student.
+  1610→
+  1611→Never expose this information publicly.
+  1612→
+  1613→==================================================
+  1614→37. SUPABASE SECURITY
+  1615→==================================================
+  1616→
+  1617→This is extremely important.
+  1618→
+  1619→Use Row Level Security.
+  1620→
+  1621→Public users:
+  1622→
+  1623→Can create leads
+  1624→Can create job applications
+  1625→Can read published public content
+  1626→
+  1627→Public users MUST NOT:
+  1628→
+  1629→Read leads
+  1630→Read job applications
+  1631→Read admin data
+  1632→Read unpublished courses
+  1633→Read unpublished jobs
+  1634→Read unpublished blog posts
+  1635→Read audit logs
+  1636→Read student information
+  1637→
+  1638→Admins:
+  1639→
+  1640→Can manage authorized CMS records.
+  1641→
+  1642→Future students:
+  1643→
+  1644→Can only read their own data.
+  1645→
+  1646→Never expose:
+  1647→
+  1648→SUPABASE_SERVICE_ROLE_KEY
+  1649→
+  1650→to the browser.
+  1651→
+  1652→Never put secret keys in NEXT_PUBLIC_ variables.
+  1653→
+  1654→Use server-side utilities for privileged operations.
+  1655→
+  1656→Enable RLS on exposed tables.
+  1657→
+  1658→Write explicit policies.
+  1659→
+  1660→==================================================
+  1661→38. ADMIN AUTH SECURITY
+  1662→==================================================
+  1663→
+  1664→Admin route protection:
+  1665→
+  1666→/admin/*
+  1667→
+  1668→must require authenticated admin user.
+  1669→
+  1670→Check role server-side.
+  1671→
+  1672→Do not rely solely on client-side role checks.
+  1673→
+  1674→If unauthorized:
+  1675→redirect to /admin/login
+  1676→
+  1677→Admin session must be securely managed with Supabase Auth and the current recommended Next.js SSR approach.
+  1678→
+  1679→==================================================
+  1680→39. FUTURE STUDENT AUTH PREPARATION
+  1681→==================================================
+  1682→
+  1683→DO NOT implement public student sign-up in Phase 1.
+  1684→
+  1685→But database design must support:
+  1686→
+  1687→One Supabase Auth user
+  1688→→ one student profile
+  1689→
+  1690→Student can later access:
+  1691→
+  1692→Dashboard
+  1693→Courses
+  1694→Progress
+  1695→Tests
+  1696→Assignments
+  1697→Certificates
+  1698→Placement
+  1699→Package
+  1700→
+  1701→RLS should eventually enforce:
+  1702→
+  1703→auth.uid() = student profile user_id
+  1704→
+  1705→==================================================
+  1706→40. CMS CONTENT RULE
+  1707→==================================================
+  1708→
+  1709→Avoid hard-coding business content into components.
+  1710→
+  1711→Examples:
+  1712→
+  1713→Do NOT hard-code:
+  1714→
+  1715→Course titles
+  1716→Course descriptions
+  1717→Trainer biographies
+  1718→Testimonials
+  1719→Jobs
+  1720→FAQs
+  1721→Blog posts
+  1722→Phone number
+  1723→Business hours
+  1724→Address
+  1725→Social links
+  1726→
+  1727→Store these in database/CMS where reasonable.
+  1728→
+  1729→Components should consume typed data.
+  1730→
+  1731→==================================================
+  1732→41. SAMPLE / DEMO DATA
+  1733→==================================================
+  1734→
+  1735→Seed the database with useful demo data so the application can be tested.
+  1736→
+  1737→However:
+  1738→
+  1739→DO NOT fabricate real business claims.
+  1740→
+  1741→Use clear demo markers in database:
+  1742→
+  1743→is_demo
+  1744→is_published
+  1745→
+  1746→For:
+  1747→
+  1748→Testimonials
+  1749→Placement stories
+  1750→Jobs
+  1751→Trainers
+  1752→
+  1753→Seed demo data with:
+  1754→
+  1755→is_demo = true
+  1756→is_published = false
+  1757→
+  1758→For real launch content:
+  1759→
+  1760→courses can be seeded as initial VertexIT launch courses.
+  1761→
+  1762→Do not publicly display fake placement statistics, fake company partnerships or fake student reviews.
+  1763→
+  1764→==================================================
+  1765→42. SEO
+  1766→==================================================
+  1767→
+  1768→SEO is a core requirement.
+  1769→
+  1770→Do not treat SEO as a final plugin.
+  1771→
+  1772→Every public page must have:
+  1773→
+  1774→Unique title
+  1775→Unique meta description
+  1776→Canonical URL
+  1777→Open Graph metadata
+  1778→Twitter/X metadata where useful
+  1779→Correct heading hierarchy
+  1780→Semantic HTML
+  1781→Structured internal links
+  1782→
+  1783→Create:
+  1784→
+  1785→robots.txt
+  1786→sitemap.xml
+  1787→
+  1788→Generate sitemap dynamically where appropriate.
+  1789→
+  1790→Include structured data for:
+  1791→
+  1792→Organization / EducationalOrganization
+  1793→Course where applicable
+  1794→BreadcrumbList
+  1795→FAQPage only where valid
+  1796→BlogPosting for blog articles
+  1797→
+  1798→Do not create fake structured data.
+  1799→
+  1800→Do not place hidden keyword text.
+  1801→
+  1802→==================================================
+  1803→43. SEO KEYWORD STRATEGY
+  1804→==================================================
+  1805→
+  1806→Primary thematic keywords:
+  1807→
+  1808→US Mortgage Training
+  1809→US Mortgage Underwriting Training
+  1810→US Mortgage Underwriting Course
+  1811→US Mortgage Jobs
+  1812→US Mortgage Careers
+  1813→Mortgage Underwriting Training Bengaluru
+  1814→US Mortgage Training Bengaluru
+  1815→Mortgage Careers in Bengaluru
+  1816→Australia Mortgage Training
+  1817→Australia Mortgage Processing
+  1818→Australia Mortgage Loan Processing
+  1819→Australian Mortgage Operations
+  1820→Mortgage Broker Support Training
+  1821→Mortgage Loan Administration Training
+  1822→Mortgage Credit Assessment
+  1823→Mortgage Operations Training
+  1824→
+  1825→Use natural language.
+  1826→
+  1827→Do not keyword stuff.
+  1828→
+  1829→Use variations naturally across:
+  1830→
+  1831→Titles
+  1832→Headings
+  1833→Body text
+  1834→Internal links
+  1835→Blog content
+  1836→FAQs
+  1837→Metadata
+  1838→
+  1839→==================================================
+  1840→44. LOCAL SEO
+  1841→==================================================
+  1842→
+  1843→Primary location:
+  1844→Bengaluru, Karnataka, India
+  1845→
+  1846→Use Bengaluru naturally in relevant content.
+  1847→
+  1848→Create strong local relevance without generating fake location pages.
+  1849→
+  1850→Do not create dozens of duplicate city pages.
+  1851→
+  1852→Include:
+  1853→
+  1854→Bengaluru in Contact page
+  1855→Relevant course SEO copy
+  1856→About page
+  1857→Footer
+  1858→Metadata where appropriate
+  1859→
+  1860→==================================================
+  1861→45. PAGE METADATA
+  1862→==================================================
+  1863→
+  1864→Create reusable SEO utilities.
+  1865→
+  1866→Example:
+  1867→
+  1868→Homepage title:
+  1869→VertexIT | Mortgage Training & Placement Assistance in Bengaluru
+  1870→
+  1871→Homepage description:
+  1872→VertexIT provides career-focused US Mortgage Underwriting and Australia Mortgage training in Bengaluru with practical learning and placement assistance.
+  1873→
+  1874→US course title:
+  1875→US Mortgage Underwriting Training | VertexIT
+  1876→
+  1877→Australia course:
+  1878→Australia Mortgage Training | VertexIT
+  1879→
+  1880→Jobs:
+  1881→Mortgage Jobs & Career Opportunities | VertexIT
+  1882→
+  1883→These are starting drafts.
+  1884→
+  1885→Admin should be able to override metadata.
+  1886→
+  1887→==================================================
+  1888→46. BLOG SEO
+  1889→==================================================
+  1890→
+  1891→Each article must support:
+  1892→
+  1893→Meta title
+  1894→Meta description
+  1895→Slug
+  1896→Canonical
+  1897→OG image
+  1898→Author
+  1899→Publish date
+  1900→Updated date
+  1901→Category
+  1902→Related articles
+  1903→
+  1904→Related article recommendations should use internal linking.
+  1905→
+  1906→==================================================
+  1907→47. PERFORMANCE
+  1908→==================================================
+  1909→
+  1910→Performance matters.
+  1911→
+  1912→Use:
+  1913→
+  1914→Next.js Server Components where appropriate
+  1915→minimal Client Components
+  1916→next/image
+  1917→lazy loading
+  1918→responsive images
+  1919→font optimization
+  1920→code splitting
+  1921→dynamic imports where appropriate
+  1922→small JS bundles
+  1923→
+  1924→Avoid unnecessarily downloading large libraries.
+  1925→
+  1926→Do not use huge background videos.
+  1927→
+  1928→Target excellent Core Web Vitals.
+  1929→
+  1930→==================================================
+  1931→48. ACCESSIBILITY
+  1932→==================================================
+  1933→
+  1934→Build toward WCAG 2.2 AA principles.
+  1935→
+  1936→Requirements:
+  1937→
+  1938→Keyboard navigation
+  1939→Visible focus states
+  1940→Proper labels
+  1941→Alt text
+  1942→Accessible forms
+  1943→ARIA only where needed
+  1944→Semantic HTML
+  1945→Good contrast
+  1946→Reduced motion support
+  1947→Screen-reader friendly interactions
+  1948→
+  1949→Do not use buttons as links or links as buttons incorrectly.
+  1950→
+  1951→==================================================
+  1952→49. ERROR HANDLING
+  1953→==================================================
+  1954→
+  1955→Create:
+  1956→
+  1957→Loading states
+  1958→Error states
+  1959→Empty states
+  1960→Success states
+  1961→404 page
+  1962→Global error boundary
+  1963→Form validation errors
+  1964→
+  1965→Examples:
+  1966→
+  1967→Lead submission success:
+  1968→“Thank you. Your enquiry has been received. A VertexIT counsellor will contact you shortly.”
+  1969→
+  1970→Submission failure:
+  1971→“We couldn't submit your request right now. Please try again or contact us on WhatsApp.”
+  1972→
+  1973→==================================================
+  1974→50. FORM VALIDATION
+  1975→==================================================
+  1976→
+  1977→Use Zod.
+  1978→
+  1979→Validate:
+  1980→
+  1981→Name
+  1982→Phone
+  1983→Email
+  1984→Course
+  1985→Education
+  1986→Experience
+  1987→Message
+  1988→
+  1989→Phone:
+  1990→Indian mobile number validation.
+  1991→
+  1992→Email:
+  1993→valid email if supplied.
+  1994→
+  1995→Sanitize text input.
+  1996→
+  1997→Do not store malicious HTML.
+  1998→
+  1999→==================================================
+  2000→51. SPAM PROTECTION
+
+[showing lines 1-2000 of 3469; use offset=2001 with limit to continue reading]

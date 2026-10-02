@@ -1,0 +1,35 @@
+// Shared admin navigation config.
+export const ADMIN_NAV = [
+  { label: "Dashboard", href: "/admin", icon: "LayoutDashboard" },
+  { label: "Leads", href: "/admin/leads", icon: "Users" },
+  { label: "Courses", href: "/admin/courses", icon: "GraduationCap" },
+  { label: "Jobs", href: "/admin/jobs", icon: "Briefcase" },
+  { label: "Blog", href: "/admin/blog", icon: "FileText" },
+  { label: "Trainers", href: "/admin/trainers", icon: "UserCog" },
+  { label: "Testimonials", href: "/admin/testimonials", icon: "Star" },
+  { label: "Placement Stories", href: "/admin/placement-stories", icon: "Trophy" },
+  { label: "FAQs", href: "/admin/faqs", icon: "HelpCircle" },
+  { label: "Site Settings", href: "/admin/site-settings", icon: "Settings" },
+  { label: "Media", href: "/admin/media", icon: "Image" },
+  { label: "Users", href: "/admin/users", icon: "Shield" },
+  { label: "Audit Logs", href: "/admin/audit-logs", icon: "ScrollText" },
+] as const;
+
+export const LEAD_STATUSES = [
+  "NEW",
+  "CONTACTED",
+  "COUNSELLING SCHEDULED",
+  "COUNSELLING COMPLETED",
+  "DEMO SCHEDULED",
+  "DEMO COMPLETED",
+  "INTERESTED",
+  "FOLLOW-UP REQUIRED",
+  "ENROLLED",
+  "TRAINING",
+  "PLACEMENT SUPPORT",
+  "INTERVIEW SCHEDULED",
+  "PLACED",
+  "NOT INTERESTED",
+  "NOT ELIGIBLE",
+  "CLOSED",
+] as const;

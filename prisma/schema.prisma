@@ -1,0 +1,409 @@
+// VertexIT — Prisma schema (SQLite)
+// Phase 1: Public website + CMS/Admin + lead management + jobs + blog + placement content
+// Phase 2 tables are reserved in docs; schema designed to be extended without rebuild.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// SITE SETTINGS (singleton row)
+// ============================================================
+model SiteSettings {
+  id                 String   @id @default("singleton")
+  brandName          String   @default("VertexIT")
+  tagline            String   @default("LEARN • APPLY")
+  phone              String   @default("9703686514")
+  whatsapp           String   @default("9703686514")
+  email              String?
+  addressLine        String?  // e.g. "GB Play"
+  city               String   @default("Bengaluru")
+  state              String   @default("Karnataka")
+  country            String   @default("India")
+  businessHours      String   @default("10:00 AM - 8:00 PM")
+  logoUrl            String?
+  faviconUrl         String?
+  defaultOgImage     String?
+  defaultSeoTitle    String?
+  defaultSeoDesc     String?
+  // Social links (nullable; hidden when not configured)
+  instagramUrl       String?
+  linkedinUrl        String?
+  facebookUrl        String?
+  youtubeUrl         String?
+  // Map embed URL (Google Maps) — editable later
+  mapEmbedUrl        String?
+  // Footer / homepage editable copy
+  heroEyebrow        String   @default("CAREER-FOCUSED MORTGAGE TRAINING")
+  heroHeading        String   @default("Build Skills. Become Job-Ready. Build Your Mortgage Career.")
+  heroSubheading     String   @default("Industry-focused training in US Mortgage Underwriting and Australian Mortgage Operations, designed for graduates, experienced professionals and career switchers.")
+  heroPrimaryCta     String   @default("WhatsApp Us")
+  heroSecondaryCta   String   @default("Explore Courses")
+  heroImage          String?
+  finalCtaHeading    String   @default("Ready to build your mortgage career?")
+  finalCtaSubheading String   @default("Speak with a VertexIT counsellor today and find the right path for your goals.")
+  updatedAt          DateTime @updatedAt
+}
+
+// ============================================================
+// ADMIN USERS (Phase 1 admin auth)
+// ============================================================
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  // role: SUPER_ADMIN | ADMIN | COUNSELLOR | CONTENT_EDITOR
+  role         String   @default("ADMIN")
+  isActive     Boolean  @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  auditLogs    AuditLog[]
+  leadsAssigned Lead[]  @relation("LeadCounsellor")
+}
+
+// ============================================================
+// COURSES
+// ============================================================
+model Course {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  shortDescription String
+  introduction    String   @default("")
+  whoFor          String   @default("")
+  whatYouLearn    String   @default("")
+  practicalLearning String  @default("")
+  caseStudies     String   @default("")
+  careerRoles     String   @default("")
+  placementAssistance String @default("")
+  // trainingMode: ONLINE | OFFLINE | HYBRID | LIVE | RECORDED
+  trainingMode    String   @default("HYBRID")
+  eligibility     String   @default("")
+  keySkills       String   @default("")   // newline separated
+  careerPathways  String   @default("")   // newline separated
+  duration        String?  // nullable — show "To be confirmed" when null
+  batchSchedule   String?
+  courseFee       String?  // never shown publicly at launch
+  status          String   @default("ACTIVE") // ACTIVE | UPCOMING | ARCHIVED
+  featuredImage   String?
+  metaTitle       String?
+  metaDescription String?
+  canonicalUrl    String?
+  ogTitle         String?
+  ogDescription   String?
+  ogImage         String?
+  isPublished     Boolean  @default(false)
+  isDemo          Boolean  @default(false)
+  displayOrder    Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  modules         CourseModule[]
+  outcomes        CourseOutcome[]
+  faqs            CourseFaq[]
+  leads           Lead[]
+  jobs            Job[]
+  blogPosts       BlogPost[]
+}
+
+model CourseModule {
+  id          String   @id @default(cuid())
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title       String
+  description String   @default("")
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model CourseOutcome {
+  id          String   @id @default(cuid())
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  text        String
+  sortOrder   Int      @default(0)
+}
+
+model CourseFaq {
+  id          String   @id @default(cuid())
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  question    String
+  answer      String
+  sortOrder   Int      @default(0)
+}
+
+// ============================================================
+// TRAINERS / MENTORS
+// ============================================================
+model Trainer {
+  id              String   @id @default(cuid())
+  name            String
+  photo          String?
+  designation     String
+  experience      String?  // do not invent
+  specialization  String
+  bio             String   @default("")
+  linkedinUrl     String?
+  sortOrder       Int      @default(0)
+  isPublished     Boolean  @default(false)
+  isDemo          Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// ============================================================
+// JOBS
+// ============================================================
+model Job {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  company         String   @default("")
+  location        String   @default("")
+  experience      String   @default("")
+  salary          String?  // only if supplied
+  jobType         String   @default("Full-time") // Full-time | Part-time | Contract | Internship
+  workMode        String   @default("Onsite") // Onsite | Remote | Hybrid
+  courseDomain    String?  // related course slug or domain
+  skills          String   @default("")   // newline separated
+  responsibilities String  @default("")
+  requirements    String   @default("")
+  description     String   @default("")
+  postedDate      DateTime @default(now())
+  closingDate     DateTime?
+  isPublished     Boolean  @default(false)
+  isExpired       Boolean  @default(false)
+  isDemo          Boolean  @default(false)
+  metaTitle       String?
+  metaDescription String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  course          Course?  @relation(fields: [courseId], references: [id])
+  courseId        String?
+  applications    JobApplication[]
+}
+
+model JobApplication {
+  id          String   @id @default(cuid())
+  jobId       String
+  job         Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  candidateName String
+  phone       String
+  email       String?
+  resumeUrl   String?  // private path
+  coverMessage String  @default("")
+  source      String   @default("website")
+  createdAt  DateTime @default(now())
+}
+
+// ============================================================
+// LEADS (the conversion engine)
+// ============================================================
+model Lead {
+  id              String   @id @default(cuid())
+  fullName        String
+  phone           String
+  email           String?
+  courseId        String?
+  course          Course?  @relation(fields: [courseId], references: [id])
+  education       String?
+  experienceLevel String?
+  preferredMode   String?
+  message         String   @default("")
+  // Tracking
+  utmSource       String?
+  utmMedium       String?
+  utmCampaign     String?
+  utmTerm         String?
+  utmContent      String?
+  referrer        String?
+  landingPage     String?
+  userAgent       String?
+  // Pipeline
+  // New | Contacted | Counselling Scheduled | Counselling Completed | Demo Scheduled | Demo Completed | Interested | Follow-up Required | Enrolled | Training | Placement Support | Interview Scheduled | Placed | Not Interested | Not Eligible | Closed
+  status          String   @default("NEW")
+  assignedCounsellorId String?
+  assignedCounsellor AdminUser? @relation("LeadCounsellor", fields: [assignedCounsellorId], references: [id])
+  nextFollowUpAt  DateTime?
+  lastContactedAt DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  statusHistory   LeadStatusHistory[]
+  notes           LeadNote[]
+}
+
+model LeadStatusHistory {
+  id          String   @id @default(cuid())
+  leadId      String
+  lead        Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  fromStatus  String?
+  toStatus    String
+  changedById  String?
+  changedByName String?
+  note        String?
+  createdAt   DateTime @default(now())
+}
+
+model LeadNote {
+  id          String   @id @default(cuid())
+  leadId      String
+  lead        Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  authorId    String?
+  authorName  String
+  body        String
+  createdAt   DateTime @default(now())
+}
+
+// ============================================================
+// TESTIMONIALS / SUCCESS STORIES
+// ============================================================
+model Testimonial {
+  id          String   @id @default(cuid())
+  studentName String
+  photo       String?
+  course      String?
+  quote       String
+  rating      Int      @default(5)
+  isPublished Boolean  @default(false)
+  isDemo      Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PlacementStory {
+  id              String   @id @default(cuid())
+  studentName     String
+  photo           String?
+  course          String?
+  previousBackground String?
+  newRole         String?
+  company         String?
+  package         String?
+  location        String?
+  year            Int?
+  shortStory      String   @default("")
+  quote           String?
+  offerLetterImage String?
+  isPublished     Boolean  @default(false)
+  isDemo          Boolean  @default(false)
+  sortOrder       Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// ============================================================
+// FAQs (global, course-specific use CourseFaq)
+// ============================================================
+model Faq {
+  id          String   @id @default(cuid())
+  question    String
+  answer      String
+  category    String   @default("General")
+  sortOrder   Int      @default(0)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ============================================================
+// BLOG
+// ============================================================
+model BlogCategory {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String   @default("")
+  sortOrder   Int      @default(0)
+  posts       BlogPost[]
+}
+
+model BlogPost {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  excerpt         String   @default("")
+  content         String   @default("") // markdown / html
+  featuredImage   String?
+  categoryId      String?
+  category        BlogCategory? @relation(fields: [categoryId], references: [id])
+  author          String   @default("VertexIT")
+  metaTitle       String?
+  metaDescription String?
+  canonicalUrl    String?
+  ogTitle         String?
+  ogDescription   String?
+  ogImage         String?
+  tags            String   @default("") // comma separated
+  isPublished     Boolean  @default(false)
+  isDemo          Boolean  @default(false)
+  publishedAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  courseId        String?
+  course          Course?  @relation(fields: [courseId], references: [id])
+}
+
+// ============================================================
+// MEDIA ASSETS (admin uploads)
+// ============================================================
+model MediaAsset {
+  id          String   @id @default(cuid())
+  filename    String
+  filePath    String   // public/uploads/...
+  url         String   // /uploads/...
+  mimeType    String
+  size        Int      @default(0)
+  altText     String?
+  caption     String?
+  uploadedById String?
+  createdAt   DateTime @default(now())
+}
+
+// ============================================================
+// HOMEPAGE SECTIONS (visibility / ordering)
+// ============================================================
+model HomepageSection {
+  id          String   @id @default(cuid())
+  sectionKey  String   @unique
+  title       String
+  enabled     Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  metadata    String?  // JSON string
+}
+
+// ============================================================
+// ADMIN NOTIFICATIONS
+// ============================================================
+model AdminNotification {
+  id          String   @id @default(cuid())
+  type        String   // LEAD | JOB_APPLICATION | SYSTEM
+  title       String
+  message     String
+  link        String?
+  isRead      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+// ============================================================
+// AUDIT LOG
+// ============================================================
+model AuditLog {
+  id          String   @id @default(cuid())
+  userId      String?
+  user        AdminUser? @relation(fields: [userId], references: [id])
+  userName    String?
+  action      String   // CREATE_COURSE | UPDATE_COURSE | PUBLISH_JOB | UPDATE_LEAD | DELETE_BLOG | LOGIN_ADMIN
+  entity      String?
+  entityId    String?
+  metadata    String?  // JSON string
+  createdAt   DateTime @default(now())
+}
