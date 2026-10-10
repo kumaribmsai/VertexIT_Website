@@ -7,9 +7,9 @@ export function Logo({ className = "" }: { className?: string; showText?: boolea
       <Image
         src="/vertexit-logo-transparent.png"
         alt="VertexIT logo"
-        width={160}
-        height={120}
-        className="h-14 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+        width={240}
+        height={180}
+        className="h-[52px] sm:h-[60px] lg:h-[68px] w-auto object-contain transition-transform group-hover:scale-[1.02]"
         priority
       />
     </Link>
