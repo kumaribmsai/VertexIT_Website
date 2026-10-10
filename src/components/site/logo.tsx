@@ -4,16 +4,14 @@ import Image from "next/image";
 export function Logo({ className = "" }: { className?: string; showText?: boolean }) {
   return (
     <Link href="/" className={`group inline-flex items-center ${className}`} aria-label="VertexIT home">
-      <span className="relative inline-flex h-12 w-48 shrink-0 overflow-hidden rounded-md">
-        <Image
-          src="/vertexit-logo.png"
-          alt="VertexIT logo"
-          fill
-          sizes="192px"
-          className="object-contain object-left"
-          priority
-        />
-      </span>
+      <Image
+        src="/vertexit-logo-new.jpg"
+        alt="VertexIT logo"
+        width={160}
+        height={120}
+        className="h-16 w-auto rounded-xl bg-white p-2 ring-1 ring-slate-900/5 transition-transform group-hover:scale-[1.02]"
+        priority
+      />
     </Link>
   );
 }
