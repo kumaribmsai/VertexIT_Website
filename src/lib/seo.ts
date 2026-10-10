@@ -15,7 +15,7 @@ export async function buildPageMetadata(opts: {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const path = opts.path ?? "";
   const url = `${siteUrl}${path}`;
-  const image = opts.image || settings.defaultOgImage || `${siteUrl}/vertexit-logo-new.jpg`;
+  const image = opts.image || settings.defaultOgImage || `${siteUrl}/vertexit-logo-transparent.png`;
 
   return {
     title: opts.title,
@@ -53,8 +53,8 @@ export function organizationJsonLd(settings: Awaited<ReturnType<typeof getSiteSe
     alternateName: "VertexIT",
     description: settings.defaultSeoDesc || `${settings.brandName} — ${settings.tagline}`,
     url: siteUrl,
-    logo: `${siteUrl}/vertexit-logo-new.jpg`,
-    image: settings.defaultOgImage || `${siteUrl}/vertexit-logo-new.jpg`,
+    logo: `${siteUrl}/vertexit-logo-transparent.png`,
+    image: settings.defaultOgImage || `${siteUrl}/vertexit-logo-transparent.png`,
     telephone: `+91${settings.phone}`,
     address: {
       "@type": "PostalAddress",

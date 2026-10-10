@@ -62,7 +62,7 @@ export async function SiteFooter() {
       {/* Columns */}
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-6 py-12 sm:grid-cols-3 lg:grid-cols-6">
         <div className="col-span-2 sm:col-span-3 lg:col-span-2">
-          <Logo className="[&_span]:text-white" />
+          <Logo className="brightness-0 invert opacity-90 hover:opacity-100" />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
             Career-focused training and placement assistance for the IT industry. Learn industry-focused skills, practice real workflows, and apply with confidence.
           </p>

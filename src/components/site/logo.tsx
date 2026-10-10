@@ -5,11 +5,11 @@ export function Logo({ className = "" }: { className?: string; showText?: boolea
   return (
     <Link href="/" className={`group inline-flex items-center ${className}`} aria-label="VertexIT home">
       <Image
-        src="/vertexit-logo-new.jpg"
+        src="/vertexit-logo-transparent.png"
         alt="VertexIT logo"
         width={160}
         height={120}
-        className="h-16 w-auto rounded-xl bg-white p-2 ring-1 ring-slate-900/5 transition-transform group-hover:scale-[1.02]"
+        className="h-14 w-auto object-contain transition-transform group-hover:scale-[1.02]"
         priority
       />
     </Link>

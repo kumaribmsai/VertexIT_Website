@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const description =
     settings.defaultSeoDesc ||
     `${settings.brandName} provides career-focused US IT Training and Australia IT training in Bengaluru with practical learning and placement assistance.`;
-  const ogImage = settings.defaultOgImage || `${siteUrl}/vertexit-logo-new.jpg`;
+  const ogImage = settings.defaultOgImage || `${siteUrl}/vertexit-logo-transparent.png`;
 
   return {
     metadataBase: new URL(siteUrl),
@@ -54,9 +54,9 @@ export async function generateMetadata(): Promise<Metadata> {
     creator: settings.brandName,
     publisher: settings.brandName,
     icons: {
-      icon: "/vertexit-logo-new.jpg",
-      shortcut: "/vertexit-logo-new.jpg",
-      apple: "/vertexit-logo-new.jpg",
+      icon: "/vertexit-logo-transparent.png",
+      shortcut: "/vertexit-logo-transparent.png",
+      apple: "/vertexit-logo-transparent.png",
     },
     manifest: undefined,
     openGraph: {
