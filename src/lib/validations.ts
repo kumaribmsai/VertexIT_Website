@@ -22,11 +22,7 @@ export const leadSchema = z.object({
   education: z.string().optional().nullable(),
   experienceLevel: z.string().optional().nullable(),
   preferredMode: z.string().optional().nullable(),
-  message: z
-    .string()
-    .max(2000, "Message is too long")
-    .optional()
-    .default(""),
+  message: z.string().max(2000, "Message is too long").optional(),
   howDidYouHear: z.string().optional().nullable(),
   // Honeypot — must be empty
   website: z.string().max(0, "Spam detected").optional().or(z.literal("")),

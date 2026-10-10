@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Quote, MapPin, Building2 } from "lucide-react";
 import { getPublishedPlacementStories } from "@/services/public";
+import { whatsappUrl } from "@/lib/whatsapp";
 import { SectionHeading } from "@/components/site/section-heading";
 import { Reveal } from "@/components/site/reveal";
 

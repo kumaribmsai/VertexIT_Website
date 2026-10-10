@@ -26,7 +26,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
         message: `Converted from course waitlist for "${entry.course?.title || "Unknown"}".${entry.message ? ` Original message: ${entry.message}` : ""}`,
         status: "NEW",
         assignedCounsellorId: user.id,
-        source: "waitlist",
+        utmSource: "waitlist",
       },
     });
 

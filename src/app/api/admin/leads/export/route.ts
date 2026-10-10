@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { requireAdminApi } from "@/lib/admin-auth";
+import { requireAdminApi } from "@/lib/admin-api";
 import { format } from "date-fns";
 
 // GET /api/admin/leads/export — exports all leads (or filtered) as CSV

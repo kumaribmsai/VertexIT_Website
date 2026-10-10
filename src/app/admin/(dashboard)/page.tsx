@@ -99,14 +99,14 @@ export default async function AdminDashboardPage() {
     db.testimonial.count({ where: { isPublished: true } }),
     db.jobApplication.count(),
     db.lead.findMany({ take: 6, orderBy: { createdAt: "desc" }, include: { course: { select: { title: true } } } }),
-    db.lead.groupBy({ by: ["status"], _count: true, orderBy: { _count: { status: "desc" } } }),
-    db.lead.groupBy({ by: ["courseId"], _count: true, orderBy: { _count: { courseId: "desc" } }, take: 5 }),
+    db.lead.groupBy({ by: ["status"], _count: { _all: true }, orderBy: { _count: { status: "desc" } } }),
+    db.lead.groupBy({ by: ["courseId"], _count: { _all: true }, orderBy: { _count: { courseId: "desc" } }, take: 5 }),
     db.adminNotification.findMany({ take: 5, orderBy: { createdAt: "desc" } }),
     db.lead.count({ where: { status: "ENROLLED" } }),
     db.lead.count({ where: { status: "PLACED" } }),
     db.lead.groupBy({
       by: ["assignedCounsellorId"],
-      _count: true,
+      _count: { _all: true },
       where: { assignedCounsellorId: { not: null } },
       orderBy: { _count: { assignedCounsellorId: "desc" } },
       take: 5,
@@ -127,7 +127,7 @@ export default async function AdminDashboardPage() {
       rank: i + 1,
       name: counsellorMap.get(c.assignedCounsellorId!)?.name || "Unknown",
       role: counsellorMap.get(c.assignedCounsellorId!)?.role || "",
-      count: c._count.assignedCounsellorId,
+      count: c._count._all,
     }))
     .filter((c) => c.name !== "Unknown");
 
@@ -141,7 +141,7 @@ export default async function AdminDashboardPage() {
     ? await db.course.findMany({ where: { id: { in: courseIds } }, select: { id: true, title: true } })
     : [];
   const courseMap = new Map(courses.map((c) => [c.id, c.title]));
-  const maxEnquiry = Math.max(...courseEnquiryBreakdown.map((c) => c._count.courseId), 1);
+  const maxEnquiry = Math.max(...courseEnquiryBreakdown.map((c) => c._count._all), 1);
 
   const stats = [
     { label: "Total Leads", value: totalLeads, icon: Users, href: "/admin/leads", tone: "navy" },
@@ -162,7 +162,7 @@ export default async function AdminDashboardPage() {
   };
 
   // Build funnel data from status counts (representing the conversion pipeline)
-  const statusCountMap = new Map(leadStatusBreakdown.map((r) => [r.status, r._count.status]));
+  const statusCountMap = new Map(leadStatusBreakdown.map((r) => [r.status, r._count._all]));
   const funnelStages = [
     { stage: "New", key: "NEW", color: "#3B82F6" },
     { stage: "Contacted", key: "CONTACTED", color: "#0E9E8E" },
@@ -375,13 +375,13 @@ export default async function AdminDashboardPage() {
                 <p className="text-sm text-muted-foreground">No leads yet.</p>
               )}
               {leadStatusBreakdown.slice(0, 6).map((row) => {
-                const max = Math.max(...leadStatusBreakdown.map((r) => r._count.status), 1);
-                const pct = Math.round((row._count.status / max) * 100);
+                const max = Math.max(...leadStatusBreakdown.map((r) => r._count._all), 1);
+                const pct = Math.round((row._count._all / max) * 100);
                 return (
                   <div key={row.status} className="space-y-1">
                     <div className="flex items-center justify-between text-xs">
                       <StatusBadge status={row.status} />
-                      <span className="font-semibold text-navy">{row._count.status}</span>
+                      <span className="font-semibold text-navy">{row._count._all}</span>
                     </div>
                     <div className="h-1.5 overflow-hidden rounded-full bg-slate-100">
                       <div className="h-full rounded-full bg-teal" style={{ width: `${pct}%` }} />
@@ -401,12 +401,12 @@ export default async function AdminDashboardPage() {
               )}
               {courseEnquiryBreakdown.map((row) => {
                 const label = row.courseId ? courseMap.get(row.courseId) ?? "Unknown" : "General";
-                const pct = Math.round((row._count.courseId / maxEnquiry) * 100);
+                const pct = Math.round((row._count._all / maxEnquiry) * 100);
                 return (
                   <div key={row.courseId ?? "general"} className="space-y-1">
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-medium text-navy truncate pr-2">{label}</span>
-                      <span className="font-semibold text-teal">{row._count.courseId}</span>
+                      <span className="font-semibold text-teal">{row._count._all}</span>
                     </div>
                     <div className="h-1.5 overflow-hidden rounded-full bg-slate-100">
                       <div className="h-full rounded-full bg-navy" style={{ width: `${pct}%` }} />

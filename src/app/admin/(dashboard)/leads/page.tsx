@@ -84,7 +84,7 @@ export default async function AdminLeadsPage({
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
   // Status summary counts
-  const statusCounts = await db.lead.groupBy({ by: ["status"], _count: true });
+  const statusCounts = await db.lead.groupBy({ by: ["status"], _count: { _all: true } });
 
   return (
     <div className="space-y-5">
@@ -112,7 +112,7 @@ export default async function AdminLeadsPage({
           All <span className="opacity-70">{total}</span>
         </Link>
         {LEAD_STATUSES.map((s) => {
-          const count = statusCounts.find((c) => c.status === s)?._count.status ?? 0;
+          const count = statusCounts.find((c) => c.status === s)?._count._all ?? 0;
           if (count === 0 && status !== s) return null;
           return (
             <Link

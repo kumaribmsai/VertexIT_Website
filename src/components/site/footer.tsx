@@ -29,7 +29,7 @@ export async function SiteFooter() {
     { url: settings.instagramUrl, Icon: Instagram, label: "Instagram" },
     { url: settings.facebookUrl, Icon: Facebook, label: "Facebook" },
     { url: settings.youtubeUrl, Icon: Youtube, label: "YouTube" },
-  ].filter((s): s is { url: string; Icon: React.ComponentType<{ className?: string }>; label: string } => Boolean(s.url));
+  ].filter((s): s is { url: string; Icon: any; label: string } => Boolean(s.url));
 
   return (
     <footer className="mt-auto bg-navy text-slate-300">
@@ -95,7 +95,7 @@ export async function SiteFooter() {
               {socials.map(({ url, Icon, label }) => (
                 <a
                   key={label}
-                  href={url}
+                  href={url || undefined}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}

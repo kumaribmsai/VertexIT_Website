@@ -37,7 +37,8 @@ export function WaitlistManager({ entries }: { entries: Entry[] }) {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [pendingId, startTransition] = useTransition<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const [pendingId, setPendingId] = useState<string | null>(null);
 
   const filtered = entries.filter((e) => {
     const matchesSearch =
@@ -49,6 +50,7 @@ export function WaitlistManager({ entries }: { entries: Entry[] }) {
   });
 
   function updateStatus(id: string, status: string) {
+    setPendingId(id);
     startTransition(async () => {
       try {
         const res = await fetch(`/api/admin/waitlist/${id}`, {
@@ -62,12 +64,15 @@ export function WaitlistManager({ entries }: { entries: Entry[] }) {
         router.refresh();
       } catch {
         toast.error("Failed to update status");
+      } finally {
+        setPendingId(null);
       }
     });
   }
 
   function convertToLead(entry: Entry) {
     if (!confirm(`Convert ${entry.fullName} to a lead? This creates a new lead in the pipeline.`)) return;
+    setPendingId(entry.id);
     startTransition(async () => {
       try {
         const res = await fetch(`/api/admin/waitlist/${entry.id}/convert`, {
@@ -80,6 +85,8 @@ export function WaitlistManager({ entries }: { entries: Entry[] }) {
         router.refresh();
       } catch {
         toast.error("Failed to convert to lead");
+      } finally {
+        setPendingId(null);
       }
     });
   }

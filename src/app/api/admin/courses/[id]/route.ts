@@ -69,7 +69,7 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
     const nowPublished = data.isPublished;
 
     // Replace-all relations inside a single transaction.
-    const [updated] = await db.$transaction([
+    const [, , , updated] = await db.$transaction([
       db.courseModule.deleteMany({ where: { courseId: id } }),
       db.courseOutcome.deleteMany({ where: { courseId: id } }),
       db.courseFaq.deleteMany({ where: { courseId: id } }),

@@ -37,7 +37,8 @@ export function ReferralsManager({ referrals }: { referrals: Referral[] }) {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [pendingId, startTransition] = useTransition<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const [pendingId, setPendingId] = useState<string | null>(null);
 
   const filtered = referrals.filter((r) => {
     const matchesSearch =
@@ -50,6 +51,7 @@ export function ReferralsManager({ referrals }: { referrals: Referral[] }) {
   });
 
   function updateStatus(id: string, status: string) {
+    setPendingId(id);
     startTransition(async () => {
       try {
         const res = await fetch(`/api/admin/referrals/${id}`, {
@@ -63,6 +65,8 @@ export function ReferralsManager({ referrals }: { referrals: Referral[] }) {
         router.refresh();
       } catch {
         toast.error("Failed to update status");
+      } finally {
+        setPendingId(null);
       }
     });
   }

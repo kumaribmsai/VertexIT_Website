@@ -48,7 +48,7 @@ export default async function BlogAuthorPage({
   // Get count of categories this author has written about
   const categoryIds = new Set(posts.map((p) => p.categoryId).filter(Boolean));
   const categories = await db.blogCategory.findMany({
-    where: { id: { in: Array.from(categoryIds) } },
+    where: { id: { in: Array.from(categoryIds) as string[] } },
     select: { id: true, name: true, slug: true },
   });
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getPublishedTrainers } from "@/services/public";
+import { whatsappUrl } from "@/lib/whatsapp";
 import { TrainerCard } from "@/components/site/trainer-card";
 import { SectionHeading } from "@/components/site/section-heading";
 import { Reveal } from "@/components/site/reveal";

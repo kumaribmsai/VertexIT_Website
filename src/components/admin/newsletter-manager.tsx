@@ -21,13 +21,15 @@ type Subscriber = {
 export function NewsletterManager({ subscribers }: { subscribers: Subscriber[] }) {
   const router = useRouter();
   const [search, setSearch] = useState("");
-  const [pendingId, startTransition] = useTransition<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+  const [pendingId, setPendingId] = useState<string | null>(null);
 
   const filtered = subscribers.filter((s) =>
     s.email.toLowerCase().includes(search.toLowerCase()),
   );
 
   function toggleActive(id: string, currentActive: boolean) {
+    setPendingId(id);
     startTransition(async () => {
       try {
         const res = await fetch(`/api/admin/newsletter/${id}`, {
@@ -41,12 +43,15 @@ export function NewsletterManager({ subscribers }: { subscribers: Subscriber[] }
         router.refresh();
       } catch {
         toast.error("Failed to update subscriber");
+      } finally {
+        setPendingId(null);
       }
     });
   }
 
   function deleteSubscriber(id: string) {
     if (!confirm("Delete this subscriber permanently?")) return;
+    setPendingId(id);
     startTransition(async () => {
       try {
         const res = await fetch(`/api/admin/newsletter/${id}`, { method: "DELETE" });
@@ -56,6 +61,8 @@ export function NewsletterManager({ subscribers }: { subscribers: Subscriber[] }
         router.refresh();
       } catch {
         toast.error("Failed to delete subscriber");
+      } finally {
+        setPendingId(null);
       }
     });
   }
