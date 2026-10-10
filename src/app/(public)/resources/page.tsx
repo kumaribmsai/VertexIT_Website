@@ -36,7 +36,7 @@ const RESOURCES: Resource[] = [
     pages: 6,
     type: "PDF Guide",
     gated: false,
-    href: "/downloads/guides/mortgage-underwriting-interview-questions.pdf",
+    href: "/downloads/guides/it-interview-questions.pdf",
   },
   {
     title: "IT career Pathways Guide",
@@ -46,7 +46,7 @@ const RESOURCES: Resource[] = [
     pages: 4,
     type: "PDF Guide",
     gated: false,
-    href: "/downloads/guides/mortgage-career-pathways-guide.pdf",
+    href: "/downloads/guides/it-career-pathways-guide.pdf",
   },
   {
     title: "US IT Fundamentals Cheat Sheet",
@@ -56,7 +56,7 @@ const RESOURCES: Resource[] = [
     pages: 3,
     type: "Cheat Sheet",
     gated: false,
-    href: "/downloads/guides/us-mortgage-fundamentals-cheatsheet.pdf",
+    href: "/downloads/guides/us-it-fundamentals-cheatsheet.pdf",
   },
   {
     title: "IT operations Resume Template",
@@ -66,7 +66,7 @@ const RESOURCES: Resource[] = [
     pages: 4,
     type: "PDF Guide",
     gated: false,
-    href: "/downloads/guides/mortgage-operations-resume-template.pdf",
+    href: "/downloads/guides/it-operations-resume-template.pdf",
   },
   {
     title: "Australia IT operations Glossary",
@@ -76,7 +76,7 @@ const RESOURCES: Resource[] = [
     pages: 5,
     type: "Cheat Sheet",
     gated: false,
-    href: "/downloads/guides/australia-mortgage-glossary.pdf",
+    href: "/downloads/guides/australia-it-glossary.pdf",
   },
   {
     title: "Interview Preparation Checklist",
@@ -86,7 +86,7 @@ const RESOURCES: Resource[] = [
     pages: 3,
     type: "Checklist",
     gated: false,
-    href: "/downloads/guides/mortgage-interview-preparation-checklist.pdf",
+    href: "/downloads/guides/it-interview-preparation-checklist.pdf",
   },
 ];
 
