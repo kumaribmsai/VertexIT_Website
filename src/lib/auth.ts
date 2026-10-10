@@ -23,20 +23,24 @@ export const authOptions: NextAuthOptions = {
         if (!user || !user.isActive) return null;
         const ok = verifyPassword(credentials.password, user.passwordHash);
         if (!ok) return null;
-        // Update last login
-        await db.adminUser.update({
-          where: { id: user.id },
-          data: { lastLoginAt: new Date() },
-        });
-        await db.auditLog.create({
-          data: {
-            userId: user.id,
-            userName: user.name,
-            action: "LOGIN_ADMIN",
-            entity: "AdminUser",
-            entityId: user.id,
-          },
-        });
+        // Update last login (wrapped in try-catch because SQLite on Vercel is read-only)
+        try {
+          await db.adminUser.update({
+            where: { id: user.id },
+            data: { lastLoginAt: new Date() },
+          });
+          await db.auditLog.create({
+            data: {
+              userId: user.id,
+              userName: user.name,
+              action: "LOGIN_ADMIN",
+              entity: "AdminUser",
+              entityId: user.id,
+            },
+          });
+        } catch (e) {
+          console.warn("Failed to write login audit logs (likely read-only DB):", e);
+        }
         return {
           id: user.id,
           email: user.email,
