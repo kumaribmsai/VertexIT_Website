@@ -29,8 +29,8 @@ export async function HomeTrainers() {
           <SectionHeading
             align="left"
             eyebrow="Trainers & Mentors"
-            title="Learn from experienced mortgage practitioners"
-            description="Our trainers bring real mortgage and lending operations experience into the classroom — focused on practical, applied learning."
+            title="Learn from experienced industry practitioners"
+            description="Our trainers bring real industry operations experience into the classroom — focused on practical, applied learning."
             className="max-w-2xl"
           />
           <Link

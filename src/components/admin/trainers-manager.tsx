@@ -165,7 +165,7 @@ export function TrainersManager({ initialTrainers }: { initialTrainers: Trainer[
                 </div>
                 <div className="space-y-1.5">
                   <Label>Designation *</Label>
-                  <Input value={form.designation} onChange={(e) => setForm({ ...form, designation: e.target.value })} placeholder="e.g. Senior Mortgage Trainer" />
+                  <Input value={form.designation} onChange={(e) => setForm({ ...form, designation: e.target.value })} placeholder="e.g. Senior IT Trainer" />
                 </div>
                 <div className="space-y-1.5">
                   <Label>Experience</Label>
@@ -173,7 +173,7 @@ export function TrainersManager({ initialTrainers }: { initialTrainers: Trainer[
                 </div>
                 <div className="space-y-1.5">
                   <Label>Specialization *</Label>
-                  <Input value={form.specialization} onChange={(e) => setForm({ ...form, specialization: e.target.value })} placeholder="e.g. US Mortgage Underwriting" />
+                  <Input value={form.specialization} onChange={(e) => setForm({ ...form, specialization: e.target.value })} placeholder="e.g. US IT Underwriting" />
                 </div>
                 <div className="space-y-1.5 sm:col-span-2">
                   <Label>Bio</Label>

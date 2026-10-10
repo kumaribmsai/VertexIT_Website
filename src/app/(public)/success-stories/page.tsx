@@ -13,9 +13,9 @@ import { whatsappUrl } from "@/lib/whatsapp";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = await buildPageMetadata({
-  title: "Success Stories | VertexIT Mortgage Training",
+  title: "Success Stories | VertexIT IT Training",
   description:
-    "Real career journeys from VertexIT — student outcomes, placement stories and testimonials from our mortgage training programs in Bengaluru.",
+    "Real career journeys from VertexIT — student outcomes, placement stories and testimonials from our IT training programs in Bengaluru.",
   path: "/success-stories",
 });
 
@@ -48,7 +48,7 @@ export default async function SuccessStoriesPage() {
             </h1>
             <p className="mt-5 text-base leading-relaxed text-slate-300 sm:text-lg text-balance">
               Stories and testimonials from candidates who trained with VertexIT and moved into
-              mortgage and lending operations roles. We only publish verified stories — and we are
+              IT and software operations roles. We only publish verified stories — and we are
               transparent about what we share.
             </p>
           </div>
@@ -127,7 +127,7 @@ export default async function SuccessStoriesPage() {
             Your story could be next
           </span>
           <h2 className="mt-4 font-heading text-2xl font-bold text-white sm:text-3xl text-balance">
-            Start your own mortgage career journey
+            Start your own IT career journey
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-300">
             Speak with a VertexIT counsellor to find the right training path for your goals — and

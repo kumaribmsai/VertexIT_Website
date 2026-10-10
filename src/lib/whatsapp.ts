@@ -24,8 +24,8 @@ export function buildWhatsappUrl(message: string, number: string): string {
 // Pre-filled message helpers for each context.
 export const WHATSAPP_MESSAGES = {
   home: "Hi VertexIT, I'm interested in your training programs. I'd like to speak with a counsellor.",
-  usMortgage: "Hi VertexIT, I'm interested in the US Mortgage – Underwriting program.",
-  australia: "Hi VertexIT, I'm interested in the Australia Mortgage program.",
+  usMortgage: "Hi VertexIT, I'm interested in the US IT Training program.",
+  australia: "Hi VertexIT, I'm interested in the Australia IT Training program.",
   jobs: "Hi VertexIT, I'd like to know about the current job opportunities.",
   contact: "Hi VertexIT, I'd like to get in touch regarding your courses.",
   apply: "Hi VertexIT, I'd like to apply and speak with a counsellor.",

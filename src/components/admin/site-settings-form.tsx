@@ -231,7 +231,7 @@ export function SiteSettingsForm({ initial }: Props) {
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5 sm:col-span-2">
               <Label>Default SEO title</Label>
-              <Input value={form.defaultSeoTitle} onChange={(e) => set("defaultSeoTitle", e.target.value)} placeholder="VertexIT — Career-Focused Mortgage Training" />
+              <Input value={form.defaultSeoTitle} onChange={(e) => set("defaultSeoTitle", e.target.value)} placeholder="VertexIT — Career-Focused IT Training" />
             </div>
             <div className="space-y-1.5 sm:col-span-2">
               <Label>Default SEO description</Label>

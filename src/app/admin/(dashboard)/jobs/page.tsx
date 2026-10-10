@@ -44,7 +44,7 @@ export default async function AdminJobsPage() {
     <div className="space-y-6">
       <AdminPageHeader
         title="Jobs"
-        description="Manage open mortgage and lending positions."
+        description="Manage open IT and lending positions."
         actions={
           <Link
             href="/admin/jobs/new"

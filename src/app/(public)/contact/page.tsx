@@ -21,9 +21,9 @@ import { whatsappUrl, normalizeWhatsappNumber } from "@/lib/whatsapp";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = await buildPageMetadata({
-  title: "Contact VertexIT | Mortgage Training Bengaluru",
+  title: "Contact VertexIT | IT Training Bengaluru",
   description:
-    "Contact VertexIT for mortgage training and placement assistance in Bengaluru. Phone, WhatsApp, business hours and enquiry form.",
+    "Contact VertexIT for IT training and placement assistance in Bengaluru. Phone, WhatsApp, business hours and enquiry form.",
   path: "/contact",
 });
 

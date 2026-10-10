@@ -20,7 +20,7 @@ const REASONS = [
     icon: Building2,
     title: "Industry-Oriented Curriculum",
     description:
-      "Curriculum built around the actual mortgage workflow — US underwriting and Australian operations — designed to mirror what hiring teams expect.",
+      "Curriculum built around actual industry workflows, designed to mirror what hiring teams expect.",
   },
   {
     icon: Briefcase,
@@ -44,7 +44,7 @@ const REASONS = [
     icon: Compass,
     title: "Career-Focused Mentorship",
     description:
-      "Mentorship oriented towards building a long-term mortgage career — not just clearing a single interview — guided by experienced trainers.",
+      "Mentorship oriented towards building a long-term IT career — not just clearing a single interview — guided by experienced trainers.",
   },
 ];
 
@@ -55,7 +55,7 @@ export function WhyVertexit() {
         <SectionHeading
           eyebrow="Why VertexIT"
           title="Built for a career, not just a certificate"
-          description="Our programs are structured around what hiring teams in mortgage and lending operations actually look for — practical skills, real workflows and end-to-end career preparation."
+          description="Our programs are structured around what hiring teams in the IT industry actually look for — practical skills, real workflows and end-to-end career preparation."
         />
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -54,14 +54,14 @@ export const DEFAULT_SETTINGS = {
   facebookUrl: null as string | null,
   youtubeUrl: null as string | null,
   mapEmbedUrl: null as string | null,
-  heroEyebrow: "CAREER-FOCUSED MORTGAGE TRAINING",
-  heroHeading: "Build Skills. Become Job-Ready. Build Your Mortgage Career.",
+  heroEyebrow: "CAREER-FOCUSED IT TRAINING",
+  heroHeading: "Build Skills. Become Job-Ready. Launch Your IT Career.",
   heroSubheading:
-    "Industry-focused training in US Mortgage Underwriting and Australian Mortgage Operations, designed for graduates, experienced professionals and career switchers.",
+    "Industry-focused IT training programs designed for graduates, experienced professionals, and career switchers.",
   heroPrimaryCta: "WhatsApp Us",
   heroSecondaryCta: "Explore Courses",
   heroImage: null as string | null,
-  finalCtaHeading: "Ready to build your mortgage career?",
+  finalCtaHeading: "Ready to accelerate your IT career?",
   finalCtaSubheading:
     "Speak with a VertexIT counsellor today and find the right path for your goals.",
   updatedAt: new Date(),

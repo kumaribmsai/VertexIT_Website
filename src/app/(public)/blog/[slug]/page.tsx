@@ -299,7 +299,7 @@ export default async function BlogPostPage({
                 {post.author}
               </Link>
               <p className="mt-1 text-xs text-muted-foreground">
-                VertexIT — career-focused mortgage training.
+                VertexIT — career-focused IT training.
               </p>
             </div>
           </div>
@@ -340,10 +340,10 @@ export default async function BlogPostPage({
                   Keep learning
                 </p>
                 <h2 className="mt-2 font-heading text-lg font-bold text-navy">
-                  Explore mortgage training
+                  Explore IT training
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Job-ready programs in US Mortgage Underwriting and Australia Mortgage Operations.
+                  Job-ready programs in US IT Training and Australia IT operations.
                 </p>
                 <div className="mt-4">
                   <LinkButton href="/courses" variant="default" size="sm">

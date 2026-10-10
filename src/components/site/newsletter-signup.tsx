@@ -59,7 +59,7 @@ export function NewsletterSignup({
         </span>
         <h3 className="mt-3 font-heading text-lg font-bold text-navy">You're subscribed!</h3>
         <p className="mt-1 text-sm text-muted-foreground">
-          Thank you for subscribing. You'll receive mortgage career insights and updates from VertexIT.
+          Thank you for subscribing. You'll receive IT career insights and updates from VertexIT.
         </p>
       </div>
     );
@@ -92,9 +92,9 @@ export function NewsletterSignup({
           <Mail className="h-5 w-5" />
         </span>
         <div className="min-w-0 flex-1">
-          <h3 className="font-heading text-base font-bold text-navy">Get mortgage career insights</h3>
+          <h3 className="font-heading text-base font-bold text-navy">Get IT career insights</h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            Subscribe to receive practical articles on mortgage careers, interview tips, and industry updates. No spam, unsubscribe anytime.
+            Subscribe to receive practical articles on IT careers, interview tips, and industry updates. No spam, unsubscribe anytime.
           </p>
         </div>
       </div>

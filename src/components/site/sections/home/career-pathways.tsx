@@ -14,18 +14,18 @@ function splitList(input: string): string[] {
 
 const FALLBACK_PATHWAYS: Record<string, string[]> = {
   "us-mortgage-underwriting": [
-    "Mortgage Underwriter",
-    "Mortgage Processor",
-    "Mortgage Operations Analyst",
+    "IT Support Engineer",
+    "IT Operations Analyst",
+    "IT operations Analyst",
     "Credit / Lending Support",
     "Underwriting Assistant",
   ],
   "australia-mortgage": [
-    "Mortgage Loan Processor",
+    "IT Service Desk",
     "Broker Support Associate",
     "Loan Administration Analyst",
     "Lending Operations Analyst",
-    "Mortgage Broker Virtual Assistant",
+    "IT Virtual Assistant",
   ],
 };
 
@@ -47,14 +47,14 @@ export async function CareerPathways() {
     {
       region: "United States",
       flag: "🇺🇸",
-      title: usCourse?.title ?? "US Mortgage – Underwriting",
+      title: usCourse?.title ?? "US IT Training",
       href: usCourse ? `/courses/${usCourse.slug}` : "/courses/us-mortgage-underwriting",
       pathways: usPathways.length ? usPathways : FALLBACK_PATHWAYS["us-mortgage-underwriting"],
     },
     {
       region: "Australia",
       flag: "🇦🇺",
-      title: auCourse?.title ?? "Australia Mortgage",
+      title: auCourse?.title ?? "Australia IT Training",
       href: auCourse ? `/courses/${auCourse.slug}` : "/courses/australia-mortgage",
       pathways: auPathways.length ? auPathways : FALLBACK_PATHWAYS["australia-mortgage"],
     },
@@ -87,7 +87,7 @@ export async function CareerPathways() {
                   <div>
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-navy/5 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-wide text-navy">
                       <MapPin className="h-3 w-3" aria-hidden />
-                      {p.region} Mortgage
+                      {p.region} Track
                     </span>
                     <h3 className="mt-3 font-heading text-lg font-bold text-navy">{p.title}</h3>
                   </div>

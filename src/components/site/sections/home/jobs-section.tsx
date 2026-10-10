@@ -30,7 +30,7 @@ export async function HomeJobs() {
           <SectionHeading
             align="left"
             eyebrow="Current Openings"
-            title="Open mortgage roles"
+            title="Open IT roles"
             description="Live opportunities from our partner network. Apply directly through the listing, or speak to our career counsellor to find the right role for you."
             className="max-w-2xl"
           />

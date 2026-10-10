@@ -18,7 +18,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = await buildPageMetadata({
   title: "Apply / Enquire | VertexIT",
   description:
-    "Talk to a VertexIT counsellor. Fill in your details and our team will guide you through the right mortgage training path for your career goals.",
+    "Talk to a VertexIT counsellor. Fill in your details and our team will guide you through the right IT training path for your career goals.",
   path: "/apply",
 });
 

@@ -18,9 +18,9 @@ import { faqPageJsonLd, buildPageMetadata } from "@/lib/seo";
 import { MessageCircle, Phone, HelpCircle } from "lucide-react";
 
 export const metadata: Metadata = await buildPageMetadata({
-  title: "FAQ | VertexIT Mortgage Training",
+  title: "FAQ | VertexIT IT Training",
   description:
-    "Answers to frequently asked questions about VertexIT mortgage training, placement assistance, eligibility, course fees and more.",
+    "Answers to frequently asked questions about VertexIT IT Training, placement assistance, eligibility, course fees and more.",
   path: "/faq",
 });
 
@@ -68,7 +68,7 @@ export default async function FaqPage() {
               Frequently asked questions
             </h1>
             <p className="mt-5 text-base leading-relaxed text-slate-300 sm:text-lg text-balance">
-              Common questions about our mortgage training programs, eligibility, fees and
+              Common questions about our IT training programs, eligibility, fees and
               placement assistance. If something is not covered here, please speak with a
               VertexIT counsellor.
             </p>
@@ -85,7 +85,7 @@ export default async function FaqPage() {
               {faqs.length === 0 ? (
                 <EmptyState
                   title="FAQs will be published here soon"
-                  description="We are preparing answers to common questions about our mortgage training programs and placement assistance. Meanwhile, please speak with a counsellor for current eligibility details."
+                  description="We are preparing answers to common questions about our IT training programs and placement assistance. Meanwhile, please speak with a counsellor for current eligibility details."
                   icon={HelpCircle}
                   action={<LinkButton href="/apply">Talk to a Counsellor</LinkButton>}
                 />

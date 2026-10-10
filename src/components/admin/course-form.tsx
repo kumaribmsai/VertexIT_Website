@@ -305,7 +305,7 @@ export function CourseForm({ initial }: { initial?: CourseFormInitial }) {
             <Input
               value={form.title}
               onChange={(e) => onTitleChange(e.target.value)}
-              placeholder="e.g. US Mortgage Underwriting"
+              placeholder="e.g. US IT Underwriting"
               maxLength={200}
               required
             />
@@ -399,7 +399,7 @@ export function CourseForm({ initial }: { initial?: CourseFormInitial }) {
               value={form.whoFor}
               onChange={(e) => update("whoFor", e.target.value)}
               rows={3}
-              placeholder="Graduates, career switchers, mortgage/lending professionals…"
+              placeholder="Graduates, career switchers, IT professionals…"
             />
           </Field>
           <Field label="What you'll learn" hint="High-level curriculum overview.">
@@ -431,7 +431,7 @@ export function CourseForm({ initial }: { initial?: CourseFormInitial }) {
               value={form.careerRoles}
               onChange={(e) => update("careerRoles", e.target.value)}
               rows={3}
-              placeholder="Junior Underwriter, Mortgage Processor, Loan Analyst…"
+              placeholder="Junior Underwriter, IT Processor, Loan Analyst…"
             />
           </Field>
           <Field label="Placement assistance" hint="What's included in placement support.">
@@ -447,7 +447,7 @@ export function CourseForm({ initial }: { initial?: CourseFormInitial }) {
               value={form.eligibility}
               onChange={(e) => update("eligibility", e.target.value)}
               rows={2}
-              placeholder="Any graduate. No prior mortgage experience required…"
+              placeholder="Any graduate. No prior IT experience required…"
             />
           </Field>
         </div>

@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = await buildPageMetadata({
   title: "Compare Courses",
-  description: "Compare VertexIT mortgage training programs side by side — curriculum, duration, mode, career pathways and more.",
+  description: "Compare VertexIT IT training programs side by side — curriculum, duration, mode, career pathways and more.",
   path: "/courses/compare",
 });
 
@@ -50,7 +50,7 @@ export default async function ComparePage({
             Compare programs
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            See how our mortgage training programs compare side by side — curriculum, mode, career pathways and more.
+            See how our IT training programs compare side by side — curriculum, mode, career pathways and more.
           </p>
         </div>
       </section>

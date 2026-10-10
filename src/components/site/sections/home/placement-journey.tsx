@@ -20,7 +20,7 @@ const STEPS = [
   {
     icon: ClipboardList,
     title: "Choose Course",
-    description: "Pick the mortgage program that aligns with your career interest and background.",
+    description: "Pick the IT program that aligns with your career interest and background.",
   },
   {
     icon: GraduationCap,

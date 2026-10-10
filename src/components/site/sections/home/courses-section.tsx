@@ -25,8 +25,8 @@ export async function HomeCourses() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Programs"
-          title="Two career-focused mortgage programs"
-          description="Practical, job-oriented training designed for graduates, experienced professionals and career switchers entering the mortgage and lending operations industry."
+          title="Career-focused IT programs"
+          description="Practical, job-oriented training designed for graduates, experienced professionals, and career switchers entering the IT industry."
         />
 
         <div className="mt-12">

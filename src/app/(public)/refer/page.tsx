@@ -10,7 +10,7 @@ import { UserPlus, Gift, Heart, Share2 } from "lucide-react";
 export const metadata: Metadata = await buildPageMetadata({
   title: "Refer a Friend",
   description:
-    "Know someone who would benefit from VertexIT mortgage training? Refer them and we'll follow up. Help your friends build their mortgage career.",
+    "Know someone who would benefit from VertexIT IT Training? Refer them and we'll follow up. Help your friends build their IT career.",
   path: "/refer",
 });
 
@@ -21,7 +21,7 @@ export default async function ReferPage() {
     {
       icon: Share2,
       title: "Share the opportunity",
-      description: "Tell a friend about VertexIT mortgage training programs — share the link or their contact details.",
+      description: "Tell a friend about VertexIT IT training programs — share the link or their contact details.",
     },
     {
       icon: Heart,
@@ -48,12 +48,12 @@ export default async function ReferPage() {
           </Reveal>
           <Reveal delay={80}>
             <h1 className="mt-4 font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl text-balance">
-              Help a friend build their mortgage career
+              Help a friend build their IT career
             </h1>
           </Reveal>
           <Reveal delay={160}>
             <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg text-balance">
-              Know someone who would benefit from VertexIT training? Refer them and our team will reach out with personalised guidance. Helping friends start a career in mortgage operations is one of the best things you can do.
+              Know someone who would benefit from VertexIT training? Refer them and our team will reach out with personalised guidance. Helping friends start a career in IT operations is one of the best things you can do.
             </p>
           </Reveal>
         </div>
@@ -67,7 +67,7 @@ export default async function ReferPage() {
               <Reveal>
                 <h2 className="font-heading text-2xl font-bold text-navy">How it works</h2>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Three simple steps to help your friend start their mortgage career.
+                  Three simple steps to help your friend start their IT career.
                 </p>
               </Reveal>
               <div className="mt-8 space-y-6">
@@ -92,7 +92,7 @@ export default async function ReferPage() {
               <Reveal delay={240}>
                 <div className="mt-8 rounded-2xl border border-teal/20 bg-teal/5 p-5">
                   <p className="text-sm text-slate-600">
-                    <span className="font-semibold text-navy">Why refer?</span> Mortgage operations is a growing field in Bengaluru with strong demand for trained candidates. By referring a friend, you're helping them access a structured path into this industry.
+                    <span className="font-semibold text-navy">Why refer?</span> IT operations is a growing field in Bengaluru with strong demand for trained candidates. By referring a friend, you're helping them access a structured path into this industry.
                   </p>
                 </div>
               </Reveal>

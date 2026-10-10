@@ -32,7 +32,7 @@ export default async function AdminBlogPage() {
     <div className="space-y-6">
       <AdminPageHeader
         title="Blog Posts"
-        description="Publish career insights, course announcements and mortgage industry articles."
+        description="Publish career insights, course announcements and IT industry articles."
         actions={
           <Link
             href="/admin/blog/new"

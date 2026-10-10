@@ -10,7 +10,7 @@ import { CalendarDays, Phone, MessageCircle, ShieldCheck } from "lucide-react";
 export const metadata: Metadata = await buildPageMetadata({
   title: "Book a Counselling Session",
   description:
-    "Pick a date and time that works for you. A VertexIT counsellor will confirm your slot and guide you through the right mortgage training path.",
+    "Pick a date and time that works for you. A VertexIT counsellor will confirm your slot and guide you through the right IT training path.",
   path: "/book",
 });
 

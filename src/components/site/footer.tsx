@@ -37,7 +37,7 @@ export async function SiteFooter() {
       <div className="border-b border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 px-6 py-7 sm:flex-row sm:items-center">
           <div>
-            <p className="font-heading text-lg font-semibold text-white">Start your mortgage career with VertexIT</p>
+            <p className="font-heading text-lg font-semibold text-white">Start your IT career with VertexIT</p>
             <p className="text-sm text-slate-400">Speak with a counsellor and find the right path for your goals.</p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -64,7 +64,7 @@ export async function SiteFooter() {
         <div className="col-span-2 sm:col-span-3 lg:col-span-2">
           <Logo className="[&_span]:text-white" />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
-            Career-focused training and placement assistance for mortgage and lending operations. Learn industry-focused skills, practice real workflows, and apply with confidence.
+            Career-focused training and placement assistance for the IT industry. Learn industry-focused skills, practice real workflows, and apply with confidence.
           </p>
           <div className="mt-5 space-y-2 text-sm">
             <div className="flex items-start gap-2">

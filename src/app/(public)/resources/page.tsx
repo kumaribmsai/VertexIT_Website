@@ -10,9 +10,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = await buildPageMetadata({
-  title: "Free Mortgage Career Resources",
+  title: "Free IT career Resources",
   description:
-    "Download free guides for mortgage career preparation — interview questions, resume tips, mortgage fundamentals and more from VertexIT.",
+    "Download free guides for IT career preparation — interview questions, resume tips, IT fundamentals and more from VertexIT.",
   path: "/resources",
 });
 
@@ -29,8 +29,8 @@ type Resource = {
 
 const RESOURCES: Resource[] = [
   {
-    title: "Mortgage Underwriting Interview Questions",
-    description: "25 common interview questions for US Mortgage Underwriting roles — with sample answers, scenario frameworks and what hiring teams look for.",
+    title: "IT Underwriting Interview Questions",
+    description: "25 common interview questions for US IT Training roles — with sample answers, scenario frameworks and what hiring teams look for.",
     icon: FileText,
     category: "Interview Prep",
     pages: 6,
@@ -39,8 +39,8 @@ const RESOURCES: Resource[] = [
     href: "/downloads/guides/mortgage-underwriting-interview-questions.pdf",
   },
   {
-    title: "Mortgage Career Pathways Guide",
-    description: "Explore the full range of career pathways in mortgage operations — US underwriting, Australian broker support, loan administration, lending operations and more.",
+    title: "IT career Pathways Guide",
+    description: "Explore the full range of career pathways in IT operations — US underwriting, Australian broker support, loan administration, lending operations and more.",
     icon: Briefcase,
     category: "Career Advice",
     pages: 4,
@@ -49,7 +49,7 @@ const RESOURCES: Resource[] = [
     href: "/downloads/guides/mortgage-career-pathways-guide.pdf",
   },
   {
-    title: "US Mortgage Fundamentals Cheat Sheet",
+    title: "US IT Fundamentals Cheat Sheet",
     description: "Quick reference covering loan types, DTI, LTV, CLTV, AUS and key underwriting concepts — perfect for last-minute revision.",
     icon: BookOpen,
     category: "Fundamentals",
@@ -59,8 +59,8 @@ const RESOURCES: Resource[] = [
     href: "/downloads/guides/us-mortgage-fundamentals-cheatsheet.pdf",
   },
   {
-    title: "Mortgage Operations Resume Template",
-    description: "A recruiter-friendly resume template tailored for mortgage operations and underwriting roles. ATS-optimised format with section-by-section guidance and samples.",
+    title: "IT operations Resume Template",
+    description: "A recruiter-friendly resume template tailored for IT operations and underwriting roles. ATS-optimised format with section-by-section guidance and samples.",
     icon: FileCheck2,
     category: "Resume & LinkedIn",
     pages: 4,
@@ -69,8 +69,8 @@ const RESOURCES: Resource[] = [
     href: "/downloads/guides/mortgage-operations-resume-template.pdf",
   },
   {
-    title: "Australia Mortgage Operations Glossary",
-    description: "50+ key terms and acronyms used in Australian mortgage operations — from LMI to LVR, broker support terminology, and lending operations concepts.",
+    title: "Australia IT operations Glossary",
+    description: "50+ key terms and acronyms used in Australian IT operations — from LMI to LVR, broker support terminology, and lending operations concepts.",
     icon: GraduationCap,
     category: "Fundamentals",
     pages: 5,
@@ -80,7 +80,7 @@ const RESOURCES: Resource[] = [
   },
   {
     title: "Interview Preparation Checklist",
-    description: "A step-by-step checklist to prepare for mortgage operations interviews — 5 phases from research to follow-up, with sample email templates.",
+    description: "A step-by-step checklist to prepare for IT operations interviews — 5 phases from research to follow-up, with sample email templates.",
     icon: ListChecks,
     category: "Interview Prep",
     pages: 3,
@@ -101,8 +101,8 @@ export default function ResourcesPage() {
           <SectionHeading
             align="left"
             eyebrow="FREE RESOURCES"
-            title="Mortgage career resources"
-            description="Practical guides, checklists and cheat sheets to help you prepare for a career in mortgage and lending operations — free to download."
+            title="IT career resources"
+            description="Practical guides, checklists and cheat sheets to help you prepare for a career in IT and software operations — free to download."
           />
         </div>
       </section>
@@ -178,7 +178,7 @@ export default function ResourcesPage() {
                     Want all resources in one bundle?
                   </p>
                   <h2 className="mt-2 font-heading text-xl font-bold text-white sm:text-2xl">
-                    Get the complete mortgage career prep kit
+                    Get the complete IT career prep kit
                   </h2>
                   <p className="mt-2 text-sm leading-relaxed text-slate-300">
                     Enroll in any VertexIT program and get access to all guides, templates and checklists — plus live mock interviews and personalised career counselling.

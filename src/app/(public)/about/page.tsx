@@ -27,9 +27,9 @@ import { whatsappUrl } from "@/lib/whatsapp";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = await buildPageMetadata({
-  title: "About VertexIT | Mortgage Training Institute in Bengaluru",
+  title: "About VertexIT | IT Training Institute in Bengaluru",
   description:
-    "VertexIT is a Bengaluru-based training and placement assistance institute for mortgage and lending operations. Industry-focused curriculum, practical case studies and hybrid learning.",
+    "VertexIT is a Bengaluru-based training and placement assistance institute for IT and software operations. Industry-focused curriculum, practical case studies and hybrid learning.",
   path: "/about",
 });
 
@@ -38,13 +38,13 @@ const APPROACH_STEPS = [
     icon: BookOpen,
     label: "LEARN",
     title: "Learn the fundamentals",
-    desc: "Structured modules covering mortgage and lending operations concepts, terminology and workflows used in the industry.",
+    desc: "Structured modules covering IT and software operations concepts, terminology and workflows used in the industry.",
   },
   {
     icon: Layers,
     label: "PRACTICE",
     title: "Practice on real scenarios",
-    desc: "Case studies, document reviews and workflow exercises that mirror the day-to-day work of mortgage operations teams.",
+    desc: "Case studies, document reviews and workflow exercises that mirror the day-to-day work of IT operations teams.",
   },
   {
     icon: Target,
@@ -62,7 +62,7 @@ const APPROACH_STEPS = [
     icon: Briefcase,
     label: "BUILD YOUR CAREER",
     title: "Build your career",
-    desc: "Continue placement support as you start your role and grow in the mortgage and lending operations field.",
+    desc: "Continue placement support as you start your role and grow in the IT and software operations field.",
   },
 ];
 
@@ -70,22 +70,22 @@ const AUDIENCES = [
   {
     icon: GraduationCap,
     title: "Graduates",
-    desc: "Fresh graduates looking to enter the mortgage and lending operations field with structured, industry-focused training.",
+    desc: "Fresh graduates looking to enter the IT and software operations field with structured, industry-focused training.",
   },
   {
     icon: Briefcase,
     title: "Experienced professionals",
-    desc: "Working professionals from BPO, KPO, finance or operations backgrounds seeking a domain switch into mortgage.",
+    desc: "Working professionals from BPO, KPO, finance or operations backgrounds seeking a domain switch into IT.",
   },
   {
     icon: Repeat,
     title: "Career switchers",
-    desc: "Professionals from unrelated fields who want a clear, structured path into a specialised mortgage operations career.",
+    desc: "Professionals from unrelated fields who want a clear, structured path into a specialised IT operations career.",
   },
   {
     icon: Compass,
-    title: "Mortgage & lending aspirants",
-    desc: "Candidates specifically seeking a career in US Mortgage Underwriting or Australian Mortgage Operations.",
+    title: "IT & lending aspirants",
+    desc: "Candidates specifically seeking a career in US IT Training or Australian IT operations.",
   },
 ];
 
@@ -93,7 +93,7 @@ const VALUES = [
   {
     icon: BookOpen,
     title: "Industry-focused curriculum",
-    desc: "Course content designed around real mortgage and lending operations workflows rather than generic theory.",
+    desc: "Course content designed around real IT and software operations workflows rather than generic theory.",
   },
   {
     icon: Layers,
@@ -131,12 +131,12 @@ export default async function AboutPage() {
               About VertexIT
             </span>
             <h1 className="mt-4 font-heading text-3xl font-bold leading-tight tracking-tight text-balance sm:text-4xl lg:text-5xl">
-              Career-focused mortgage training, built for the real world
+              Career-focused IT training, built for the real world
             </h1>
             <p className="mt-5 text-base leading-relaxed text-slate-300 sm:text-lg text-balance">
-              VertexIT is a training and placement assistance institute for mortgage and lending
+              VertexIT is a training and placement assistance institute for IT and lending
               operations, based in Bengaluru. We help graduates, experienced professionals and
-              career switchers build practical, job-ready skills for the mortgage industry — and
+              career switchers build practical, job-ready skills for the IT industry — and
               support them through placement assistance with a very high placement rate.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
@@ -163,14 +163,14 @@ export default async function AboutPage() {
                   align="left"
                   eyebrow="Who we are"
                   title="A focused training and placement assistance institute"
-                  description="VertexIT was set up to bridge the gap between academic learning and the practical skills that mortgage and lending operations teams actually use. Our programs are built around real industry workflows — covering US Mortgage Underwriting and Australian Mortgage Operations — with practical case studies and structured placement assistance."
+                  description="VertexIT was set up to bridge the gap between academic learning and the practical skills that IT and software operations teams actually use. Our programs are built around real industry workflows — covering US IT Training and Australian IT operations — with practical case studies and structured placement assistance."
                 />
                 <div className="mt-6 space-y-4 text-[0.95rem] leading-relaxed text-slate-600">
                   <p>
                     We are a private training institute. We are <strong className="text-navy">not</strong> a
                     university, and we do not claim government accreditation. What we offer is
                     structured, industry-focused training combined with placement assistance designed
-                    to help candidates pursue relevant opportunities in mortgage and lending
+                    to help candidates pursue relevant opportunities in IT and lending
                     operations.
                   </p>
                   <p>
@@ -193,7 +193,7 @@ export default async function AboutPage() {
                 <ul className="mt-4 space-y-3 text-sm text-slate-700">
                   <li className="flex gap-2">
                     <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-teal" />
-                    <span>A training and placement assistance institute for mortgage &amp; lending operations.</span>
+                    <span>A training and placement assistance institute for IT &amp; lending operations.</span>
                   </li>
                   <li className="flex gap-2">
                     <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-teal" />
@@ -224,7 +224,7 @@ export default async function AboutPage() {
           <SectionHeading
             eyebrow="Our approach"
             title="Learn → Practice → Prepare → Apply → Build your career"
-            description="A structured journey that takes you from mortgage fundamentals to a career in mortgage and lending operations."
+            description="A structured journey that takes you from IT fundamentals to a career in IT and software operations."
           />
           <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
             {APPROACH_STEPS.map((step, i) => (
@@ -279,17 +279,17 @@ export default async function AboutPage() {
                   align="left"
                   eyebrow="Why Bengaluru"
                   title="Where we are, and why it matters"
-                  description="Bengaluru is one of India’s largest hubs for mortgage and lending operations, with a high concentration of captive banking, BPO and KPO teams serving global lenders."
+                  description="Bengaluru is one of India’s largest hubs for IT and software operations, with a high concentration of captive banking, BPO and KPO teams serving global lenders."
                 />
                 <p className="mt-5 text-[0.95rem] leading-relaxed text-slate-600">
-                  Being based in Bengaluru lets us stay close to the realities of the local mortgage
+                  Being based in Bengaluru lets us stay close to the realities of the local IT
                   job market — the kinds of roles available, the workflows in demand, and the skills
                   employers expect. This helps shape a curriculum that is relevant to the
                   opportunities candidates actually pursue.
                 </p>
                 <p className="mt-4 text-[0.95rem] leading-relaxed text-slate-600">
                   We do not run paid location-targeted landing pages or claim job-placement
-                  statistics by city. If you are looking for mortgage training in Bengaluru, you can
+                  statistics by city. If you are looking for IT training in Bengaluru, you can
                   reach us directly and we will help you understand the right path for your goals.
                 </p>
               </div>
@@ -307,7 +307,7 @@ export default async function AboutPage() {
                   <Building2 className="h-6 w-6 text-teal" />
                   <p className="mt-3 font-heading text-lg font-bold text-navy">Industry hub</p>
                   <p className="mt-1 text-sm text-slate-600">
-                    Strong presence of mortgage, banking and lending operations teams.
+                    Strong presence of IT, banking and lending operations teams.
                   </p>
                 </div>
                 <div className="rounded-2xl border border-slate-200 bg-white p-6">
@@ -336,7 +336,7 @@ export default async function AboutPage() {
           <SectionHeading
             eyebrow="What we stand for"
             title="Values that shape how we train"
-            description="We focus on the things that genuinely help candidates move forward in their mortgage careers."
+            description="We focus on the things that genuinely help candidates move forward in their IT careers."
           />
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {VALUES.map((v, i) => (
@@ -362,7 +362,7 @@ export default async function AboutPage() {
             Take the next step
           </span>
           <h2 className="mt-4 font-heading text-2xl font-bold text-white sm:text-3xl text-balance">
-            Ready to explore a career in mortgage and lending operations?
+            Ready to explore a career in IT and software operations?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-300">
             Speak with a VertexIT counsellor today. We will help you understand which program suits

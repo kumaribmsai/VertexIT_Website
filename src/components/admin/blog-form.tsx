@@ -235,7 +235,7 @@ export function BlogForm({
               <Input
                 value={form.title}
                 onChange={(e) => setField("title", e.target.value)}
-                placeholder="e.g. How to start a career in US mortgage underwriting"
+                placeholder="e.g. How to start a career in US IT underwriting"
                 disabled={saving}
                 aria-invalid={!!errors.title}
               />
@@ -300,7 +300,7 @@ export function BlogForm({
               <Input
                 value={form.tags}
                 onChange={(e) => setField("tags", e.target.value)}
-                placeholder="mortgage, career, underwriting, India"
+                placeholder="IT, career, underwriting, India"
                 disabled={saving}
               />
             </Field>

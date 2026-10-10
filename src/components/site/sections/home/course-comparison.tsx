@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/site/section-heading";
 import { Reveal } from "@/components/site/reveal";
 import { ArrowRight, Check, X } from "lucide-react";
 
-// US vs Australia mortgage comparison — always has data because both
+// US vs Australia IT Training comparison — always has data because both
 // launch courses are seeded. Helps candidates decide which path fits.
 export async function CourseComparison() {
   const courses = await getPublishedCourses();
@@ -29,8 +29,8 @@ export async function CourseComparison() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Compare Programs"
-          title="US Mortgage vs Australia Mortgage"
-          description="Two distinct career paths in global mortgage operations. Pick the one that aligns with your goals — or speak with a counsellor to decide."
+          title="US IT vs Australia IT"
+          description="Two distinct career paths in global IT operations. Pick the one that aligns with your goals — or speak with a counsellor to decide."
         />
 
         <Reveal className="mt-12">

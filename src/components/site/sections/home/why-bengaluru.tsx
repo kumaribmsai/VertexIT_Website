@@ -7,23 +7,23 @@ import { MapPin, Building2, Plane, Users, Wifi } from "lucide-react";
 const REASONS = [
   {
     icon: Building2,
-    title: "India's mortgage operations hub",
-    description: "Bengaluru is home to global capability centres and BFSI operations teams that actively hire mortgage and lending operations professionals.",
+    title: "India's IT operations hub",
+    description: "Bengaluru is home to global capability centres and BFSI operations teams that actively hire IT industry professionals.",
   },
   {
     icon: Users,
     title: "Active hiring ecosystem",
-    description: "The city's mix of global banks, NBFCs and mortgage process outsourcing firms creates consistent demand for trained candidates.",
+    description: "The city's mix of global banks, NBFCs and IT outsourcing firms creates consistent demand for trained candidates.",
   },
   {
     icon: Wifi,
     title: "Hybrid & remote-friendly",
-    description: "Many mortgage operations roles in Bengaluru support hybrid or remote work — giving you flexibility as you build your career.",
+    description: "Many IT operations roles in Bengaluru support hybrid or remote work — giving you flexibility as you build your career.",
   },
   {
     icon: Plane,
     title: "Global process careers",
-    description: "US and Australian mortgage operations roles based in Bengaluru offer exposure to international lending workflows and standards.",
+    description: "US and Australian IT operations roles based in Bengaluru offer exposure to international business workflows and standards.",
   },
 ];
 
@@ -42,12 +42,12 @@ export function WhyBengaluru() {
             </Reveal>
             <Reveal delay={80}>
               <h2 className="mt-5 font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl text-balance">
-                Why Bengaluru is the right place to start your mortgage career
+                Why Bengaluru is the right place to start your IT career
               </h2>
             </Reveal>
             <Reveal delay={160}>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg text-balance">
-                VertexIT is based in Bengaluru — one of India's strongest markets for mortgage and lending operations careers. Our training is designed around the skills that hiring teams in this city actually look for.
+                VertexIT is based in Bengaluru — one of India's strongest markets for IT industry careers. Our training is designed around the skills that hiring teams in this city actually look for.
               </p>
             </Reveal>
             <Reveal delay={240}>

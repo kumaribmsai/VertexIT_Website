@@ -20,7 +20,7 @@ import { whatsappUrl } from "@/lib/whatsapp";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = await buildPageMetadata({
-  title: "Placement Process | VertexIT Mortgage Training",
+  title: "Placement Process | VertexIT IT Training",
   description:
     "Understand how VertexIT placement assistance works — from course selection to interview preparation and ongoing placement support. Placement assistance with a very high placement rate.",
   path: "/placement-process",
@@ -30,7 +30,7 @@ const STEPS = [
   {
     icon: ClipboardList,
     title: "Choose your course",
-    desc: "Speak with a counsellor to identify the program — US Mortgage Underwriting or Australia Mortgage Operations — that best matches your background and career goals.",
+    desc: "Speak with a counsellor to identify the program — US IT Training or Australia IT operations — that best matches your background and career goals.",
   },
   {
     icon: GraduationCap,
@@ -40,12 +40,12 @@ const STEPS = [
   {
     icon: Wrench,
     title: "Build job-ready skills",
-    desc: "Practise on real-world mortgage and lending operations scenarios — documents, workflows and tools — so you build familiarity with what the role actually involves.",
+    desc: "Practise on real-world IT and software operations scenarios — documents, workflows and tools — so you build familiarity with what the role actually involves.",
   },
   {
     icon: FileText,
     title: "Resume and profile preparation",
-    desc: "Get guidance on shaping a resume that highlights relevant skills and training for mortgage and lending operations roles.",
+    desc: "Get guidance on shaping a resume that highlights relevant skills and training for IT and software operations roles.",
   },
   {
     icon: Mic,
@@ -78,12 +78,12 @@ const INCLUDED = [
   {
     icon: Mic,
     title: "Mock interviews",
-    desc: "Practice rounds that simulate real mortgage operations interviews, with constructive feedback.",
+    desc: "Practice rounds that simulate real IT operations interviews, with constructive feedback.",
   },
   {
     icon: ShieldAlert,
     title: "Interview preparation",
-    desc: "Role-specific prep — common questions, scenarios and what to expect in mortgage hiring rounds.",
+    desc: "Role-specific prep — common questions, scenarios and what to expect in IT hiring rounds.",
   },
   {
     icon: Send,
@@ -93,7 +93,7 @@ const INCLUDED = [
   {
     icon: Users,
     title: "Career counselling",
-    desc: "One-on-one guidance on which path within mortgage and lending operations suits you best.",
+    desc: "One-on-one guidance on which path within IT and software operations suits you best.",
   },
   {
     icon: GraduationCap,

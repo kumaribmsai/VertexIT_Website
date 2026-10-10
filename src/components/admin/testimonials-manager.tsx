@@ -155,7 +155,7 @@ export function TestimonialsManager({ initial }: { initial: Testimonial[] }) {
                 </div>
                 <div className="space-y-1.5">
                   <Label>Course</Label>
-                  <Input value={form.course} onChange={(e) => setForm({ ...form, course: e.target.value })} placeholder="US Mortgage Underwriting" />
+                  <Input value={form.course} onChange={(e) => setForm({ ...form, course: e.target.value })} placeholder="US IT Underwriting" />
                 </div>
                 <div className="space-y-1.5 sm:col-span-2">
                   <Label>Quote *</Label>

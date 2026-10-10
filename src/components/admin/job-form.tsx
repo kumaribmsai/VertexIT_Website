@@ -244,7 +244,7 @@ export function JobForm({
               <Input
                 value={form.title}
                 onChange={(e) => setField("title", e.target.value)}
-                placeholder="e.g. US Mortgage Underwriter"
+                placeholder="e.g. US IT Underwriter"
                 disabled={saving}
                 aria-invalid={!!errors.title}
               />
@@ -398,7 +398,7 @@ export function JobForm({
                 value={form.requirements}
                 onChange={(e) => setField("requirements", e.target.value)}
                 rows={6}
-                placeholder={"2+ years of mortgage experience\nKnowledge of DU/LP systems"}
+                placeholder={"2+ years of IT experience\nKnowledge of DU/LP systems"}
                 disabled={saving}
               />
             </Field>
@@ -421,7 +421,7 @@ export function JobForm({
               <Input
                 value={form.metaTitle}
                 onChange={(e) => setField("metaTitle", e.target.value)}
-                placeholder="e.g. US Mortgage Underwriter at VertexIT"
+                placeholder="e.g. US IT Underwriter at VertexIT"
                 maxLength={200}
                 disabled={saving}
               />

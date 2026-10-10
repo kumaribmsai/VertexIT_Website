@@ -14,7 +14,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = await buildPageMetadata({
   title: "Trainers & Mentors | VertexIT",
   description:
-    "Learn from mortgage operations practitioners at VertexIT. Our mentors bring real mortgage and lending operations experience to your training.",
+    "Learn from IT operations practitioners at VertexIT. Our mentors bring real IT and software operations experience to your training.",
   path: "/trainers",
 });
 
@@ -41,10 +41,10 @@ export default async function TrainersPage() {
               Mentors
             </span>
             <h1 className="mt-4 font-heading text-3xl font-bold leading-tight tracking-tight text-balance sm:text-4xl lg:text-5xl">
-              Learn from mortgage operations practitioners
+              Learn from IT operations practitioners
             </h1>
             <p className="mt-5 text-base leading-relaxed text-slate-300 sm:text-lg text-balance">
-              Our mentors bring real mortgage and lending operations experience to the training
+              Our mentors bring real IT and software operations experience to the training
               room. They guide you through workflows, documents and scenarios drawn from actual
               industry practice.
             </p>
@@ -65,7 +65,7 @@ export default async function TrainersPage() {
             {trainers.length === 0 ? (
               <EmptyState
                 title="Trainer profiles will be published soon"
-                description="Our mentors bring real mortgage and lending operations experience. Detailed profiles will be added here as they are verified and approved for publication."
+                description="Our mentors bring real IT and software operations experience. Detailed profiles will be added here as they are verified and approved for publication."
                 icon={Users}
                 action={<LinkButton href="/apply">Talk to a Counsellor</LinkButton>}
               />
@@ -94,7 +94,7 @@ export default async function TrainersPage() {
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-slate-300">
             Apply today and our team will help you choose the right course, meet the right mentors,
-            and begin your mortgage operations training.
+            and begin your IT operations training.
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <LinkButton href="/apply" variant="default">

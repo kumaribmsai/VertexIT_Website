@@ -53,7 +53,7 @@ export async function WhatYouLearn() {
       fallbackSlug: "us-mortgage-underwriting",
       flag: "🇺🇸",
       region: "United States",
-      title: usCourse?.title ?? "US Mortgage – Underwriting",
+      title: usCourse?.title ?? "US IT Training",
       blurb:
         "Build underwriting skills hiring teams look for — from loan file analysis to AUS interpretation and guideline awareness.",
       skills: usSkills.length ? usSkills : FALLBACK_SKILLS["us-mortgage-underwriting"],
@@ -64,7 +64,7 @@ export async function WhatYouLearn() {
       fallbackSlug: "australia-mortgage",
       flag: "🇦🇺",
       region: "Australia",
-      title: auCourse?.title ?? "Australia Mortgage",
+      title: auCourse?.title ?? "Australia IT Training",
       blurb:
         "Learn the Australian home loan lifecycle end-to-end — from loan application processing to broker support and loan administration.",
       skills: auSkills.length ? auSkills : FALLBACK_SKILLS["australia-mortgage"],
@@ -77,8 +77,8 @@ export async function WhatYouLearn() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="What You Will Learn"
-          title="Practical, job-focused curriculum — both markets"
-          description="Each program is built around the real workflows used in US and Australian mortgage operations. No filler — just the skills you will use on the job."
+          title="Practical, job-focused curriculum"
+          description="Each program is built around the real workflows used in the industry. No filler — just the skills you will use on the job."
         />
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
@@ -97,7 +97,7 @@ export async function WhatYouLearn() {
                     <div>
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-teal/10 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-wide text-teal">
                         <MapPin className="h-3 w-3" aria-hidden />
-                        {p.region} Mortgage
+                        {p.region} Track
                       </span>
                       <h3 className="mt-3 font-heading text-xl font-bold leading-snug text-navy">
                         {p.title}

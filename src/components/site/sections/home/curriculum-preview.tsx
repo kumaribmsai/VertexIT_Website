@@ -16,7 +16,7 @@ export async function CurriculumPreview() {
         <SectionHeading
           eyebrow="Curriculum Preview"
           title="What you'll actually learn"
-          description="Structured, practical curricula built around real mortgage and lending operations workflows — not theory-heavy lectures."
+          description="Structured, practical curricula built around real industry workflows — not theory-heavy lectures."
         />
 
         <div className={`mt-12 grid gap-6 ${courses.length >= 2 ? "lg:grid-cols-2" : "mx-auto max-w-2xl"}`}>

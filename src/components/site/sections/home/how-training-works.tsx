@@ -6,7 +6,7 @@ const STEPS = [
   {
     icon: Search,
     title: "Discover",
-    description: "Explore US Mortgage Underwriting and Australian Mortgage Operations. Speak with a counsellor to identify the right path for your goals.",
+    description: "Explore US IT Training and Australian IT operations. Speak with a counsellor to identify the right path for your goals.",
   },
   {
     icon: Compass,
@@ -36,7 +36,7 @@ const STEPS = [
   {
     icon: Rocket,
     title: "Build Your Career",
-    description: "Start your role and continue to receive career support as you grow in the mortgage and lending industry.",
+    description: "Start your role and continue to receive career support as you grow in the IT industry.",
   },
 ];
 
@@ -47,7 +47,7 @@ export function HowTrainingWorks() {
         <SectionHeading
           eyebrow="How Training Works"
           title="From discovery to a built career"
-          description="A clear, structured journey that takes you from exploring mortgage operations to applying for roles with confidence."
+          description="A clear, structured journey that takes you from exploring IT domains to applying for roles with confidence."
         />
 
         <div className="relative mt-12">

@@ -13,9 +13,9 @@ import { WhatsAppButton, LinkButton } from "@/components/site/buttons";
 import { Briefcase, Phone, Bell } from "lucide-react";
 
 export const metadata: Metadata = await buildPageMetadata({
-  title: "Mortgage Jobs & Career Opportunities | VertexIT",
+  title: "IT Jobs & Career Opportunities | VertexIT",
   description:
-    "Current job openings in mortgage underwriting, mortgage processing and mortgage operations. Apply directly through VertexIT — careers for trained candidates in Bengaluru and beyond.",
+    "Current job openings in software engineering, data analysis, and IT operations. Apply directly through VertexIT — careers for trained candidates in Bengaluru and beyond.",
   path: "/jobs",
 });
 
@@ -36,8 +36,8 @@ export default async function JobsPage() {
             <SectionHeading
               align="left"
               eyebrow="CURRENT OPENINGS"
-              title="Mortgage Career Opportunities"
-              description="Direct openings for candidates trained in mortgage underwriting, processing and operations. New roles are posted as partner teams open them — apply directly through VertexIT."
+              title="IT Career Opportunities"
+              description="Direct openings for candidates trained in software engineering, processing and operations. New roles are posted as partner teams open them — apply directly through VertexIT."
             />
             {jobs.length > 0 && (
               <div className="inline-flex items-center gap-2 self-start rounded-full border border-teal/20 bg-teal/5 px-4 py-2 text-sm font-medium text-teal">
@@ -90,7 +90,7 @@ export default async function JobsPage() {
                 Don't see a role that fits?
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                If you're new to mortgage operations, start with our training programs. They're designed to make you job-ready for underwriting, processing and operations roles.
+                If you're new to IT operations, start with our training programs. They're designed to make you job-ready for underwriting, processing and operations roles.
               </p>
               <div className="mt-4">
                 <LinkButton href="/courses" variant="default" size="sm">

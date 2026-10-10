@@ -13,9 +13,9 @@ import { NewsletterSignup } from "@/components/site/newsletter-signup";
 import { Newspaper, BookOpen } from "lucide-react";
 
 export const metadata: Metadata = await buildPageMetadata({
-  title: "Mortgage Career Blog | VertexIT",
+  title: "IT career Blog | VertexIT",
   description:
-    "Practical insights on mortgage careers — interview prep, resume tips, mortgage operations fundamentals and trends in US & Australia mortgage hiring.",
+    "Practical insights on IT careers — interview prep, resume tips, IT operations fundamentals and trends in US & Australia IT hiring.",
   path: "/blog",
 });
 
@@ -57,7 +57,7 @@ export default async function BlogPage({
               align="left"
               eyebrow="CAREER INSIGHTS"
               title="VertexIT Blog"
-              description="Practical insights to help you build a mortgage career — interview preparation, resume tips, mortgage operations fundamentals and trends in US & Australia mortgage hiring."
+              description="Practical insights to help you build a IT career — interview preparation, resume tips, IT operations fundamentals and trends in US & Australia IT hiring."
             />
             {posts.length > 0 && (
               <div className="inline-flex items-center gap-2 self-start rounded-full border border-teal/20 bg-teal/5 px-4 py-2 text-sm font-medium text-teal">
@@ -84,7 +84,7 @@ export default async function BlogPage({
         {posts.length === 0 ? (
           <EmptyState
             title="We're publishing new articles soon"
-            description="Check back for mortgage career insights, interview tips and resume guidance. Meanwhile, explore our training programs or speak with a counsellor."
+            description="Check back for IT career insights, interview tips and resume guidance. Meanwhile, explore our training programs or speak with a counsellor."
             icon={BookOpen}
             action={
               <div className="flex flex-wrap items-center justify-center gap-3">
@@ -116,7 +116,7 @@ export default async function BlogPage({
                 Build the skills
               </p>
               <h2 className="mt-2 font-heading text-lg font-bold text-navy">
-                Ready to start your mortgage career?
+                Ready to start your IT career?
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 Our courses are designed to make you job-ready — covering everything you'll read about here, with practical case studies.

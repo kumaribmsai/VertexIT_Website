@@ -18,7 +18,7 @@ export const metadata: Metadata = await buildPageMetadata({
 const CLAUSES = [
   {
     title: "Training does not guarantee employment",
-    body: "Completion of any VertexIT training program does not automatically guarantee employment. Training is designed to build practical, job-ready skills in mortgage and lending operations; securing a role is a separate outcome that depends on multiple factors.",
+    body: "Completion of any VertexIT training program does not automatically guarantee employment. Training is designed to build practical, job-ready skills in IT and software operations; securing a role is a separate outcome that depends on multiple factors.",
   },
   {
     title: "Placement assistance is provided according to institute policy",
@@ -34,11 +34,11 @@ const CLAUSES = [
   },
   {
     title: "Regulatory and licensing requirements vary by jurisdiction",
-    body: "Mortgage and lending operations are regulated differently across jurisdictions. Roles, responsibilities, and any required licensing or registration vary by country, state or region. Candidates are responsible for understanding and meeting any regulatory or licensing requirements applicable to their target role and location.",
+    body: "IT and software operations are regulated differently across jurisdictions. Roles, responsibilities, and any required licensing or registration vary by country, state or region. Candidates are responsible for understanding and meeting any regulatory or licensing requirements applicable to their target role and location.",
   },
   {
-    title: "Australia Mortgage training does not automatically grant broker licensing",
-    body: "Our Australia Mortgage Operations training is an educational program. It should not be represented as automatically granting Australian mortgage broker licensing or any other regulatory authorisation. Australian mortgage broking is regulated, and licensing is issued by the relevant Australian authorities subject to their own requirements. Candidates seeking to operate as brokers in Australia must comply with those regulatory requirements independently.",
+    title: "Australia IT training does not automatically grant broker licensing",
+    body: "Our Australia IT operations training is an educational program. It should not be represented as automatically granting Australian IT broker licensing or any other regulatory authorisation. Australian IT broking is regulated, and licensing is issued by the relevant Australian authorities subject to their own requirements. Candidates seeking to operate as brokers in Australia must comply with those regulatory requirements independently.",
   },
   {
     title: "Testimonials and success stories",
