@@ -25,7 +25,7 @@ model SiteSettings {
   city               String   @default("Bengaluru")
   state              String   @default("Karnataka")
   country            String   @default("India")
-  businessHours      String   @default("10:00 AM - 8:00 PM")
+  businessHours      String   @default("9:00 AM - 8:00 PM")
   logoUrl            String?
   faviconUrl         String?
   defaultOgImage     String?
@@ -39,13 +39,13 @@ model SiteSettings {
   // Map embed URL (Google Maps) — editable later
   mapEmbedUrl        String?
   // Footer / homepage editable copy
-  heroEyebrow        String   @default("CAREER-FOCUSED MORTGAGE TRAINING")
-  heroHeading        String   @default("Build Skills. Become Job-Ready. Build Your Mortgage Career.")
-  heroSubheading     String   @default("Industry-focused training in US Mortgage Underwriting and Australian Mortgage Operations, designed for graduates, experienced professionals and career switchers.")
+  heroEyebrow        String   @default("CAREER-FOCUSED PROFESSIONAL TRAINING")
+  heroHeading        String   @default("Build the Right Skills for a Better Career")
+  heroSubheading     String   @default("Industry-focused professional training programs designed for graduates, experienced professionals, and career switchers.")
   heroPrimaryCta     String   @default("WhatsApp Us")
   heroSecondaryCta   String   @default("Explore Courses")
   heroImage          String?
-  finalCtaHeading    String   @default("Ready to build your mortgage career?")
+  finalCtaHeading    String   @default("Ready to launch your career?")
   finalCtaSubheading String   @default("Speak with a VertexIT counsellor today and find the right path for your goals.")
   updatedAt          DateTime @updatedAt
 }

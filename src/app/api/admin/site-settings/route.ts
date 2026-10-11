@@ -18,7 +18,7 @@ const settingsSchema = z.object({
   city: z.string().max(120).default("Bengaluru"),
   state: z.string().max(120).default("Karnataka"),
   country: z.string().max(120).default("India"),
-  businessHours: z.string().max(200).default("10:00 AM - 8:00 PM"),
+  businessHours: z.string().max(200).default("9:00 AM - 8:00 PM"),
   mapEmbedUrl: z.string().max(2000).optional().nullable(),
 
   instagramUrl: z.string().max(1000).optional().nullable(),

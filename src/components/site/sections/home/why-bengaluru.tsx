@@ -57,7 +57,7 @@ export function WhyBengaluru() {
                 </span>
                 <div>
                   <p className="font-heading text-sm font-bold text-navy">VertexIT Bengaluru</p>
-                  <p className="text-xs text-muted-foreground">GB Play · 10:00 AM – 8:00 PM</p>
+                  <p className="text-xs text-muted-foreground">GB Play · 9:00 AM – 8:00 PM</p>
                 </div>
               </div>
             </Reveal>

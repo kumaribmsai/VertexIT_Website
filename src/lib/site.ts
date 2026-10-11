@@ -43,7 +43,7 @@ export const DEFAULT_SETTINGS = {
   city: "Bengaluru",
   state: "Karnataka",
   country: "India",
-  businessHours: "10:00 AM - 8:00 PM",
+  businessHours: "9:00 AM - 8:00 PM",
   logoUrl: null as string | null,
   faviconUrl: null as string | null,
   defaultOgImage: null as string | null,
@@ -55,7 +55,7 @@ export const DEFAULT_SETTINGS = {
   youtubeUrl: null as string | null,
   mapEmbedUrl: null as string | null,
   heroEyebrow: "CAREER-FOCUSED PROFESSIONAL TRAINING",
-  heroHeading: "Build Practical Skills. Become Job-Ready. Launch Your Career.",
+  heroHeading: "Build the Right Skills for a Better Career",
   heroSubheading:
     "Industry-focused professional training programs designed for graduates, experienced professionals, and career switchers.",
   heroPrimaryCta: "WhatsApp Us",
