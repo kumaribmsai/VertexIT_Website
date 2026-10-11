@@ -12,9 +12,9 @@ import { WhatsAppButton, LinkButton } from "@/components/site/buttons";
 import { LifeBuoy } from "lucide-react";
 
 export const metadata: Metadata = await buildPageMetadata({
-  title: "IT Training Courses | VertexIT",
+  title: "Career Training Courses | VertexIT",
   description:
-    "Career-focused IT training programs in Bengaluru. US IT Training and Australia IT operations — practical, job-ready curriculum for graduates and career switchers.",
+    "Job-ready career training programs in Bengaluru. Practical curriculum with case studies, real-world file workflows and dedicated placement assistance.",
   path: "/courses",
 });
 
@@ -34,8 +34,8 @@ export default async function CoursesPage() {
             <SectionHeading
               align="left"
               eyebrow="OUR PROGRAMS"
-              title="IT training programs"
-              description="Practical, career-focused programs built around real IT workflows. Each course blends concept, hands-on file practice and case-study based learning — designed to help you become job-ready for IT and software operations roles."
+              title="Career Training Programs"
+              description="Practical, career-focused programs built around real industry workflows. Each course blends core concepts, hands-on file practice and case-study based learning — designed to help you become job-ready for specialized global roles."
             />
           </div>
         </div>

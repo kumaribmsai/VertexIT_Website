@@ -10,7 +10,7 @@ import { UserPlus, Gift, Heart, Share2 } from "lucide-react";
 export const metadata: Metadata = await buildPageMetadata({
   title: "Refer a Friend",
   description:
-    "Know someone who would benefit from VertexIT IT Training? Refer them and we'll follow up. Help your friends build their IT career.",
+    "Know someone who would benefit from VertexIT Career Training? Refer them and we'll follow up. Help your friends build their professional career.",
   path: "/refer",
 });
 
@@ -21,7 +21,7 @@ export default async function ReferPage() {
     {
       icon: Share2,
       title: "Share the opportunity",
-      description: "Tell a friend about VertexIT IT training programs — share the link or their contact details.",
+      description: "Tell a friend about VertexIT training programs — share the link or their contact details.",
     },
     {
       icon: Heart,
@@ -48,7 +48,7 @@ export default async function ReferPage() {
           </Reveal>
           <Reveal delay={80}>
             <h1 className="mt-4 font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl text-balance">
-              Help a friend build their IT career
+              Help a friend build their professional career
             </h1>
           </Reveal>
           <Reveal delay={160}>
@@ -67,7 +67,7 @@ export default async function ReferPage() {
               <Reveal>
                 <h2 className="font-heading text-2xl font-bold text-navy">How it works</h2>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Three simple steps to help your friend start their IT career.
+                  Three simple steps to help your friend start their professional career.
                 </p>
               </Reveal>
               <div className="mt-8 space-y-6">

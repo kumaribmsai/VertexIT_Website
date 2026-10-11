@@ -27,9 +27,9 @@ import { whatsappUrl } from "@/lib/whatsapp";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = await buildPageMetadata({
-  title: "About VertexIT | IT Training Institute in Bengaluru",
+  title: "About VertexIT | Professional Career Training Institute",
   description:
-    "VertexIT is a Bengaluru-based training and placement assistance institute for IT and software operations. Industry-focused curriculum, practical case studies and hybrid learning.",
+    "VertexIT is a Bengaluru-based career training and placement assistance institute. Industry-focused curriculum, practical case studies and hybrid learning.",
   path: "/about",
 });
 
@@ -131,13 +131,13 @@ export default async function AboutPage() {
               About VertexIT
             </span>
             <h1 className="mt-4 font-heading text-3xl font-bold leading-tight tracking-tight text-balance sm:text-4xl lg:text-5xl">
-              Career-focused IT training, built for the real world
+              Career-focused professional training, built for the real world
             </h1>
             <p className="mt-5 text-base leading-relaxed text-slate-300 sm:text-lg text-balance">
-              VertexIT is a training and placement assistance institute for IT and lending
-              operations, based in Bengaluru. We help graduates, experienced professionals and
-              career switchers build practical, job-ready skills for the IT industry — and
-              support them through placement assistance with a very high placement rate.
+              VertexIT is a dedicated career training and placement assistance institute based in
+              Bengaluru. We help graduates, experienced professionals, and career switchers build
+              practical, job-ready skills for high-demand industry roles — and support them
+              through dedicated placement assistance.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <WhatsAppButton href={waHref}>WhatsApp Us</WhatsAppButton>
@@ -162,16 +162,15 @@ export default async function AboutPage() {
                 <SectionHeading
                   align="left"
                   eyebrow="Who we are"
-                  title="A focused training and placement assistance institute"
-                  description="VertexIT was set up to bridge the gap between academic learning and the practical skills that IT and software operations teams actually use. Our programs are built around real industry workflows — covering US IT Training and Australian IT operations — with practical case studies and structured placement assistance."
+                  title="A dedicated training and placement assistance institute"
+                  description="VertexIT was set up to bridge the gap between academic learning and the practical skills that modern capability and operations teams actually use. Our programs are built around real industry workflows — including specialized US Mortgage Underwriting and Australian Mortgage Operations — with hands-on case studies and structured placement assistance."
                 />
                 <div className="mt-6 space-y-4 text-[0.95rem] leading-relaxed text-slate-600">
                   <p>
                     We are a private training institute. We are <strong className="text-navy">not</strong> a
                     university, and we do not claim government accreditation. What we offer is
                     structured, industry-focused training combined with placement assistance designed
-                    to help candidates pursue relevant opportunities in IT and lending
-                    operations.
+                    to help candidates pursue relevant opportunities across leading industry and operations centers.
                   </p>
                   <p>
                     Our positioning is simple: <strong className="text-navy">Placement assistance with a

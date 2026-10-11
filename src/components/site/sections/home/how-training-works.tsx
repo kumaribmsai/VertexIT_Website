@@ -6,7 +6,7 @@ const STEPS = [
   {
     icon: Search,
     title: "Discover",
-    description: "Explore US IT Training and Australian IT operations. Speak with a counsellor to identify the right path for your goals.",
+    description: "Explore our specialized career programs. Speak with a counsellor to identify the right path for your goals.",
   },
   {
     icon: Compass,
@@ -36,7 +36,7 @@ const STEPS = [
   {
     icon: Rocket,
     title: "Build Your Career",
-    description: "Start your role and continue to receive career support as you grow in the IT industry.",
+    description: "Start your role and continue to receive career support as you grow in the industry.",
   },
 ];
 

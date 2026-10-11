@@ -23,10 +23,10 @@ const inter = Inter({
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const title = settings.defaultSeoTitle || `${settings.brandName} | IT Training IT Training & Placement Assistance in Bengaluru Placement Assistance in Bengaluru`;
+  const title = settings.defaultSeoTitle || `${settings.brandName} | Professional Training & Placement Assistance in Bengaluru`;
   const description =
     settings.defaultSeoDesc ||
-    `${settings.brandName} provides career-focused US IT Training and Australia IT training in Bengaluru with practical learning and placement assistance.`;
+    `${settings.brandName} provides career-focused professional training programs in Bengaluru with practical learning and dedicated placement assistance.`;
   const ogImage = settings.defaultOgImage || `${siteUrl}/vertexit-logo-transparent.png`;
 
   return {
@@ -37,17 +37,13 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description,
     keywords: [
-      "US IT Training",
-      "US IT Training Training",
-      "US IT Training Course",
-      "US IT Jobs",
-      "US IT careers",
-      "IT Training Bengaluru",
-      "Australia IT training",
-      "Australia IT Processing",
-      "Australian IT operations",
-      "Software Operations Training",
-      "IT operations Training",
+      "Professional Training Bengaluru",
+      "Career Training Institute",
+      "Placement Assistance Bengaluru",
+      "Job-Ready Courses",
+      "US Mortgage Underwriting",
+      "Australia Mortgage Operations",
+      "Industry Operations Training",
       "VertexIT",
     ],
     authors: [{ name: settings.brandName }],

@@ -64,7 +64,7 @@ export async function SiteFooter() {
         <div className="col-span-2 sm:col-span-3 lg:col-span-2">
           <Logo className="brightness-0 invert opacity-90 hover:opacity-100" />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
-            Career-focused training and placement assistance for the IT industry. Learn industry-focused skills, practice real workflows, and apply with confidence.
+            Career-focused professional training and placement assistance. Learn industry-focused skills, practice real workflows, and apply with confidence.
           </p>
           <div className="mt-5 space-y-2 text-sm">
             <div className="flex items-start gap-2">

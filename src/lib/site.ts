@@ -54,14 +54,14 @@ export const DEFAULT_SETTINGS = {
   facebookUrl: null as string | null,
   youtubeUrl: null as string | null,
   mapEmbedUrl: null as string | null,
-  heroEyebrow: "CAREER-FOCUSED IT TRAINING",
-  heroHeading: "Build Skills. Become Job-Ready. Launch Your IT Career.",
+  heroEyebrow: "CAREER-FOCUSED PROFESSIONAL TRAINING",
+  heroHeading: "Build Practical Skills. Become Job-Ready. Launch Your Career.",
   heroSubheading:
-    "Industry-focused IT training programs designed for graduates, experienced professionals, and career switchers.",
+    "Industry-focused professional training programs designed for graduates, experienced professionals, and career switchers.",
   heroPrimaryCta: "WhatsApp Us",
   heroSecondaryCta: "Explore Courses",
   heroImage: null as string | null,
-  finalCtaHeading: "Ready to accelerate your IT career?",
+  finalCtaHeading: "Ready to launch your career?",
   finalCtaSubheading:
     "Speak with a VertexIT counsellor today and find the right path for your goals.",
   updatedAt: new Date(),

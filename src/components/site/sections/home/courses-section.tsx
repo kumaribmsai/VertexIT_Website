@@ -24,9 +24,9 @@ export async function HomeCourses() {
     <section className="bg-white py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="Programs"
-          title="Career-focused IT programs"
-          description="Practical, job-oriented training designed for graduates, experienced professionals, and career switchers entering the IT industry."
+          eyebrow="Our Programs"
+          title="Career-focused training programs"
+          description="Practical, job-oriented training designed for graduates, experienced professionals, and career switchers to launch specialized industry careers."
         />
 
         <div className="mt-12">

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Menu, X, Phone, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { WhatsAppButton } from "@/components/site/buttons";
+import { Logo } from "@/components/site/logo";
 
 export function MobileNav({
   nav,
@@ -60,9 +61,7 @@ export function MobileNav({
         aria-label="Navigation menu"
       >
         <div className="flex h-16 items-center justify-between border-b border-slate-200 px-4">
-          <span className="font-heading text-lg font-bold text-navy">
-            Vertex<span className="text-teal">IT</span>
-          </span>
+          <Logo />
           <button
             type="button"
             onClick={() => setOpen(false)}

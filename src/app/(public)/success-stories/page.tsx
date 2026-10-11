@@ -13,9 +13,9 @@ import { whatsappUrl } from "@/lib/whatsapp";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = await buildPageMetadata({
-  title: "Success Stories | VertexIT IT Training",
+  title: "Success Stories | VertexIT Career Training",
   description:
-    "Real career journeys from VertexIT — student outcomes, placement stories and testimonials from our IT training programs in Bengaluru.",
+    "Real career journeys from VertexIT — student outcomes, placement stories and testimonials from our training programs in Bengaluru.",
   path: "/success-stories",
 });
 

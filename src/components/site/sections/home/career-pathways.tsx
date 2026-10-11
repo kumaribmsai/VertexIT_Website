@@ -47,14 +47,14 @@ export async function CareerPathways() {
     {
       region: "United States",
       flag: "🇺🇸",
-      title: usCourse?.title ?? "US IT Training",
+      title: usCourse?.title ?? "US Mortgage – Underwriting",
       href: usCourse ? `/courses/${usCourse.slug}` : "/courses/us-mortgage-underwriting",
       pathways: usPathways.length ? usPathways : FALLBACK_PATHWAYS["us-mortgage-underwriting"],
     },
     {
       region: "Australia",
       flag: "🇦🇺",
-      title: auCourse?.title ?? "Australia IT Training",
+      title: auCourse?.title ?? "Australia Mortgage",
       href: auCourse ? `/courses/${auCourse.slug}` : "/courses/australia-mortgage",
       pathways: auPathways.length ? auPathways : FALLBACK_PATHWAYS["australia-mortgage"],
     },

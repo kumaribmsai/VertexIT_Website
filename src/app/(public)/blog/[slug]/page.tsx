@@ -299,7 +299,7 @@ export default async function BlogPostPage({
                 {post.author}
               </Link>
               <p className="mt-1 text-xs text-muted-foreground">
-                VertexIT — career-focused IT training.
+                VertexIT — career-focused professional training.
               </p>
             </div>
           </div>
@@ -340,7 +340,7 @@ export default async function BlogPostPage({
                   Keep learning
                 </p>
                 <h2 className="mt-2 font-heading text-lg font-bold text-navy">
-                  Explore IT training
+                  Explore training programs
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   Job-ready programs in US IT Training and Australia IT operations.

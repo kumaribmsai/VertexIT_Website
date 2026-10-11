@@ -29,8 +29,8 @@ export async function CourseComparison() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Compare Programs"
-          title="US IT vs Australia IT"
-          description="Two distinct career paths in global IT operations. Pick the one that aligns with your goals — or speak with a counsellor to decide."
+          title="US Mortgage vs Australia Mortgage"
+          description="Two distinct career pathways in global lending operations. Pick the one that aligns with your goals — or speak with a counsellor to decide."
         />
 
         <Reveal className="mt-12">

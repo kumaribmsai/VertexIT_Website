@@ -53,7 +53,7 @@ export async function WhatYouLearn() {
       fallbackSlug: "us-mortgage-underwriting",
       flag: "🇺🇸",
       region: "United States",
-      title: usCourse?.title ?? "US IT Training",
+      title: usCourse?.title ?? "US Mortgage – Underwriting",
       blurb:
         "Build underwriting skills hiring teams look for — from loan file analysis to AUS interpretation and guideline awareness.",
       skills: usSkills.length ? usSkills : FALLBACK_SKILLS["us-mortgage-underwriting"],
@@ -64,7 +64,7 @@ export async function WhatYouLearn() {
       fallbackSlug: "australia-mortgage",
       flag: "🇦🇺",
       region: "Australia",
-      title: auCourse?.title ?? "Australia IT Training",
+      title: auCourse?.title ?? "Australia Mortgage",
       blurb:
         "Learn the Australian home loan lifecycle end-to-end — from loan application processing to broker support and loan administration.",
       skills: auSkills.length ? auSkills : FALLBACK_SKILLS["australia-mortgage"],

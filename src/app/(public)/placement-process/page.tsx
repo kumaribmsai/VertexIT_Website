@@ -20,7 +20,7 @@ import { whatsappUrl } from "@/lib/whatsapp";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = await buildPageMetadata({
-  title: "Placement Process | VertexIT IT Training",
+  title: "Placement Process | VertexIT Placement Assistance",
   description:
     "Understand how VertexIT placement assistance works — from course selection to interview preparation and ongoing placement support. Placement assistance with a very high placement rate.",
   path: "/placement-process",

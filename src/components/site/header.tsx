@@ -66,7 +66,7 @@ export async function SiteHeader() {
         id="site-header-main"
         className="border-b border-slate-200/70 bg-white/85 backdrop-blur supports-[backdrop-filter]:bg-white/70"
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:h-[68px]">
+        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:h-[78px]">
           <Logo />
 
           <nav className="hidden items-center gap-1 xl:flex" aria-label="Main">

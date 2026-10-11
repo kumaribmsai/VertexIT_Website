@@ -7,23 +7,23 @@ import { MapPin, Building2, Plane, Users, Wifi } from "lucide-react";
 const REASONS = [
   {
     icon: Building2,
-    title: "India's IT operations hub",
-    description: "Bengaluru is home to global capability centres and BFSI operations teams that actively hire IT industry professionals.",
+    title: "India's operations & GCC hub",
+    description: "Bengaluru is home to leading global capability centres and multinational teams that actively hire trained professionals.",
   },
   {
     icon: Users,
     title: "Active hiring ecosystem",
-    description: "The city's mix of global banks, NBFCs and IT outsourcing firms creates consistent demand for trained candidates.",
+    description: "The city's mix of global enterprises, financial institutions and leading operations firms creates consistent demand for trained candidates.",
   },
   {
     icon: Wifi,
     title: "Hybrid & remote-friendly",
-    description: "Many IT operations roles in Bengaluru support hybrid or remote work — giving you flexibility as you build your career.",
+    description: "Many professional operations roles in Bengaluru support hybrid or remote work — giving you flexibility as you build your career.",
   },
   {
     icon: Plane,
     title: "Global process careers",
-    description: "US and Australian IT operations roles based in Bengaluru offer exposure to international business workflows and standards.",
+    description: "Global operations roles based in Bengaluru offer direct exposure to international business workflows and industry standards.",
   },
 ];
 
@@ -42,12 +42,12 @@ export function WhyBengaluru() {
             </Reveal>
             <Reveal delay={80}>
               <h2 className="mt-5 font-heading text-3xl font-bold tracking-tight text-navy sm:text-4xl text-balance">
-                Why Bengaluru is the right place to start your IT career
+                Why Bengaluru is the right place to launch your career
               </h2>
             </Reveal>
             <Reveal delay={160}>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg text-balance">
-                VertexIT is based in Bengaluru — one of India's strongest markets for IT industry careers. Our training is designed around the skills that hiring teams in this city actually look for.
+                VertexIT is based in Bengaluru — one of India's strongest markets for global operations and industry careers. Our training is designed around the skills that hiring teams in this city actually look for.
               </p>
             </Reveal>
             <Reveal delay={240}>

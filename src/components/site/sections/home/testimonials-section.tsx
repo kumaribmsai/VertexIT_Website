@@ -19,8 +19,8 @@ export async function HomeTestimonials() {
         <Reveal>
           <SectionHeading
             eyebrow="What students say"
-            title="Trusted by IT career aspirants"
-            description="Honest feedback from candidates who chose VertexIT for their IT training journey."
+            title="Trusted by career aspirants"
+            description="Honest feedback from candidates who chose VertexIT for their professional training journey."
           />
         </Reveal>
         <Reveal delay={120}>
